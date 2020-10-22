@@ -1,0 +1,9 @@
+#Fichero de configuración de la bbdd
+puerto=3306
+host=localhost
+nombre=survapp
+usuario=root
+pass=
+
+
+
