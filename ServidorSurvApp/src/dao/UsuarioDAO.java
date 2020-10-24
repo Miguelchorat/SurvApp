@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.util.List;
@@ -19,5 +14,13 @@ public interface UsuarioDAO {
     public boolean comprobarCorreoUsuario(String correo);
     public boolean comprobarNombreUsuario(String nombre);
     public Usuario comprobarUsuario(Sesion sesion);
+    public boolean abrirSesion(Usuario usuario);
+    public boolean cerrarSesion(Usuario usuario);
+    public boolean comprobarSesion(Usuario usuario);
     public boolean altaUsuario(Usuario usuario);
+    public boolean actualizarPass(String correo,String pass);
+    public boolean cambiarAvatar(int avatarNuevo,String correo);
+    public boolean cambiarNombre(String nombre,String correo);
+    public List<Usuario> listarUsuarios(int numero,String filtro);
+    public boolean modificarUsuario(Usuario usuario);
 }

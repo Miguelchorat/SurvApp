@@ -33,9 +33,7 @@ public class Servidor {
         while(true){      
             try {
                 cliente = this.servidor.accept();
-                
-                //QUEDA POR EMPEZAR EL HILO PRINCIPAL
-                
+                this.servicios.execute(new HiloPrincipal(cliente));                
             } catch (IOException ex) {
                 System.out.println("Fallo con la conexión del cliente");
             }
