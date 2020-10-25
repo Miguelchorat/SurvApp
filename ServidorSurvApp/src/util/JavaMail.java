@@ -37,8 +37,8 @@ public class JavaMail {
         propiedad.setProperty("mail.smtp.auth","true");
         
         sesion = Session.getDefaultInstance(propiedad);
-        correo = "";
-        contrasena = "";
+        correo = "survapp.noreply@gmail.com";
+        contrasena = "#Survapp2020";
         pass = generarPass();
     }
     

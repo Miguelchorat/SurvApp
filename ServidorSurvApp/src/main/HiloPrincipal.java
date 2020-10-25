@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.net.Socket;
 import modelo.Sesion;
 import modelo.Usuario;
@@ -66,6 +64,7 @@ public class HiloPrincipal extends Thread implements Protocolo{
     private void iniciarSesion(){
         try {                                                                                        
             Sesion sesion = gson.fromJson((String)entrada.readUTF(), Sesion.class);
+            System.out.println(sesion.getCorreo() + " " + sesion.getPass());
             this.usuario = (Usuario) controlador.getUsuario().comprobarUsuario(sesion);
             System.out.println(usuario);
             if(usuario != null ){
@@ -117,6 +116,7 @@ public class HiloPrincipal extends Thread implements Protocolo{
     
     private void recuperarCuenta(){
         try {
+            System.out.println("llego");
             Sesion sesion = gson.fromJson((String)entrada.readUTF(), Sesion.class);
             if(controlador.getUsuario().comprobarDatosUsuario(sesion)){
                 estadoHilo = RECUPERAR_CUENTA_EXITOSO;
@@ -125,9 +125,11 @@ public class HiloPrincipal extends Thread implements Protocolo{
                 controlador.getUsuario().actualizarPass(sesion.getCorreo(), mail.getPass());
             }
             else{
+                System.out.println("fallo");
                 estadoHilo = RECUPERAR_CUENTA_FALLIDO;
             }
             salida.writeInt(estadoHilo);
+            System.out.println("envio");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
