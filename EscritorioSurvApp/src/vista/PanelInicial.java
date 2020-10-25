@@ -2,6 +2,8 @@ package vista;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 
 /**
@@ -28,8 +30,8 @@ public class PanelInicial extends javax.swing.JPanel {
 
         PanelCentral = new javax.swing.JPanel();
         panelLogin = new vista.PanelLogin();
-        panelRegistrarse = new vista.PanelRegistrarse();
         panelRecuperarCuenta = new vista.PanelRecuperarCuenta();
+        panelRegistrarse = new vista.PanelRegistrarse();
         panelHerramientaVentana = new vista.PanelHerramientaVentana();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -46,37 +48,27 @@ public class PanelInicial extends javax.swing.JPanel {
 
         panelLogin = new vista.PanelLogin(this);
 
-        panelRegistrarse = new vista.PanelRegistrarse(this);
-
         panelRecuperarCuenta = new vista.PanelRecuperarCuenta(this);
 
-        javax.swing.GroupLayout panelRecuperarCuentaLayout = new javax.swing.GroupLayout(panelRecuperarCuenta);
-        panelRecuperarCuenta.setLayout(panelRecuperarCuentaLayout);
-        panelRecuperarCuentaLayout.setHorizontalGroup(
-            panelRecuperarCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 161, Short.MAX_VALUE)
-        );
-        panelRecuperarCuentaLayout.setVerticalGroup(
-            panelRecuperarCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        panelRegistrarse = new vista.PanelRegistrarse(this);
 
+        
         javax.swing.GroupLayout PanelCentralLayout = new javax.swing.GroupLayout(PanelCentral);
         PanelCentral.setLayout(PanelCentralLayout);
         PanelCentralLayout.setHorizontalGroup(
             PanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelCentralLayout.createSequentialGroup()
-                .addComponent(panelLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(panelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelRegistrarse, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                .addComponent(panelRecuperarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelRecuperarCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelRegistrarse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelCentralLayout.setVerticalGroup(
             PanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelRegistrarse, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
             .addComponent(panelLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelRecuperarCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelRegistrarse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panelHerramientaVentana = new vista.PanelHerramientaVentana(vp);
@@ -127,6 +119,19 @@ public class PanelInicial extends javax.swing.JPanel {
     public VistaPrincipal getVp() {
         return vp;
     }  
+    
+    public boolean comprobarCorreo(String correo){
+        boolean comprobacion = false;
+        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+        Matcher mather = pattern.matcher(correo);
+
+        if (mather.find() == true) {
+                comprobacion = true;
+        }
+        return comprobacion;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelCentral;

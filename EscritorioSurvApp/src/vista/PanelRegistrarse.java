@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
 import util.Protocolo;
@@ -36,12 +34,12 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
         jLabelCrearCuenta = new javax.swing.JLabel();
         jLabelTituloCorreo = new javax.swing.JLabel();
         jTextFieldCorreo = new javax.swing.JTextField();
-        jLabelTituloContraseña = new javax.swing.JLabel();
-        jPasswordField = new javax.swing.JPasswordField();
         jLabelNombreUsuario = new javax.swing.JLabel();
         jTextFieldNombreUsuario = new javax.swing.JTextField();
         jButtonRegistrarse = new javax.swing.JButton();
         jLabelLogin = new javax.swing.JLabel();
+        jLabelTituloContraseña = new javax.swing.JLabel();
+        jPasswordField = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(485, 345));
@@ -96,22 +94,6 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
         jTextFieldCorreo.setMaximumSize(new java.awt.Dimension(465, 35));
         jTextFieldCorreo.setMinimumSize(new java.awt.Dimension(465, 35));
         jTextFieldCorreo.setPreferredSize(new java.awt.Dimension(465, 35));
-        jTextFieldCorreo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldCorreoActionPerformed(evt);
-            }
-        });
-
-        jLabelTituloContraseña.setFont(new java.awt.Font("Rubik", 1, 12)); // NOI18N
-        jLabelTituloContraseña.setForeground(new java.awt.Color(102, 102, 102));
-        jLabelTituloContraseña.setText("CONTRASEÑA");
-        jLabelTituloContraseña.setMaximumSize(new java.awt.Dimension(465, 15));
-        jLabelTituloContraseña.setMinimumSize(new java.awt.Dimension(465, 15));
-        jLabelTituloContraseña.setPreferredSize(new java.awt.Dimension(465, 15));
-
-        jPasswordField.setMaximumSize(new java.awt.Dimension(465, 35));
-        jPasswordField.setMinimumSize(new java.awt.Dimension(465, 35));
-        jPasswordField.setPreferredSize(new java.awt.Dimension(465, 35));
 
         jLabelNombreUsuario.setFont(new java.awt.Font("Rubik", 1, 12)); // NOI18N
         jLabelNombreUsuario.setForeground(new java.awt.Color(102, 102, 102));
@@ -123,11 +105,6 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
         jTextFieldNombreUsuario.setMaximumSize(new java.awt.Dimension(465, 35));
         jTextFieldNombreUsuario.setMinimumSize(new java.awt.Dimension(465, 35));
         jTextFieldNombreUsuario.setPreferredSize(new java.awt.Dimension(465, 35));
-        jTextFieldNombreUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNombreUsuarioActionPerformed(evt);
-            }
-        });
 
         jButtonRegistrarse.setBackground(new java.awt.Color(50, 150, 250));
         jButtonRegistrarse.setFont(new java.awt.Font("Rubik", 1, 18)); // NOI18N
@@ -160,6 +137,22 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
             }
         });
 
+        jLabelTituloContraseña.setFont(new java.awt.Font("Rubik", 1, 12)); // NOI18N
+        jLabelTituloContraseña.setForeground(new java.awt.Color(102, 102, 102));
+        jLabelTituloContraseña.setText("CONTRASEÑA");
+        jLabelTituloContraseña.setMaximumSize(new java.awt.Dimension(465, 15));
+        jLabelTituloContraseña.setMinimumSize(new java.awt.Dimension(465, 15));
+        jLabelTituloContraseña.setPreferredSize(new java.awt.Dimension(465, 15));
+
+        jPasswordField.setMaximumSize(new java.awt.Dimension(465, 35));
+        jPasswordField.setMinimumSize(new java.awt.Dimension(465, 35));
+        jPasswordField.setPreferredSize(new java.awt.Dimension(465, 35));
+        jPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,15 +163,15 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelCrearCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 357, Short.MAX_VALUE)
                     .addComponent(jLabelTituloCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabelTituloContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabelNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jTextFieldNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jButtonRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabelTituloContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButtonRegistrarse, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelSeparador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -196,15 +189,15 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
                 .addComponent(jLabelTituloCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelTituloContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelTituloContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(jButtonRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,15 +205,8 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldCorreoActionPerformed
-
-    private void jTextFieldNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNombreUsuarioActionPerformed
-
     private void jButtonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarseActionPerformed
+        limpiarTitulos();
         try {
             if(comprobarCampos()){
                 panelInicial.getVp().iniciarSocket();
@@ -231,19 +217,25 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
                 panelInicial.getVp().getSalida().writeUTF(panelInicial.getVp().getGson().toJson(user));
                 
                 int estado = panelInicial.getVp().getEntrada().readInt();
-                if(estado==Protocolo.REGISTRARSE_CORREO_ERROR)
-                    JOptionPane.showMessageDialog(this,"Correo ya registrado");
-                else if(estado==Protocolo.REGISTRARSE_NOMBRE_CUENTA_ERROR)
-                    JOptionPane.showMessageDialog(this,"Nombre ya registrado");
-                else if(estado==Protocolo.REGISTRARSE_EXITOSO){
+                if(estado==REGISTRARSE_CORREO_ERROR){
+                    jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - Ya registrado");
+                    jLabelTituloCorreo.setForeground(Color.red);
+                }
+                if(estado==REGISTRARSE_NOMBRE_CUENTA_ERROR){
+                    jLabelNombreUsuario.setText("NOMBRE DE USUARIO - Ya registrado");
+                    jLabelNombreUsuario.setForeground(Color.red);
+                }
+                if(estado==REGISTRARSE_EXITOSO){
                     JOptionPane.showMessageDialog(this,"Registro satisfactorio");
                     this.setVisible(false);
                     cambiarPanel();
                 }
-                else if(estado==Protocolo.REGISTRARSE_FALLIDO)
+                if(estado==REGISTRARSE_FALLIDO)
                     JOptionPane.showMessageDialog(this,"Hubo un error inesperado en el registro");
             }
         } catch (IOException ex) {
+        } catch(NullPointerException npe){
+            JOptionPane.showMessageDialog(this,"Hubo un problema al intentar conectarse al servidor.");
         }
     }//GEN-LAST:event_jButtonRegistrarseActionPerformed
 
@@ -258,6 +250,10 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
     private void jLabelLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLoginMouseClicked
         cambiarPanel();
     }//GEN-LAST:event_jLabelLoginMouseClicked
+
+    private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordFieldActionPerformed
     
     public void cambiarPanel(){
         this.setVisible(false);
@@ -269,6 +265,10 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
         jTextFieldCorreo.setText("");
         jTextFieldNombreUsuario.setText("");
         jPasswordField.setText("");
+        limpiarTitulos();
+    }
+    
+    public void limpiarTitulos(){
         jLabelNombreUsuario.setText("NOMBRE DE USUARIO");
         jLabelNombreUsuario.setForeground(new Color(102,102,102));
         jLabelTituloContraseña.setText("CONTRASEÑA");
@@ -284,8 +284,13 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
             jLabelNombreUsuario.setForeground(Color.red);
             comprobacion = false;
         }
-        else if(jTextFieldNombreUsuario.getText().length()<3){
+        if(jTextFieldNombreUsuario.getText().length()<3){
             jLabelNombreUsuario.setText("NOMBRE DE USUARIO - Demasiado corto");
+            jLabelNombreUsuario.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jTextFieldNombreUsuario.getText().length()>16){
+            jLabelNombreUsuario.setText("NOMBRE DE USUARIO - Demasiado largo");
             jLabelNombreUsuario.setForeground(Color.red);
             comprobacion = false;
         }
@@ -294,7 +299,27 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
             jLabelTituloContraseña.setForeground(Color.red);
             comprobacion = false;
         }
-        if(!comprobarCorreo(jTextFieldCorreo.getText())){
+        if(jPasswordField.getPassword().length>16){
+            jLabelTituloContraseña.setText("CONTRASEÑA - Demasiada larga");
+            jLabelTituloContraseña.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jPasswordField.getPassword().length==0){
+            jLabelTituloContraseña.setText("CONTRASEÑA - Está Vacio");
+            jLabelTituloContraseña.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jTextFieldCorreo.getText().length()>32){
+            jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - Demasiado largo");
+            jLabelTituloCorreo.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jTextFieldCorreo.getText().equals("")){
+            jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - Está Vacio");
+            jLabelTituloCorreo.setForeground(Color.RED);
+            comprobacion = false;
+        }
+        if(!panelInicial.comprobarCorreo(jTextFieldCorreo.getText())){
             jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - No válido");
             jLabelTituloCorreo.setForeground(Color.red);
             comprobacion = false;
@@ -302,18 +327,6 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
         return comprobacion;
     }
     
-    public boolean comprobarCorreo(String correo){
-        boolean comprobacion = false;
-        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-
-        Matcher mather = pattern.matcher(correo);
-
-        if (mather.find() == true) {
-                comprobacion = true;
-        }
-        return comprobacion;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonRegistrarse;
     private javax.swing.JLabel jLabelCrearCuenta;

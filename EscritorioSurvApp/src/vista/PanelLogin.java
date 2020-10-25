@@ -2,8 +2,6 @@ package vista;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.Sesion;
 import modelo.Usuario;
@@ -254,6 +252,7 @@ public class PanelLogin extends javax.swing.JPanel implements Protocolo{
     private void jLabelContraseñaOlvidadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelContraseñaOlvidadaMouseClicked
         this.setVisible(false);
         panelInicial.getPanelRecuperarCuenta().setVisible(true);
+        panelInicial.getPanelRecuperarCuenta().limpiarCampos();
     }//GEN-LAST:event_jLabelContraseñaOlvidadaMouseClicked
 
     private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
@@ -262,61 +261,76 @@ public class PanelLogin extends javax.swing.JPanel implements Protocolo{
 
     public void limpiarCampos(){
         jTextFieldCorreo.setText("");
-        jLabelTituloCorreo.setText("CORREO ELECTRÓNICO");
-        jLabelTituloCorreo.setForeground(new Color(102,102,102));
+        jPasswordField.setText("");
+        limpiarTitulos();
+    }
+    
+    public void limpiarTitulos(){
         jLabelTituloContraseña.setText("CONTRASEÑA");
         jLabelTituloContraseña.setForeground(new Color(102,102,102));
-        jPasswordField.setText("");
+        jLabelTituloCorreo.setText("CORREO ELECTRÓNICO");
+        jLabelTituloCorreo.setForeground(new Color(102,102,102));
     }
     
     public boolean comprobarInicioSesion(){
         boolean comprobacion = false;
+        limpiarTitulos();
         try {
             if(comprobarCampos()){
-                    panelInicial.getVp().iniciarSocket();
-                    panelInicial.getVp().getSalida().writeInt(INICIAR_SESION);
-                    String pass = panelInicial.getVp().encriptarMensaje(String.copyValueOf(jPasswordField.getPassword()));
-                    Sesion sesion = new Sesion(jTextFieldCorreo.getText(),pass);
-                    panelInicial.getVp().getSalida().writeUTF(panelInicial.getVp().getGson().toJson(sesion));
-                    int result = panelInicial.getVp().getEntrada().readInt();
-                    if(result == SESION_INICIADA){
-                        comprobacion = true;
-                        panelInicial.getVp().setUsuario(panelInicial.getVp().getGson().fromJson((String)panelInicial.getVp().getEntrada().readUTF(), Usuario.class));
-                        JOptionPane.showMessageDialog(panelInicial, "EHNORABUENA");
-                    }
-                    else
-                        JOptionPane.showMessageDialog(panelInicial, "Correo o contraseña no válida.");
+                panelInicial.getVp().iniciarSocket();
+                panelInicial.getVp().getSalida().writeInt(INICIAR_SESION);
+                String pass = panelInicial.getVp().encriptarMensaje(String.copyValueOf(jPasswordField.getPassword()));
+                Sesion sesion = new Sesion(jTextFieldCorreo.getText(),pass);
+                panelInicial.getVp().getSalida().writeUTF(panelInicial.getVp().getGson().toJson(sesion));
+                int result = panelInicial.getVp().getEntrada().readInt();
+                if(result == SESION_INICIADA){
+                    comprobacion = true;
+                    panelInicial.getVp().setUsuario(panelInicial.getVp().getGson().fromJson((String)panelInicial.getVp().getEntrada().readUTF(), Usuario.class));
+                    JOptionPane.showMessageDialog(panelInicial, "EHNORABUENA");
+                }
+                else
+                    JOptionPane.showMessageDialog(panelInicial, "Correo o contraseña no válida.");
             }
         } catch (IOException ioe) {
             System.out.println("Problema en la E/S del login");
         } catch(NullPointerException npe){
-            JOptionPane.showMessageDialog(this, "Problemas al conectar con el servidor.");
+            JOptionPane.showMessageDialog(this,"Hubo un problema al intentar conectarse al servidor.");
         }
         return comprobacion;
     }
     
     public boolean comprobarCampos(){
         boolean comprobacion = true;
+        
+        if(!panelInicial.comprobarCorreo(jTextFieldCorreo.getText())){
+            jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - No válido");
+            jLabelTituloCorreo.setForeground(Color.RED);    
+            comprobacion = false;
+        }
         if(jTextFieldCorreo.getText().equals("")){
-            jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - No válido.");
-            jLabelTituloCorreo.setForeground(Color.RED);                    
+            jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - Está Vacio");
+            jLabelTituloCorreo.setForeground(Color.RED);
+            comprobacion = false;
+        }
+        if(jTextFieldCorreo.getText().length()>32){
+            jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - Demasiado largo");
+            jLabelTituloCorreo.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jPasswordField.getPassword().length<6){
+            jLabelTituloContraseña.setText("CONTRASEÑA - Demasiado corta");
+            jLabelTituloContraseña.setForeground(Color.red);
+            comprobacion = false;
         }
         if(jPasswordField.getPassword().length==0){
-            jLabelTituloContraseña.setText("CONTRASEÑA - No válido");
+            jLabelTituloContraseña.setText("CONTRASEÑA - Está Vacio");
             jLabelTituloContraseña.setForeground(Color.red);
+            comprobacion = false;
         }
-        return comprobacion;
-    }
-    
-    public boolean comprobarCorreo(String correo){
-        boolean comprobacion = false;
-        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-
-        Matcher mather = pattern.matcher(correo);
-
-        if (mather.find() == true) {
-                comprobacion = true;
+        if(jPasswordField.getPassword().length>16){
+            jLabelTituloContraseña.setText("CONTRASEÑA - Demasiada larga");
+            jLabelTituloContraseña.setForeground(Color.red);
+            comprobacion = false;
         }
         return comprobacion;
     }

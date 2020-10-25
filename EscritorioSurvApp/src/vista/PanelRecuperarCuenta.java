@@ -1,10 +1,16 @@
 package vista;
 
+import java.awt.Color;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import modelo.Sesion;
+import util.Protocolo;
+
 /**
  *
  * @author chorat
  */
-public class PanelRecuperarCuenta extends javax.swing.JPanel {
+public class PanelRecuperarCuenta extends javax.swing.JPanel implements Protocolo {
 
     private PanelInicial panelInicial;
     
@@ -29,6 +35,8 @@ public class PanelRecuperarCuenta extends javax.swing.JPanel {
         jLabelNombreUsuario = new javax.swing.JLabel();
         jButtonRecuperar = new javax.swing.JButton();
         jLabelLogin = new javax.swing.JLabel();
+        jPanelInfo = new javax.swing.JPanel();
+        jLabelDato = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(485, 345));
@@ -76,6 +84,7 @@ public class PanelRecuperarCuenta extends javax.swing.JPanel {
         jLabelTituloCorreo.setFont(new java.awt.Font("Rubik", 1, 12)); // NOI18N
         jLabelTituloCorreo.setForeground(new java.awt.Color(102, 102, 102));
         jLabelTituloCorreo.setText("CORREO ELECTRÓNICO");
+        jLabelTituloCorreo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelTituloCorreo.setMaximumSize(new java.awt.Dimension(465, 15));
         jLabelTituloCorreo.setMinimumSize(new java.awt.Dimension(465, 15));
         jLabelTituloCorreo.setPreferredSize(new java.awt.Dimension(465, 15));
@@ -83,24 +92,15 @@ public class PanelRecuperarCuenta extends javax.swing.JPanel {
         jTextFieldCorreo.setMaximumSize(new java.awt.Dimension(465, 35));
         jTextFieldCorreo.setMinimumSize(new java.awt.Dimension(465, 35));
         jTextFieldCorreo.setPreferredSize(new java.awt.Dimension(465, 35));
-        jTextFieldCorreo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldCorreoActionPerformed(evt);
-            }
-        });
 
         jTextFieldNombreUsuario.setMaximumSize(new java.awt.Dimension(465, 35));
         jTextFieldNombreUsuario.setMinimumSize(new java.awt.Dimension(465, 35));
         jTextFieldNombreUsuario.setPreferredSize(new java.awt.Dimension(465, 35));
-        jTextFieldNombreUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNombreUsuarioActionPerformed(evt);
-            }
-        });
 
         jLabelNombreUsuario.setFont(new java.awt.Font("Rubik", 1, 12)); // NOI18N
         jLabelNombreUsuario.setForeground(new java.awt.Color(102, 102, 102));
         jLabelNombreUsuario.setText("NOMBRE DE USUARIO");
+        jLabelNombreUsuario.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelNombreUsuario.setMaximumSize(new java.awt.Dimension(465, 15));
         jLabelNombreUsuario.setMinimumSize(new java.awt.Dimension(465, 15));
         jLabelNombreUsuario.setPreferredSize(new java.awt.Dimension(465, 15));
@@ -136,6 +136,28 @@ public class PanelRecuperarCuenta extends javax.swing.JPanel {
             }
         });
 
+        jPanelInfo.setBackground(new java.awt.Color(251, 245, 213));
+        jPanelInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 216, 162)));
+        jPanelInfo.setForeground(new java.awt.Color(239, 216, 162));
+
+        jLabelDato.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelDato.setText("<html><center>Se enviara una contraseña temporal a su correo electronico, cambie la contraseña por seguridad.</center></html>");
+        jLabelDato.setAutoscrolls(true);
+
+        javax.swing.GroupLayout jPanelInfoLayout = new javax.swing.GroupLayout(jPanelInfo);
+        jPanelInfo.setLayout(jPanelInfoLayout);
+        jPanelInfoLayout.setHorizontalGroup(
+            jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelDato, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanelInfoLayout.setVerticalGroup(
+            jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelDato, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,18 +169,18 @@ public class PanelRecuperarCuenta extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButtonRecuperar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextFieldNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jLabelCrearCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabelTituloCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jLabelTituloCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 4, Short.MAX_VALUE)
+                        .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(214, 214, 214))
+                    .addComponent(jTextFieldNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jButtonRecuperar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelSeparador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,37 +192,54 @@ public class PanelRecuperarCuenta extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelCrearCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addComponent(jLabelTituloCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonRecuperar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(22, 22, 22))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldCorreoActionPerformed
-
-    private void jTextFieldNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNombreUsuarioActionPerformed
-
     private void jButtonRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecuperarActionPerformed
-        // TODO add your handling code here:
+
+        limpiarTitulos();
+        try {
+            if(comprobarCampos()){
+                panelInicial.getVp().iniciarSocket();
+                panelInicial.getVp().getSalida().writeInt(RECUPERAR_CUENTA);
+                Sesion sesion = new Sesion(jTextFieldCorreo.getText(),jTextFieldNombreUsuario.getText());
+                panelInicial.getVp().getSalida().writeUTF(panelInicial.getVp().getGson().toJson(sesion));  
+                int estado = panelInicial.getVp().getEntrada().readInt();
+                System.out.println(estado);
+                if(estado==RECUPERAR_CUENTA_EXITOSO){
+                    JOptionPane.showMessageDialog(this,"Correo ya enviado.");
+                    this.setVisible(false);
+                    panelInicial.getPanelLogin().setVisible(true);
+                    panelInicial.getPanelLogin().limpiarCampos();
+                }
+                else if(estado==RECUPERAR_CUENTA_FALLIDO)
+                    JOptionPane.showMessageDialog(this,"Correo o contraseña no coinciden.");
+            }
+        } catch (IOException ex) {
+        } catch(NullPointerException npe){
+            JOptionPane.showMessageDialog(this,"Hubo un problema al intentar conectarse al servidor.");
+        }
     }//GEN-LAST:event_jButtonRecuperarActionPerformed
 
     private void jLabelLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLoginMouseClicked
         this.setVisible(false);
         panelInicial.getPanelLogin().setVisible(true);
+        panelInicial.getPanelLogin().limpiarCampos();
     }//GEN-LAST:event_jLabelLoginMouseClicked
 
     private void jLabelLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLoginMouseEntered
@@ -210,14 +249,65 @@ public class PanelRecuperarCuenta extends javax.swing.JPanel {
     private void jLabelLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLoginMouseExited
         jLabelLogin.setText("¿Ya tienes una cuenta?");
     }//GEN-LAST:event_jLabelLoginMouseExited
-
-
+    
+    public void limpiarCampos(){
+        jTextFieldCorreo.setText("");
+        jTextFieldNombreUsuario.setText("");     
+        limpiarTitulos();
+    }
+    
+    public void limpiarTitulos(){
+        jLabelNombreUsuario.setText("NOMBRE DE USUARIO");
+        jLabelNombreUsuario.setForeground(new Color(102,102,102));
+        jLabelTituloCorreo.setText("CORREO ELECTRÓNICO");
+        jLabelTituloCorreo.setForeground(new Color(102,102,102));
+    }
+    
+    public boolean comprobarCampos(){
+        boolean comprobacion = true;
+        
+        if(jTextFieldCorreo.getText().isEmpty()){
+            jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - Está Vacio");
+            jLabelTituloCorreo.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(!panelInicial.comprobarCorreo(jTextFieldCorreo.getText())){
+            jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - No válido");
+            jLabelTituloCorreo.setForeground(Color.RED);
+            comprobacion = false;
+        }
+        if(jTextFieldCorreo.getText().length()>32){
+            jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - Demasiado largo");
+            jLabelTituloCorreo.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jTextFieldNombreUsuario.getText().length()<3){
+            jLabelNombreUsuario.setText("NOMBRE DE USUARIO - Demasiado corto");
+            jLabelNombreUsuario.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jTextFieldNombreUsuario.getText().isEmpty()){
+            jLabelNombreUsuario.setText("NOMBRE DE USUARIO - No válido");
+            jLabelNombreUsuario.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jTextFieldNombreUsuario.getText().length()>16){
+            jLabelNombreUsuario.setText("NOMBRE DE USUARIO - Demasiado largo");
+            jLabelNombreUsuario.setForeground(Color.red);
+            comprobacion = false;
+        }
+        return comprobacion;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonRecuperar;
     private javax.swing.JLabel jLabelCrearCuenta;
+    private javax.swing.JLabel jLabelDato;
     private javax.swing.JLabel jLabelLogin;
     private javax.swing.JLabel jLabelNombreUsuario;
     private javax.swing.JLabel jLabelTituloCorreo;
+    private javax.swing.JPanel jPanelInfo;
     private javax.swing.JPanel jPanelSeparador1;
     private javax.swing.JPanel jPanelSeparador2;
     private javax.swing.JTextField jTextFieldCorreo;
