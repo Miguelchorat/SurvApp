@@ -287,6 +287,7 @@ public class PanelLogin extends javax.swing.JPanel implements Protocolo{
                     comprobacion = true;
                     panelInicial.getVp().setUsuario(panelInicial.getVp().getGson().fromJson((String)panelInicial.getVp().getEntrada().readUTF(), Usuario.class));
                     JOptionPane.showMessageDialog(panelInicial, "EHNORABUENA");
+                    this.setVisible(false);
                 }
                 else
                     JOptionPane.showMessageDialog(panelInicial, "Correo o contraseña no válida.");

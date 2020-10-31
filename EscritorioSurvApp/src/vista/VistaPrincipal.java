@@ -13,7 +13,7 @@ import org.apache.commons.codec.binary.Hex;
 import util.ConfiguracionServidor;
 
 /**
- *
+ * 
  * @author chorat
  */
 public class VistaPrincipal extends javax.swing.JFrame {
