@@ -647,9 +647,4 @@ public class UsuarioDAOSQL implements UsuarioDAO {
         }
         return modificar;
     }
-    
-    public static void main(String[] args) {
-        UsuarioDAOSQL u = new UsuarioDAOSQL();
-        u.comprobarUsuario(new Sesion("prueba@gmail.com","123456"));
-    }
 }

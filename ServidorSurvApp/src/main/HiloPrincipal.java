@@ -6,6 +6,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.Busqueda;
+import modelo.EstadoAdmin;
+import modelo.Incidencia;
 import modelo.Sesion;
 import modelo.Usuario;
 import util.JavaMail;
@@ -132,6 +138,115 @@ public class HiloPrincipal extends Thread implements Protocolo{
             System.out.println("envio");
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+    
+    public void cambiarAvatar(){
+        try {
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            controlador.getUsuario().cambiarAvatar(user.getAvatar(), user.getCorreo());
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void cambiarNombre(){
+        try {
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            if(controlador.getUsuario().comprobarNombreUsuario(user.getNombre())){
+                estadoHilo = CUENTA_CAMBIAR_NOMBRE_EXISTE;
+            }else{
+                controlador.getUsuario().cambiarNombre(user.getNombre(), user.getCorreo());
+                estadoHilo = CUENTA_CAMBIAR_NOMBRE_EXITO;
+            }
+            salida.writeInt(estadoHilo);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void cambiarPass(){
+        try {
+            Sesion sesion = gson.fromJson((String)entrada.readUTF(), Sesion.class);
+            if(controlador.getUsuario().comprobarCorreoUsuario(sesion.getCorreo())){
+                estadoHilo = CUENTA_CAMBIAR_PASSWORD_EXITO;
+                controlador.getUsuario().actualizarPass(sesion.getCorreo(), sesion.getPass());
+            }
+            else{
+                estadoHilo = CUENTA_CAMBIAR_PASSWORD_FALLIDO;
+            }
+            salida.writeInt(estadoHilo);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void listarUsuarios(){
+        try {
+            Busqueda busqueda = gson.fromJson((String)entrada.readUTF(), Busqueda.class);
+            List<Usuario> listaUsuarios;
+            listaUsuarios = controlador.getUsuario().listarUsuarios(busqueda.getNumero(),busqueda.getFiltro());
+            salida.writeUTF(gson.toJson(listaUsuarios));            
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void comprobarSesion() {
+        try {
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            if(controlador.getUsuario().comprobarSesion(user)){
+                estadoHilo = COMPROBAR_SESION_FALLIDO;
+            }else{
+                estadoHilo = COMPROBAR_SESION_EXITO;
+            }
+            salida.writeInt(estadoHilo);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void modificarUsuario() {
+        try {
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            controlador.getUsuario().modificarUsuario(user);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void listarIncidencias(){
+        try {
+            Busqueda busqueda = gson.fromJson((String)entrada.readUTF(), Busqueda.class);
+            List<Incidencia> listaIncidencias;
+            listaIncidencias = controlador.getIncidencia().listarIncidencias(busqueda.getNumero(),busqueda.getFiltro());
+            salida.writeUTF(gson.toJson(listaIncidencias));            
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void eliminarIncidencia(){
+        try {
+            int id = entrada.readInt();
+            boolean resultado = controlador.getIncidencia().eliminarIncidencia(id);            
+            if(resultado)
+                estadoHilo=ELIMINAR_INCIDENCIA_EXITOSA;
+            salida.writeInt(estadoHilo);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void cambiarEstado(){
+        try {
+            EstadoAdmin estadoAdmin = gson.fromJson((String)entrada.readUTF(), EstadoAdmin.class);
+            boolean resultado = controlador.getIncidencia().cambiarEstado(estadoAdmin.getId(),estadoAdmin.getEstado().name(),estadoAdmin.getAdmin());            
+            if(resultado)
+                estadoHilo=CAMBIAR_ESTADO_EXITOSA;
+            salida.writeInt(estadoHilo);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
