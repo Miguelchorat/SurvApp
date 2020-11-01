@@ -4,16 +4,21 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import util.Protocolo;
+import static util.Protocolo.INICIAR_SESION;
 
 /**
  *
  * @author chorat
  */
-public class PanelHerramientaVentana extends javax.swing.JPanel {
+public class PanelHerramientaVentana extends javax.swing.JPanel implements Protocolo {
 
     private int x;
     private int y;
@@ -34,6 +39,7 @@ public class PanelHerramientaVentana extends javax.swing.JPanel {
 
         imgCerrar = new javax.swing.JLabel();
         imgMinimizar = new javax.swing.JLabel();
+        jLabelTitulo = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setMaximumSize(new java.awt.Dimension(1000, 25));
@@ -70,12 +76,21 @@ public class PanelHerramientaVentana extends javax.swing.JPanel {
             }
         });
 
+        jLabelTitulo.setFont(new java.awt.Font("Rubik", 1, 18)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelTitulo.setText("    SURVAPP");
+        jLabelTitulo.setMaximumSize(new java.awt.Dimension(150, 25));
+        jLabelTitulo.setMinimumSize(new java.awt.Dimension(150, 25));
+        jLabelTitulo.setPreferredSize(new java.awt.Dimension(150, 25));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 934, Short.MAX_VALUE)
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 784, Short.MAX_VALUE)
                 .addComponent(imgMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(imgCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -84,9 +99,10 @@ public class PanelHerramientaVentana extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(imgCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(imgMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(imgCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(imgMinimizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -102,9 +118,19 @@ public class PanelHerramientaVentana extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseDragged
 
     private void imgCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgCerrarMouseClicked
-        /*int resultado = JOptionPane.showConfirmDialog(this,"¿Deseas salir?","Cerrar aplicación.",JOptionPane.YES_NO_OPTION);
-        if(resultado==0)*/
-        vp.dispose();
+        int resultado = JOptionPane.showConfirmDialog(vp,"¿Deseas salir?","Cerrar aplicación.",JOptionPane.YES_NO_OPTION);
+        if(resultado==0){
+            try {
+                vp.iniciarSocket();
+                vp.getSalida().writeInt(CERRAR_SESION);
+                vp.getSalida().writeUTF(vp.getGson().toJson(vp.getUsuario()));
+                vp.dispose();
+            } catch (IOException ex) {
+            } catch (NullPointerException npe){
+                vp.dispose();
+            }
+        }
+        
     }//GEN-LAST:event_imgCerrarMouseClicked
 
     private void imgMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgMinimizarMouseClicked
@@ -124,5 +150,6 @@ public class PanelHerramientaVentana extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel imgCerrar;
     private javax.swing.JLabel imgMinimizar;
+    private javax.swing.JLabel jLabelTitulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -286,8 +286,7 @@ public class PanelLogin extends javax.swing.JPanel implements Protocolo{
                 if(result == SESION_INICIADA){
                     comprobacion = true;
                     panelInicial.getVp().setUsuario(panelInicial.getVp().getGson().fromJson((String)panelInicial.getVp().getEntrada().readUTF(), Usuario.class));
-                    JOptionPane.showMessageDialog(panelInicial, "EHNORABUENA");
-                    this.setVisible(false);
+                    iniciarSesion();
                 }
                 else
                     JOptionPane.showMessageDialog(panelInicial, "Correo o contraseña no válida.");
@@ -298,6 +297,15 @@ public class PanelLogin extends javax.swing.JPanel implements Protocolo{
             JOptionPane.showMessageDialog(this,"Hubo un problema al intentar conectarse al servidor.");
         }
         return comprobacion;
+    }
+    
+    public void iniciarSesion(){
+        
+        panelInicial.getPanelCentral().setVisible(false);
+        panelInicial.getPanelGeneral().setVisible(true);
+        panelInicial.panelesSeparador(false);
+        panelInicial.getPanelGeneral().getPanelPerfil().cargarDatos();
+        limpiarCampos();
     }
     
     public boolean comprobarCampos(){

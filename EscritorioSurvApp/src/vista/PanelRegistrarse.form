@@ -34,20 +34,32 @@
               <Component id="jPanelSeparador1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabelCrearCuenta" pref="357" max="32767" attributes="0"/>
-                  <Component id="jLabelTituloCorreo" alignment="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jLabelNombreUsuario" alignment="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jTextFieldNombreUsuario" alignment="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jTextFieldCorreo" alignment="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jLabelTituloContraseña" pref="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jLabelLogin" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabelTituloCorreo" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jLabelNombreUsuario" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jLabelCrearCuenta" pref="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldNombreUsuario" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldCorreo" alignment="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jButtonRegistrarse" alignment="1" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPasswordField" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPasswordField" pref="0" max="32767" attributes="0"/>
+                          <Component id="jLabelTituloContraseña" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jButtonRegistrarse" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabelLogin" pref="355" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelSeparador2" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -121,6 +133,9 @@
           <Dimension value="[60, 345]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[60, 345]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[60, 345]"/>
         </Property>
       </Properties>

@@ -105,6 +105,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -137,6 +141,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
