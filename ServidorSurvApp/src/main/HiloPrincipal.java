@@ -61,6 +61,15 @@ public class HiloPrincipal extends Thread implements Protocolo{
                 case RECUPERAR_CUENTA:
                     recuperarCuenta();
                     break;
+                case LISTAR_USUARIOS:
+                    listarUsuarios();
+                    break;
+                case COMPROBAR_SESION:
+                    comprobarSesion();
+                    break;
+                case MODIFICAR_USUARIO:
+                    modificarUsuario();
+                    break;
             }
         } catch (IOException ex) {
             System.out.println("Error en la E/S del hilo");

@@ -417,7 +417,7 @@ public class UsuarioDAOSQL implements UsuarioDAO {
 
             sentencia.setString(1,"%"+filtro+"%");
             sentencia.setString(2,"%"+filtro+"%");
-            sentencia.setInt(3,numero-15);
+            sentencia.setInt(3,numero-25);
             sentencia.setInt(4,numero);
             
             result = sentencia.executeQuery();
