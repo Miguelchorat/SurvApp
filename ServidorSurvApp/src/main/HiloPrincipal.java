@@ -25,7 +25,7 @@ public class HiloPrincipal extends Thread implements Protocolo{
     
     private DataOutputStream salida;
     private DataInputStream entrada;
-    private Integer estadoHilo;
+    private Integer mensajeCliente;
     private Controlador controlador;
     private Gson gson;
     private Usuario usuario;
@@ -34,7 +34,7 @@ public class HiloPrincipal extends Thread implements Protocolo{
         try {
             this.salida = new DataOutputStream(socket.getOutputStream());
             this.entrada = new DataInputStream(socket.getInputStream());
-            this.estadoHilo= SIN_SESION;
+            this.mensajeCliente= SIN_SESION;
             this.controlador = new Controlador();
             this.gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
         } catch (IOException ex) {
@@ -45,10 +45,10 @@ public class HiloPrincipal extends Thread implements Protocolo{
     @Override
     public void run() {
         try {
-            estadoHilo = entrada.readInt();
-            System.out.println("Estado hilo : " + estadoHilo);
+            mensajeCliente = entrada.readInt();
+            System.out.println("Estado hilo : " + mensajeCliente);
             
-            switch(estadoHilo){
+            switch(mensajeCliente){
                 case INICIAR_SESION:
                     iniciarSesion();
                     break;
@@ -70,6 +70,21 @@ public class HiloPrincipal extends Thread implements Protocolo{
                 case MODIFICAR_USUARIO:
                     modificarUsuario();
                     break;
+                case COMPROBAR_NOMBRE_CUENTA:
+                    comprobarNombreCuenta();
+                    break;
+                case COMPROBAR_CORREO:
+                    comprobarCorreo();
+                    break;
+                case ELIMINAR_INCIDENCIA:
+                    eliminarIncidencia();
+                    break;
+                case LISTAR_INCIDENCIAS:
+                    listarIncidencias();
+                    break;
+                case CAMBIAR_ESTADO:
+                    cambiarEstado();
+                    break;
             }
         } catch (IOException ex) {
             System.out.println("Error en la E/S del hilo");
@@ -83,13 +98,13 @@ public class HiloPrincipal extends Thread implements Protocolo{
             this.usuario = (Usuario) controlador.getUsuario().comprobarUsuario(sesion);
             System.out.println(usuario);
             if(usuario != null ){
-                estadoHilo = SESION_INICIADA;
+                mensajeCliente = SESION_INICIADA;
                 controlador.getUsuario().abrirSesion(usuario);
             }
             else{
-                estadoHilo = SESION_ERRONEA;
+                mensajeCliente = SESION_ERRONEA;
             }
-            salida.writeInt(estadoHilo);
+            salida.writeInt(mensajeCliente);
             if(usuario != null ){
                 salida.writeUTF(gson.toJson(usuario));
             }
@@ -111,19 +126,43 @@ public class HiloPrincipal extends Thread implements Protocolo{
         try {
             Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
             if(controlador.getUsuario().comprobarCorreoUsuario(user.getCorreo())){
-                estadoHilo = REGISTRARSE_CORREO_ERROR;
+                mensajeCliente = CORREO_ERROR;
             }
             else if(controlador.getUsuario().comprobarNombreUsuario(user.getNombre())){
-                estadoHilo = REGISTRARSE_NOMBRE_CUENTA_ERROR;
+                mensajeCliente = NOMBRE_CUENTA_ERROR;
             }
             else if(controlador.getUsuario().altaUsuario(user)){
               
-                estadoHilo = REGISTRARSE_EXITOSO;
+                mensajeCliente = REGISTRARSE_EXITOSO;
             }
             else{
-                estadoHilo = REGISTRARSE_FALLIDO;
+                mensajeCliente = REGISTRARSE_FALLIDO;
             }
-            salida.writeInt(estadoHilo);
+            salida.writeInt(mensajeCliente);
+        } catch (IOException ex) {
+           ex.printStackTrace(); 
+        }
+    }
+    
+    private void comprobarCorreo(){
+        try {
+            String correo = gson.fromJson((String)entrada.readUTF(), String.class);
+            if(controlador.getUsuario().comprobarCorreoUsuario(correo)){
+                mensajeCliente = CORREO_ERROR;
+            }
+            salida.writeInt(mensajeCliente);
+        } catch (IOException ex) {
+           ex.printStackTrace(); 
+        }
+    }
+    
+    private void comprobarNombreCuenta(){
+        try {
+            String nombre = gson.fromJson((String)entrada.readUTF(), String.class);
+            if(controlador.getUsuario().comprobarNombreUsuario(nombre)){
+                mensajeCliente = NOMBRE_CUENTA_ERROR;
+            }
+            salida.writeInt(mensajeCliente);
         } catch (IOException ex) {
            ex.printStackTrace(); 
         }
@@ -131,20 +170,17 @@ public class HiloPrincipal extends Thread implements Protocolo{
     
     private void recuperarCuenta(){
         try {
-            System.out.println("llego");
             Sesion sesion = gson.fromJson((String)entrada.readUTF(), Sesion.class);
             if(controlador.getUsuario().comprobarDatosUsuario(sesion)){
-                estadoHilo = RECUPERAR_CUENTA_EXITOSO;
+                mensajeCliente = RECUPERAR_CUENTA_EXITOSO;
                 JavaMail mail = new JavaMail();
                 mail.enviarPass(sesion.getCorreo());
                 controlador.getUsuario().actualizarPass(sesion.getCorreo(), mail.getPass());
             }
             else{
-                System.out.println("fallo");
-                estadoHilo = RECUPERAR_CUENTA_FALLIDO;
+                mensajeCliente = RECUPERAR_CUENTA_FALLIDO;
             }
-            salida.writeInt(estadoHilo);
-            System.out.println("envio");
+            salida.writeInt(mensajeCliente);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -163,12 +199,12 @@ public class HiloPrincipal extends Thread implements Protocolo{
         try {
             Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
             if(controlador.getUsuario().comprobarNombreUsuario(user.getNombre())){
-                estadoHilo = CUENTA_CAMBIAR_NOMBRE_EXISTE;
+                mensajeCliente = CUENTA_CAMBIAR_NOMBRE_EXISTE;
             }else{
                 controlador.getUsuario().cambiarNombre(user.getNombre(), user.getCorreo());
-                estadoHilo = CUENTA_CAMBIAR_NOMBRE_EXITO;
+                mensajeCliente = CUENTA_CAMBIAR_NOMBRE_EXITO;
             }
-            salida.writeInt(estadoHilo);
+            salida.writeInt(mensajeCliente);
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,13 +214,13 @@ public class HiloPrincipal extends Thread implements Protocolo{
         try {
             Sesion sesion = gson.fromJson((String)entrada.readUTF(), Sesion.class);
             if(controlador.getUsuario().comprobarCorreoUsuario(sesion.getCorreo())){
-                estadoHilo = CUENTA_CAMBIAR_PASSWORD_EXITO;
+                mensajeCliente = CUENTA_CAMBIAR_PASSWORD_EXITO;
                 controlador.getUsuario().actualizarPass(sesion.getCorreo(), sesion.getPass());
             }
             else{
-                estadoHilo = CUENTA_CAMBIAR_PASSWORD_FALLIDO;
+                mensajeCliente = CUENTA_CAMBIAR_PASSWORD_FALLIDO;
             }
-            salida.writeInt(estadoHilo);
+            salida.writeInt(mensajeCliente);
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -205,11 +241,11 @@ public class HiloPrincipal extends Thread implements Protocolo{
         try {
             Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
             if(controlador.getUsuario().comprobarSesion(user)){
-                estadoHilo = COMPROBAR_SESION_FALLIDO;
+                mensajeCliente = COMPROBAR_SESION_FALLIDO;
             }else{
-                estadoHilo = COMPROBAR_SESION_EXITO;
+                mensajeCliente = COMPROBAR_SESION_EXITO;
             }
-            salida.writeInt(estadoHilo);
+            salida.writeInt(mensajeCliente);
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -219,6 +255,8 @@ public class HiloPrincipal extends Thread implements Protocolo{
         try {
             Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
             controlador.getUsuario().modificarUsuario(user);
+            mensajeCliente = MODIFICAR_USUARIO_EXITO;
+            salida.writeInt(mensajeCliente);
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -240,8 +278,8 @@ public class HiloPrincipal extends Thread implements Protocolo{
             int id = entrada.readInt();
             boolean resultado = controlador.getIncidencia().eliminarIncidencia(id);            
             if(resultado)
-                estadoHilo=ELIMINAR_INCIDENCIA_EXITOSA;
-            salida.writeInt(estadoHilo);
+                mensajeCliente=ELIMINAR_INCIDENCIA_EXITOSA;
+            salida.writeInt(mensajeCliente);
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -252,8 +290,8 @@ public class HiloPrincipal extends Thread implements Protocolo{
             EstadoAdmin estadoAdmin = gson.fromJson((String)entrada.readUTF(), EstadoAdmin.class);
             boolean resultado = controlador.getIncidencia().cambiarEstado(estadoAdmin.getId(),estadoAdmin.getEstado().name(),estadoAdmin.getAdmin());            
             if(resultado)
-                estadoHilo=CAMBIAR_ESTADO_EXITOSA;
-            salida.writeInt(estadoHilo);
+                mensajeCliente=CAMBIAR_ESTADO_EXITOSA;
+            salida.writeInt(mensajeCliente);
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
