@@ -19,13 +19,18 @@ public class PanelOpcion extends javax.swing.JPanel {
     public PanelOpcion(PanelGeneral panelGeneral) {
         this.panelGeneral = panelGeneral;
         initComponents();
-        seleccionado = TipoBoton.INICIO;
+        seleccionado = TipoBoton.INICIO;        
+        estadoInicial();
+    }
+    
+    public void estadoInicial(){
         colorBoton();
         PanelInicio.setBackground(new Color(50,150,250,255));
         jLabelInicio.setForeground(new Color(255,255,255,255));
+        panelGeneral.getPanelInicio().setVisible(true);
     }
     
-    private void colorBoton(){
+    public void colorBoton(){
         panelGeneral.revalidate();
         panelGeneral.repaint();
         PanelInicio.setBackground(new Color(50,150,250,0));
@@ -38,6 +43,7 @@ public class PanelOpcion extends javax.swing.JPanel {
         jLabelIncidencias.setForeground(new Color(255,255,255,150));
         jLabelIdeas.setForeground(new Color(255,255,255,150));
         jLabelDenuncias.setForeground(new Color(255,255,255,150));
+        panelGeneral.getPanelPerfil().getjLabelAjustes().setOpaque(false);
     }
     
     @SuppressWarnings("unchecked")
@@ -412,6 +418,7 @@ public class PanelOpcion extends javax.swing.JPanel {
         seleccionado = TipoBoton.INCIDENCIA;
         panelGeneral.apagarPaneles();
         panelGeneral.getPanelIncidencia().setVisible(true);
+        panelGeneral.getPanelIncidencia().busqueda();
     }//GEN-LAST:event_PanelIncidenciasMouseClicked
 
     private void PanelIdeasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelIdeasMouseClicked
@@ -431,9 +438,15 @@ public class PanelOpcion extends javax.swing.JPanel {
         panelGeneral.apagarPaneles();
         panelGeneral.getPanelDenuncia().setVisible(true);
     }//GEN-LAST:event_PanelDenunciasMouseClicked
-    
-    
 
+    public void setSeleccionado(int seleccionado) {
+        this.seleccionado = seleccionado;
+    }
+
+    public int getSeleccionado() {
+        return seleccionado;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDenuncias;
     private javax.swing.JPanel PanelIdeas;

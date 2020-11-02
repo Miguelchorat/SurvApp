@@ -305,6 +305,7 @@ public class PanelLogin extends javax.swing.JPanel implements Protocolo{
         panelInicial.getPanelGeneral().setVisible(true);
         panelInicial.panelesSeparador(false);
         panelInicial.getPanelGeneral().getPanelPerfil().cargarDatos();
+        panelInicial.getPanelGeneral().getPanelOpcion().estadoInicial();
         limpiarCampos();
     }
     

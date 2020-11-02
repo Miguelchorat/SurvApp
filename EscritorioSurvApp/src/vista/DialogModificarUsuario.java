@@ -1,6 +1,9 @@
 package vista;
 
+import java.awt.Color;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
 import util.Protocolo;
@@ -89,11 +92,6 @@ public class DialogModificarUsuario extends javax.swing.JDialog implements Proto
         jTextFieldNombre.setMaximumSize(new java.awt.Dimension(358, 35));
         jTextFieldNombre.setMinimumSize(new java.awt.Dimension(358, 35));
         jTextFieldNombre.setPreferredSize(new java.awt.Dimension(358, 35));
-        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNombreActionPerformed(evt);
-            }
-        });
 
         jLabelCorreo.setFont(new java.awt.Font("Rubik", 1, 12)); // NOI18N
         jLabelCorreo.setForeground(new java.awt.Color(102, 102, 102));
@@ -106,11 +104,6 @@ public class DialogModificarUsuario extends javax.swing.JDialog implements Proto
         jTextFieldCorreo.setMaximumSize(new java.awt.Dimension(358, 35));
         jTextFieldCorreo.setMinimumSize(new java.awt.Dimension(358, 35));
         jTextFieldCorreo.setPreferredSize(new java.awt.Dimension(358, 35));
-        jTextFieldCorreo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldCorreoActionPerformed(evt);
-            }
-        });
 
         jLabelAvatar.setFont(new java.awt.Font("Rubik", 1, 12)); // NOI18N
         jLabelAvatar.setForeground(new java.awt.Color(102, 102, 102));
@@ -232,30 +225,33 @@ public class DialogModificarUsuario extends javax.swing.JDialog implements Proto
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    public void limpiarTitulos(){
+        jLabelNombre.setText("NOMBRE DE USUARIO");
+        jLabelNombre.setForeground(new Color(102,102,102)); 
+        jLabelCorreo.setText("CORREO ELECTRÓNICO");
+        jLabelCorreo.setForeground(new Color(102,102,102));
+    }
 
-    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNombreActionPerformed
-
-    private void jTextFieldCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldCorreoActionPerformed
-
+    
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
+        limpiarTitulos();
         try {
-            panelGeneral.getVp().iniciarSocket();
-            panelGeneral.getVp().getSalida().writeInt(MODIFICAR_USUARIO);
-            usuario.setNombre(jTextFieldNombre.getText());
-            usuario.setCorreo(jTextFieldCorreo.getText());
-            usuario.setAvatar(jComboBoxAvatar.getSelectedIndex());
-            if(jCheckBoxAdministrar.isSelected())
-                usuario.setAdministrar(1);
-            else
-                usuario.setAdministrar(0);
-            panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(usuario));
-            panelGeneral.getPanelUsuario().vaciarLista();
-            panelGeneral.getPanelUsuario().busqueda();
-            this.setVisible(false);
+            if(comprobarCampos()){
+                panelGeneral.getVp().iniciarSocket();
+                panelGeneral.getVp().getSalida().writeInt(MODIFICAR_USUARIO);
+                usuario.setNombre(jTextFieldNombre.getText());
+                usuario.setCorreo(jTextFieldCorreo.getText());
+                usuario.setAvatar(jComboBoxAvatar.getSelectedIndex());
+                if(jCheckBoxAdministrar.isSelected())
+                    usuario.setAdministrar(1);
+                else
+                    usuario.setAdministrar(0);
+                panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(usuario));
+                panelGeneral.getVp().getEntrada().readInt();
+                panelGeneral.getPanelUsuario().filtrar();
+                this.setVisible(false);                
+            }  
         } catch (IOException ex) {
         } catch (NullPointerException npe){
             JOptionPane.showMessageDialog(this,"Hubo un problema al intentar conectarse al servidor.");
@@ -318,7 +314,75 @@ public class DialogModificarUsuario extends javax.swing.JDialog implements Proto
             }
         });
     }
-
+    
+    public boolean comprobarCampos(){
+        boolean comprobacion = true;
+        if(jTextFieldNombre.getText().isEmpty()){
+            jLabelNombre.setText("NOMBRE DE USUARIO - No válido");
+            jLabelNombre.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jTextFieldNombre.getText().length()<3){
+            jLabelNombre.setText("NOMBRE DE USUARIO - Demasiado corto");
+            jLabelNombre.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jTextFieldNombre.getText().length()>16){
+            jLabelNombre.setText("NOMBRE DE USUARIO - Demasiado largo");
+            jLabelNombre.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(!usuario.getNombre().equalsIgnoreCase(jTextFieldNombre.getText())){
+            try {
+                panelGeneral.getVp().iniciarSocket();
+                panelGeneral.getVp().getSalida().writeInt(COMPROBAR_NOMBRE_CUENTA);
+                String nombre= jTextFieldNombre.getText();
+                panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(nombre));
+                int estado = panelGeneral.getVp().getEntrada().readInt();
+                if(estado==NOMBRE_CUENTA_ERROR){
+                    jLabelNombre.setText("NOMBRE DE CUENTA - Ya registrado");
+                    jLabelNombre.setForeground(Color.red);
+                    comprobacion = false;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(DialogModificarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(jTextFieldCorreo.getText().length()>32){
+            jLabelCorreo.setText("CORREO ELECTRÓNICO - Demasiado largo");
+            jLabelCorreo.setForeground(Color.red);
+            comprobacion = false;
+        }
+        if(jTextFieldCorreo.getText().equals("")){
+            jLabelCorreo.setText("CORREO ELECTRÓNICO - Está Vacio");
+            jLabelCorreo.setForeground(Color.RED);
+            comprobacion = false;
+        }
+        if(!panelGeneral.getVp().getPanelInicial().comprobarCorreo(jTextFieldCorreo.getText())){
+            jLabelCorreo.setText("CORREO ELECTRÓNICO - No válido");
+            jLabelCorreo.setForeground(Color.red);
+            comprobacion = false;
+        }
+        
+        if(!usuario.getCorreo().equalsIgnoreCase(jTextFieldCorreo.getText())){
+            try {
+                panelGeneral.getVp().iniciarSocket();
+                panelGeneral.getVp().getSalida().writeInt(COMPROBAR_CORREO);
+                String correo = jTextFieldCorreo.getText();
+                panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(correo));
+                int estado = panelGeneral.getVp().getEntrada().readInt();
+                if(estado==CORREO_ERROR){
+                    jLabelCorreo.setText("CORREO ELECTRÓNICO - Ya registrado");
+                    jLabelCorreo.setForeground(Color.red);
+                    comprobacion = false;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(DialogModificarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return comprobacion;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Panel;
     private javax.swing.JButton jButtonAceptar;

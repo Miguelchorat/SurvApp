@@ -57,7 +57,7 @@
           <Font name="Tahoma" size="18" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;Con los permisos adecuados podr&#xe1;s hacer modificaciones en la base de datos del servidor.&#xa; &#xa;&lt;br&gt; &lt;br&gt; &amp;nbsp; &amp;#8226; Modificaci&#xf3;n b&#xe1;sica a los usuarios registrado en el sistema.&#xa;&lt;br&gt; &lt;br&gt; &amp;nbsp; &amp;#8226; Validaci&#xf3;n y modificaci&#xf3;n de las incidencias mandadas por los usuarios.&#xa;&lt;br&gt; &lt;br&gt; &amp;nbsp; &amp;#8226; Ver estado de las ideas registradas en el sistemas.&#xa;&lt;br&gt; &lt;br&gt; &amp;nbsp; &amp;#8226; Validaci&#xf3;n y modificaci&#xf3;n de las denuncias dadas por los usuarios de las ideas.&#xa;&#xa;&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="EN PROCESO"/>
         <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[682, 380]"/>

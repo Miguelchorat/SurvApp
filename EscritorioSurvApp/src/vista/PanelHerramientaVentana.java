@@ -32,14 +32,17 @@ public class PanelHerramientaVentana extends javax.swing.JPanel implements Proto
         rellenarImg();
         this.setBackground(new Color(0,0,0,100));
         this.vp=vp;
+        jPanelCerrar.setBackground(new Color(0,0,0,100));
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imgCerrar = new javax.swing.JLabel();
-        imgMinimizar = new javax.swing.JLabel();
         jLabelTitulo = new javax.swing.JLabel();
+        jPanelCerrar = new javax.swing.JPanel();
+        imgCerrar = new javax.swing.JLabel();
+        jPanelMinimizar = new javax.swing.JPanel();
+        imgMinimizar = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setMaximumSize(new java.awt.Dimension(1000, 25));
@@ -56,6 +59,28 @@ public class PanelHerramientaVentana extends javax.swing.JPanel implements Proto
             }
         });
 
+        jLabelTitulo.setFont(new java.awt.Font("Rubik", 1, 18)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelTitulo.setText("    SURVAPP");
+        jLabelTitulo.setMaximumSize(new java.awt.Dimension(150, 25));
+        jLabelTitulo.setMinimumSize(new java.awt.Dimension(150, 25));
+        jLabelTitulo.setPreferredSize(new java.awt.Dimension(150, 25));
+
+        jPanelCerrar.setMaximumSize(new java.awt.Dimension(25, 25));
+        jPanelCerrar.setMinimumSize(new java.awt.Dimension(25, 25));
+        jPanelCerrar.setOpaque(false);
+        jPanelCerrar.setPreferredSize(new java.awt.Dimension(25, 25));
+        jPanelCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelCerrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanelCerrarMouseExited(evt);
+            }
+        });
+
+        imgCerrar.setForeground(new java.awt.Color(204, 0, 0));
         imgCerrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imgCerrar.setMaximumSize(new java.awt.Dimension(25, 25));
         imgCerrar.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -65,6 +90,25 @@ public class PanelHerramientaVentana extends javax.swing.JPanel implements Proto
                 imgCerrarMouseClicked(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanelCerrarLayout = new javax.swing.GroupLayout(jPanelCerrar);
+        jPanelCerrar.setLayout(jPanelCerrarLayout);
+        jPanelCerrarLayout.setHorizontalGroup(
+            jPanelCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCerrarLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(imgCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanelCerrarLayout.setVerticalGroup(
+            jPanelCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(imgCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanelMinimizar.setMaximumSize(new java.awt.Dimension(25, 25));
+        jPanelMinimizar.setMinimumSize(new java.awt.Dimension(25, 25));
+        jPanelMinimizar.setOpaque(false);
+        jPanelMinimizar.setPreferredSize(new java.awt.Dimension(25, 25));
 
         imgMinimizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imgMinimizar.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -76,13 +120,19 @@ public class PanelHerramientaVentana extends javax.swing.JPanel implements Proto
             }
         });
 
-        jLabelTitulo.setFont(new java.awt.Font("Rubik", 1, 18)); // NOI18N
-        jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelTitulo.setText("    SURVAPP");
-        jLabelTitulo.setMaximumSize(new java.awt.Dimension(150, 25));
-        jLabelTitulo.setMinimumSize(new java.awt.Dimension(150, 25));
-        jLabelTitulo.setPreferredSize(new java.awt.Dimension(150, 25));
+        javax.swing.GroupLayout jPanelMinimizarLayout = new javax.swing.GroupLayout(jPanelMinimizar);
+        jPanelMinimizar.setLayout(jPanelMinimizarLayout);
+        jPanelMinimizarLayout.setHorizontalGroup(
+            jPanelMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMinimizarLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(imgMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanelMinimizarLayout.setVerticalGroup(
+            jPanelMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(imgMinimizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -90,19 +140,20 @@ public class PanelHerramientaVentana extends javax.swing.JPanel implements Proto
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 784, Short.MAX_VALUE)
-                .addComponent(imgMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imgCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 760, Short.MAX_VALUE)
+                .addComponent(jPanelMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(imgCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(imgMinimizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanelCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -136,6 +187,18 @@ public class PanelHerramientaVentana extends javax.swing.JPanel implements Proto
     private void imgMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgMinimizarMouseClicked
         vp.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_imgMinimizarMouseClicked
+
+    private void jPanelCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelCerrarMouseEntered
+        vp.revalidate();
+        vp.repaint();
+        jPanelCerrar.setBackground(new Color(205,0,0,220));
+    }//GEN-LAST:event_jPanelCerrarMouseEntered
+
+    private void jPanelCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelCerrarMouseExited
+        vp.revalidate();
+        vp.repaint();
+        jPanelCerrar.setBackground(new Color(0,0,0,100));        
+    }//GEN-LAST:event_jPanelCerrarMouseExited
     
     public void rellenarImg(){
         Image img1 = new ImageIcon(getClass().getResource("/imagen/cerrar.png")).getImage();
@@ -151,5 +214,7 @@ public class PanelHerramientaVentana extends javax.swing.JPanel implements Proto
     private javax.swing.JLabel imgCerrar;
     private javax.swing.JLabel imgMinimizar;
     private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JPanel jPanelCerrar;
+    private javax.swing.JPanel jPanelMinimizar;
     // End of variables declaration//GEN-END:variables
 }

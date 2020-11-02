@@ -40,7 +40,7 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
         this.pagina=PAGINAS;   
         modelo = new ModeloTablaUsuarios();
         jTableUsuarios.setModel(modelo);
-        refrescarProyectos();
+        refrescarUsuarios();
         tamañoJTable();
     }
     
@@ -65,6 +65,7 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
         panelFiltro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelFiltro.setMaximumSize(new java.awt.Dimension(678, 35));
         panelFiltro.setMinimumSize(new java.awt.Dimension(678, 35));
+        panelFiltro.setPreferredSize(new java.awt.Dimension(678, 35));
 
         jTextFieldFiltro.setBorder(null);
         jTextFieldFiltro.setMaximumSize(new java.awt.Dimension(675, 33));
@@ -87,8 +88,8 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
             panelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFiltroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextFieldFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelIconoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
         );
@@ -162,7 +163,7 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
                     .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -188,14 +189,18 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFiltroKeyReleased
+        filtrar();
+    }//GEN-LAST:event_jTextFieldFiltroKeyReleased
+    
+    public void filtrar(){
         pagina = PAGINAS;
         busqueda();
         jButtonSiguiente.setEnabled(true);
         if(listaUsuarios.size()<PAGINAS)
             jButtonSiguiente.setEnabled(false);
         jButtonAtras.setEnabled(false);
-    }//GEN-LAST:event_jTextFieldFiltroKeyReleased
-
+    }
+    
     private void jTableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsuariosMouseClicked
         if(evt.getClickCount() == 2){
             JTable target = (JTable) evt.getSource();
@@ -251,8 +256,9 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
             Busqueda busqueda = new Busqueda(pagina,jTextFieldFiltro.getText());
             vp.getSalida().writeUTF(vp.getGson().toJson(busqueda));
             TypeToken<List<Usuario>> token = new TypeToken<List<Usuario>>() {};
+            listaUsuarios = new ArrayList<Usuario>();
             listaUsuarios = vp.getGson().fromJson((String) vp.getEntrada().readUTF(), token.getType());
-            refrescarProyectos();
+            refrescarUsuarios();
         } catch (IOException ex) {
             Logger.getLogger(PanelUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -268,7 +274,7 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
         jTableUsuarios.getColumn("ADMINISTRAR").setPreferredWidth(35);
     }
     
-    public void refrescarProyectos(){
+    public void refrescarUsuarios(){
         modelo.refreshTableModel(listaUsuarios); 
     } 
     

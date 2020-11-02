@@ -49,6 +49,10 @@ public class PanelGeneral extends javax.swing.JPanel {
 
         panelUsuario = new vista.PanelUsuario(this);
 
+        panelIncidencia = new vista.PanelIncidencia(this);
+
+        panelAjustes = new vista.PanelAjustes(this);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(

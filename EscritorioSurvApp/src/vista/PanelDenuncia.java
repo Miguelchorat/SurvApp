@@ -35,7 +35,7 @@ public class PanelDenuncia extends javax.swing.JPanel {
 
         jLabelInfo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelInfo.setText("<html>\nCon los permisos adecuados podrás hacer modificaciones en la base de datos del servidor.\n \n<br> <br> &nbsp; &#8226; Modificación básica a los usuarios registrado en el sistema.\n<br> <br> &nbsp; &#8226; Validación y modificación de las incidencias mandadas por los usuarios.\n<br> <br> &nbsp; &#8226; Ver estado de las ideas registradas en el sistemas.\n<br> <br> &nbsp; &#8226; Validación y modificación de las denuncias dadas por los usuarios de las ideas.\n\n</html>");
+        jLabelInfo.setText("EN PROCESO");
         jLabelInfo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabelInfo.setMaximumSize(new java.awt.Dimension(682, 380));
         jLabelInfo.setMinimumSize(new java.awt.Dimension(682, 380));

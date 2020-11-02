@@ -111,12 +111,18 @@
       </AuxValues>
     </Component>
     <Component class="vista.PanelIncidencia" name="panelIncidencia">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="panelIncidencia = new vista.PanelIncidencia(this);"/>
+      </AuxValues>
     </Component>
     <Component class="vista.PanelIdea" name="panelIdea">
     </Component>
     <Component class="vista.PanelDenuncia" name="panelDenuncia">
     </Component>
     <Component class="vista.PanelAjustes" name="panelAjustes">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="panelAjustes = new vista.PanelAjustes(this);"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

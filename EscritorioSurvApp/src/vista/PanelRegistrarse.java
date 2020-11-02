@@ -225,11 +225,11 @@ public class PanelRegistrarse extends javax.swing.JPanel implements Protocolo {
                 panelInicial.getVp().getSalida().writeUTF(panelInicial.getVp().getGson().toJson(user));
                 
                 int estado = panelInicial.getVp().getEntrada().readInt();
-                if(estado==REGISTRARSE_CORREO_ERROR){
+                if(estado==CORREO_ERROR){
                     jLabelTituloCorreo.setText("CORREO ELECTRÓNICO - Ya registrado");
                     jLabelTituloCorreo.setForeground(Color.red);
                 }
-                if(estado==REGISTRARSE_NOMBRE_CUENTA_ERROR){
+                if(estado==NOMBRE_CUENTA_ERROR){
                     jLabelNombreUsuario.setText("NOMBRE DE USUARIO - Ya registrado");
                     jLabelNombreUsuario.setForeground(Color.red);
                 }

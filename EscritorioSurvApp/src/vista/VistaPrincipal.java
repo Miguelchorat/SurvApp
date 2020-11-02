@@ -141,8 +141,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
+    public PanelInicial getPanelInicial() {
+        return panelInicial;
+    }    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private vista.PanelInicial panelInicial;

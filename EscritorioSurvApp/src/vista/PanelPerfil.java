@@ -3,6 +3,8 @@ package vista;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import util.TipoBoton;
 
 /**
  *
@@ -125,23 +127,58 @@ public class PanelPerfil extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelAjustesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAjustesMouseEntered
-        vp.revalidate();
-        vp.repaint();
-        jLabelAjustes.setOpaque(true);
-        jLabelAjustes.setBackground(new Color(100,140,255,120));
+        if(panelGeneral.getPanelOpcion().getSeleccionado()!=TipoBoton.AJUSTE){
+            vp.revalidate();
+            vp.repaint();
+            jLabelAjustes.setOpaque(true);
+            jLabelAjustes.setBackground(new Color(100,140,255,120));
+        }
+        
     }//GEN-LAST:event_jLabelAjustesMouseEntered
 
     private void jLabelAjustesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAjustesMouseExited
-        vp.revalidate();
-        vp.repaint();
-        jLabelAjustes.setOpaque(false);
+        if(panelGeneral.getPanelOpcion().getSeleccionado()!=TipoBoton.AJUSTE){
+            vp.revalidate();
+            vp.repaint();
+            jLabelAjustes.setOpaque(false);
+        }
     }//GEN-LAST:event_jLabelAjustesMouseExited
 
     private void jLabelAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAjustesMouseClicked
         panelGeneral.apagarPaneles();
         panelGeneral.getPanelAjustes().setVisible(true);
+        panelGeneral.getPanelAjustes().cargarDatos();
+        panelGeneral.getPanelOpcion().colorBoton();
+        jLabelAjustes.setOpaque(true);
+        panelGeneral.getPanelOpcion().setSeleccionado(TipoBoton.AJUSTE);
     }//GEN-LAST:event_jLabelAjustesMouseClicked
 
+    public JLabel getjLabelAjustes() {
+        return jLabelAjustes;
+    }
+
+    public void setjLabelAjustes(JLabel jLabelAjustes) {
+        this.jLabelAjustes = jLabelAjustes;
+    }
+
+    public JLabel getjLabelAvatar() {
+        return jLabelAvatar;
+    }
+
+    public void setjLabelAvatar(JLabel jLabelAvatar) {
+        this.jLabelAvatar = jLabelAvatar;
+    }
+
+    public JLabel getjLabelNombre() {
+        return jLabelNombre;
+    }
+
+    public void setjLabelNombre(String jLabelNombre) {
+        this.jLabelNombre.setText(jLabelNombre);
+    }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelAvatar;

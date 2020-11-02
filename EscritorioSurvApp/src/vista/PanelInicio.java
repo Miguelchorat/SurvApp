@@ -53,7 +53,7 @@ public class PanelInicio extends javax.swing.JPanel {
         jLabelTitulo.setFont(new java.awt.Font("Rubik", 1, 36)); // NOI18N
         jLabelTitulo.setForeground(new java.awt.Color(102, 102, 102));
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitulo.setText("Bienvenido a SurvApp");
+        jLabelTitulo.setText("BIENVENIDO A SURVAPP");
         jLabelTitulo.setMaximumSize(new java.awt.Dimension(730, 125));
         jLabelTitulo.setMinimumSize(new java.awt.Dimension(730, 125));
         jLabelTitulo.setPreferredSize(new java.awt.Dimension(730, 125));
