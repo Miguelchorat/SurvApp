@@ -1,44 +1,46 @@
 package dao;
 
 import java.sql.Connection;
-import java.util.List;
-import modelo.Incidencia;
-import util.ConfiguracionBD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import modelo.Denuncia;
+import modelo.Idea;
+import modelo.Usuario;
+import util.ConfiguracionBD;
 import util.EstadoIncidencia;
+
 /**
  *
  * @author chorat
  */
-public class IncidenciaDAOSQL implements IncidenciaDAO{
+public class DenunciaDAOSQL implements DenunciaDAO{
     
     ConfiguracionBD confBD;
     Connection conexion = null;
 
-    public IncidenciaDAOSQL() {
+    public DenunciaDAOSQL() {
         confBD = new ConfiguracionBD();
     }
     
-    
     @Override
-    public List<Incidencia> listarIncidencias(int numero,String filtro) {
+    public List<Denuncia> listarDenuncia(int numero, String filtro) {
         PreparedStatement sentencia = null;
         ResultSet result = null;
-        List<Incidencia> listaIncidencias = new ArrayList<Incidencia>();
+        List<Denuncia> listaDenuncias = new ArrayList<Denuncia>();
         
         try {
             conexion = confBD.iniciarConexion();
             sentencia = this.conexion.prepareStatement(
-                    "SELECT incidencia.id,u1.nombre,u2.nombre,titulo,descripcion,fecha,estado "
-                            + "FROM incidencia "
-                            + "LEFT JOIN usuario u2 ON u2.id = incidencia.id_administrador "
-                            + "JOIN usuario u1 ON u1.id = incidencia.id_usuario "
-                            + "WHERE titulo LIKE ? OR descripcion LIKE ? OR CAST(incidencia.id AS CHAR) LIKE ? "
-                            + "ORDER BY fecha ASC "
+                    "SELECT denuncia.id,u1.nombre,u2.nombre,denuncia.titulo,denuncia.descripcion,denuncia.fecha_creacion,denuncia.estado,denuncia.id_idea "
+                            + "FROM denuncia "
+                            + "LEFT JOIN usuario u2 ON u2.id = denuncia.id_administrador "
+                            + "JOIN usuario u1 ON u1.id = denuncia.id_usuario "
+                            + "WHERE denuncia.titulo LIKE ? OR denuncia.descripcion LIKE ? OR CAST(denuncia.id AS CHAR) LIKE ? "
+                            + "ORDER BY denuncia.fecha_creacion ASC "
                             + "LIMIT ?,?");
 
             sentencia.setString(1,"%"+filtro+"%");
@@ -53,15 +55,20 @@ public class IncidenciaDAOSQL implements IncidenciaDAO{
 
                 Date fecha;
                 fecha = result.getDate(6);
-             
-                Incidencia incidencia = new Incidencia(result.getInt(1),result.getString(2),
-                        result.getString(3),
+                Usuario usuario = new Usuario(result.getString(2));
+                Usuario admin = new Usuario(result.getString(3));
+                Idea idea = new Idea(result.getInt(8));
+                
+                Denuncia denuncia = new Denuncia(result.getInt(1),
                         result.getString(4),
                         result.getString(5),
+                        EstadoIncidencia.valueOf(result.getString(7)),
                         fecha,
-                        EstadoIncidencia.valueOf(result.getString(7)));
+                        usuario,
+                        idea,
+                        admin);
 
-                listaIncidencias.add(incidencia);
+                listaDenuncias.add(denuncia);
             }
 
         } catch (SQLException e) {
@@ -82,11 +89,11 @@ public class IncidenciaDAOSQL implements IncidenciaDAO{
                 ex.getMessage();
             }
         }
-        return listaIncidencias;
+        return listaDenuncias;
     }
 
     @Override
-    public boolean eliminarIncidencia(int id) {
+    public boolean eliminarDenuncia(int id) {
         PreparedStatement sentencia = null;
         ResultSet resultado = null;
         boolean eliminar = false;
@@ -95,14 +102,14 @@ public class IncidenciaDAOSQL implements IncidenciaDAO{
             conexion = confBD.iniciarConexion();            
             this.conexion.setAutoCommit(false);
             sentencia = this.conexion.prepareStatement(
-                    "DELETE FROM incidencia WHERE id = ? ");
+                    "DELETE FROM idea WHERE id = ? ");
             
             sentencia.setInt(1, id);
             
             int filasAfectadas = sentencia.executeUpdate();
 
             if (filasAfectadas == 0) {
-                throw new SQLException("No se encontro ninguna incidencia con esa id");
+                throw new SQLException("No se encontro ninguna denuncia con esa id");
             }
             this.conexion.commit();
             eliminar = true;
@@ -143,14 +150,14 @@ public class IncidenciaDAOSQL implements IncidenciaDAO{
             this.conexion.setAutoCommit(false);
             if(admin!=-1){
                 sentencia = this.conexion.prepareStatement(
-                    "UPDATE incidencia SET id_administrador = ?,estado = ? WHERE id = ? ");
+                    "UPDATE denuncia SET id_administrador = ?,estado = ? WHERE id = ? ");
                 sentencia.setInt(1, admin);
                 sentencia.setString(2, estado);
                 sentencia.setInt(3, id);
             }
             else{
                 sentencia = this.conexion.prepareStatement(
-                    "UPDATE incidencia SET id_administrador = null, estado = ? WHERE id = ? ");
+                    "UPDATE denuncia SET id_administrador = null, estado = ? WHERE id = ? ");
                 sentencia.setString(1, estado);
                 sentencia.setInt(2, id);
             }
@@ -158,7 +165,7 @@ public class IncidenciaDAOSQL implements IncidenciaDAO{
             int filasAfectadas = sentencia.executeUpdate();
 
             if (filasAfectadas == 0) {
-                throw new SQLException("No se encontro ninguna incidencia con esa id");
+                throw new SQLException("No se encontro ninguna denuncia con esa id");
             }
             this.conexion.commit();
             actualizar = true;
@@ -187,6 +194,4 @@ public class IncidenciaDAOSQL implements IncidenciaDAO{
         }
         return actualizar;
     }
-    
-    
 }

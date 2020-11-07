@@ -26,6 +26,10 @@ public class Usuario implements Serializable{
         this.fecha_alta = new Date();
     }
     
+    public Usuario(String nombre) {
+        this.nombre = nombre;
+    }
+    
     public Usuario(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;

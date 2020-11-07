@@ -411,14 +411,15 @@ public class UsuarioDAOSQL implements UsuarioDAO {
             sentencia = this.conexion.prepareStatement(
                     "SELECT id,correo,nombre,password,imagen,fecha_alta,administrar "
                             + "FROM usuario "
-                            + "WHERE nombre LIKE ? OR correo LIKE ?"
+                            + "WHERE nombre LIKE ? OR correo LIKE ? OR CAST(usuario.id AS CHAR) LIKE ? "
                             + "ORDER BY nombre ASC "
                             + "LIMIT ?,?");
 
             sentencia.setString(1,"%"+filtro+"%");
             sentencia.setString(2,"%"+filtro+"%");
-            sentencia.setInt(3,numero-25);
-            sentencia.setInt(4,numero);
+            sentencia.setString(3,"%"+filtro+"%");
+            sentencia.setInt(4,numero-25);
+            sentencia.setInt(5,numero);
             
             result = sentencia.executeQuery();
 

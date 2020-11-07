@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Busqueda;
+import modelo.Denuncia;
 import modelo.EstadoAdmin;
+import modelo.Idea;
 import modelo.Incidencia;
 import modelo.Sesion;
 import modelo.Usuario;
@@ -75,16 +77,29 @@ public class HiloPrincipal extends Thread implements Protocolo{
                     break;
                 case COMPROBAR_CORREO:
                     comprobarCorreo();
+                    break;               
+                case LISTAR_INCIDENCIAS:
+                    listarIncidencias();
                     break;
                 case ELIMINAR_INCIDENCIA:
                     eliminarIncidencia();
                     break;
-                case LISTAR_INCIDENCIAS:
-                    listarIncidencias();
+                case CAMBIAR_ESTADO_INCIDENCIA:
+                    cambiarEstadoIncidencia();
                     break;
-                case CAMBIAR_ESTADO:
-                    cambiarEstado();
+                case LISTAR_IDEAS:
+                    listarIdeas();
                     break;
+                case LISTAR_DENUNCIAS:
+                    listarDenuncias();
+                    break;
+                case ELIMINAR_DENUNCIA:
+                    eliminarDenuncia();
+                    break;
+                case CAMBIAR_ESTADO_DENUNCIA:
+                    cambiarEstadoDenuncia();
+                    break;
+                
             }
         } catch (IOException ex) {
             System.out.println("Error en la E/S del hilo");
@@ -285,12 +300,58 @@ public class HiloPrincipal extends Thread implements Protocolo{
         }
     }
     
-    public void cambiarEstado(){
+    public void cambiarEstadoIncidencia(){
         try {
             EstadoAdmin estadoAdmin = gson.fromJson((String)entrada.readUTF(), EstadoAdmin.class);
             boolean resultado = controlador.getIncidencia().cambiarEstado(estadoAdmin.getId(),estadoAdmin.getEstado().name(),estadoAdmin.getAdmin());            
             if(resultado)
-                mensajeCliente=CAMBIAR_ESTADO_EXITOSA;
+                mensajeCliente=CAMBIAR_ESTADO_INCIDENCIA_EXITOSA;
+            salida.writeInt(mensajeCliente);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void listarIdeas(){
+        try {
+            Busqueda busqueda = gson.fromJson((String)entrada.readUTF(), Busqueda.class);
+            List<Idea> listaIdeas;
+            listaIdeas = controlador.getIdea().listarIdea(busqueda.getNumero(),busqueda.getFiltro());
+            salida.writeUTF(gson.toJson(listaIdeas));            
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void listarDenuncias(){
+        try {
+            Busqueda busqueda = gson.fromJson((String)entrada.readUTF(), Busqueda.class);
+            List<Denuncia> listaDenuncias;
+            listaDenuncias = controlador.getDenuncia().listarDenuncia(busqueda.getNumero(),busqueda.getFiltro());
+            salida.writeUTF(gson.toJson(listaDenuncias));            
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void eliminarDenuncia(){
+        try {
+            int id = entrada.readInt();
+            boolean resultado = controlador.getDenuncia().eliminarDenuncia(id);            
+            if(resultado)
+                mensajeCliente=ELIMINAR_DENUNCIA_EXITOSA;
+            salida.writeInt(mensajeCliente);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void cambiarEstadoDenuncia(){
+        try {
+            EstadoAdmin estadoAdmin = gson.fromJson((String)entrada.readUTF(), EstadoAdmin.class);
+            boolean resultado = controlador.getDenuncia().cambiarEstado(estadoAdmin.getId(),estadoAdmin.getEstado().name(),estadoAdmin.getAdmin());            
+            if(resultado)
+                mensajeCliente=CAMBIAR_ESTADO_DENUNCIA_EXITOSA;
             salida.writeInt(mensajeCliente);
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
