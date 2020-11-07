@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.Incidencia;
+import modelo.Denuncia;
 import util.EstadoAdmin;
 import util.EstadoIncidencia;
 import util.Protocolo;
@@ -13,18 +13,18 @@ import util.Protocolo;
  *
  * @author chorat
  */
-public class DialogEditarIncidencia extends javax.swing.JDialog implements Protocolo{
+public class DialogEditarDenuncia extends javax.swing.JDialog implements Protocolo{
 
     private PanelGeneral panelGeneral;
-    private Incidencia incidencia;
+    private Denuncia denuncia;
     
-    public DialogEditarIncidencia(java.awt.Frame parent, boolean modal,PanelGeneral pg,Incidencia incidencia) {
+    public DialogEditarDenuncia(java.awt.Frame parent, boolean modal,PanelGeneral pg,Denuncia denuncia) {
         super(parent, modal);
         initComponents();
         this.setTitle("Estado");
         this.setLocationRelativeTo(null);
         this.panelGeneral = pg;
-        this.incidencia = incidencia;
+        this.denuncia = denuncia;
         llenarComboBox();
     }
 
@@ -151,15 +151,15 @@ public class DialogEditarIncidencia extends javax.swing.JDialog implements Proto
     private void jButtonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionActionPerformed
         try {
             panelGeneral.getVp().iniciarSocket();
-            panelGeneral.getVp().getSalida().writeInt(CAMBIAR_ESTADO_INCIDENCIA);            
+            panelGeneral.getVp().getSalida().writeInt(CAMBIAR_ESTADO_DENUNCIA);            
             EstadoAdmin estadoAdmin = new EstadoAdmin(
                     panelGeneral.getVp().getUsuario().getId(),
-                    incidencia.getId(),EstadoIncidencia.valueOf(""+jComboBoxEstado.getSelectedItem()));
+                    denuncia.getId(),EstadoIncidencia.valueOf(""+jComboBoxEstado.getSelectedItem()));
             if(jComboBoxEstado.getSelectedItem().equals(EstadoIncidencia.ESPERANDO.name()))
                 estadoAdmin.setAdmin(-1);           
             panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(estadoAdmin));
             int result = panelGeneral.getVp().getEntrada().readInt();
-            if(result!=CAMBIAR_ESTADO_INCIDENCIA_EXITOSA)
+            if(result!=CAMBIAR_ESTADO_DENUNCIA_EXITOSA)
                 JOptionPane.showMessageDialog(panelGeneral.getVp(), "No se pudo cambiar el estado por un error inesperado");
         } catch (IOException ex) {
             Logger.getLogger(DialogModificarUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,7 +171,7 @@ public class DialogEditarIncidencia extends javax.swing.JDialog implements Proto
         for(EstadoIncidencia estado: EstadoIncidencia.values()){
             jComboBoxEstado.addItem(estado.name());
         }
-        jComboBoxEstado.setSelectedIndex(incidencia.getEstado().ordinal());
+        jComboBoxEstado.setSelectedIndex(denuncia.getEstado().ordinal());
     }
     
     
@@ -189,21 +189,23 @@ public class DialogEditarIncidencia extends javax.swing.JDialog implements Proto
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogEditarIncidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogEditarDenuncia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogEditarIncidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogEditarDenuncia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogEditarIncidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogEditarDenuncia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogEditarIncidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogEditarDenuncia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogEditarIncidencia dialog = new DialogEditarIncidencia(new javax.swing.JFrame(), true , null, null);
+                DialogEditarDenuncia dialog = new DialogEditarDenuncia(new javax.swing.JFrame(), true , null, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

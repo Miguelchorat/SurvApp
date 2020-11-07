@@ -33,39 +33,39 @@
                   <Component id="panelOpcion" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="panelPerfil" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
+              <Component id="panelUsuario" pref="276" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+              <Component id="panelIncidencia" pref="273" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+              <Component id="panelAjustes" pref="273" max="32767" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="panelUsuario" max="32767" attributes="0"/>
+              <Component id="panelIdea" pref="785" max="32767" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="panelIncidencia" max="32767" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="panelAjustes" max="32767" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="panelIdea" max="32767" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="panelDenuncia" max="32767" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="panelInicio" max="32767" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="panelDenuncia" pref="1008" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+              <Component id="panelInicio" pref="1008" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="panelDenuncia" max="32767" attributes="0"/>
-                  <Component id="panelIdea" max="32767" attributes="0"/>
-                  <Component id="panelIncidencia" max="32767" attributes="0"/>
-                  <Component id="panelUsuario" max="32767" attributes="0"/>
-                  <Component id="panelInicio" max="32767" attributes="0"/>
-                  <Component id="panelAjustes" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="panelDenuncia" alignment="1" max="32767" attributes="0"/>
+                  <Component id="panelIncidencia" alignment="1" max="32767" attributes="0"/>
+                  <Component id="panelUsuario" alignment="1" max="32767" attributes="0"/>
+                  <Component id="panelInicio" alignment="1" max="32767" attributes="0"/>
+                  <Component id="panelAjustes" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="panelOpcion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="panelPerfil" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="panelIdea" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -115,14 +115,38 @@
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="panelIncidencia = new vista.PanelIncidencia(this);"/>
       </AuxValues>
     </Component>
-    <Component class="vista.PanelIdea" name="panelIdea">
-    </Component>
     <Component class="vista.PanelDenuncia" name="panelDenuncia">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="panelDenuncia = new vista.PanelDenuncia(this);"/>
+      </AuxValues>
     </Component>
     <Component class="vista.PanelAjustes" name="panelAjustes">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="panelAjustes = new vista.PanelAjustes(this);"/>
       </AuxValues>
     </Component>
+    <Container class="vista.PanelIdea" name="panelIdea">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[750, 625]"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="panelIdea = new vista.PanelIdea(this);"/>
+      </AuxValues>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="785" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
   </SubComponents>
 </Form>

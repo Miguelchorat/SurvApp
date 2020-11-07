@@ -73,7 +73,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             salida = new DataOutputStream(servidor.getOutputStream());
             entrada = new DataInputStream(servidor.getInputStream());
         } catch (IOException ioe) {
-            System.out.println("Error al iniciar el socket del servidor");
+            throw new NullPointerException("");
         }
     }
     

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -16,7 +16,6 @@
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[600, 200]"/>
     </Property>
-    <Property name="name" type="java.lang.String" value="" noResource="true"/>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[600, 200]"/>
     </Property>
@@ -36,34 +35,33 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jPanelSeparador" pref="0" max="32767" attributes="0"/>
-                  <Component id="jLabelDescripcion" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabelTitulo" min="-2" pref="475" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabelFecha" min="-2" pref="97" max="-2" attributes="0"/>
-                                  <Component id="jLabelId" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabelTituloEstado" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabelEstado" min="-2" pref="180" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="227" max="-2" attributes="0"/>
-                              <Component id="jLabelInfo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabelEditar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabelEliminar" min="-2" max="-2" attributes="0"/>
-                          </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jPanelSeparador" alignment="1" pref="578" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabelTitulo" min="-2" pref="475" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabelFecha" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                          <Component id="jLabelId" alignment="1" max="32767" attributes="0"/>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Component id="jLabelTituloEstado" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabelEstado" min="-2" pref="180" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabelInfo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="jLabelEditar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="jLabelEliminar" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jLabelDescripcion" min="-2" pref="578" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -75,8 +73,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Component id="jLabelTitulo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabelFecha" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabelId" max="32767" attributes="0"/>
@@ -85,16 +83,18 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanelSeparador" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jLabelDescripcion" min="-2" pref="69" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jLabelDescripcion" min="-2" pref="77" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabelEliminar" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelEditar" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelTituloEstado" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="jLabelEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelTituloEstado" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="jLabelEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jLabelEditar" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelInfo" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jLabelInfo" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelEliminar" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
           </Group>
@@ -133,9 +133,6 @@
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[678, 2]"/>
         </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[678, 2]"/>
-        </Property>
       </Properties>
 
       <Layout>
@@ -159,6 +156,15 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="text" type="java.lang.String" value="Descripcion"/>
         <Property name="verticalAlignment" type="int" value="1"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[300, 69]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[300, 69]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[300, 69]"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelFecha">
@@ -177,29 +183,18 @@
         <Property name="verticalAlignment" type="int" value="1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelTituloEstado">
+    <Component class="javax.swing.JLabel" name="jLabelId">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Rubik" size="18" style="1"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="fa" green="96" red="32" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Estado:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabelEstado">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Rubik" size="18" style="1"/>
+          <Font name="Rubik" size="14" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="66" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="---"/>
+        <Property name="horizontalAlignment" type="int" value="4"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelEliminar">
+    <Component class="javax.swing.JLabel" name="jLabelInfo">
       <Properties>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[25, 25]"/>
@@ -212,10 +207,10 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelEliminarMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelInfoMouseClicked"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="Image logoEliminar = new ImageIcon(getClass().getResource(&quot;/imagen/eliminar.png&quot;)).getImage();&#xa;ImageIcon logoIconEliminar = new ImageIcon(logoEliminar.getScaledInstance(25, 25, Image.SCALE_SMOOTH));&#xa;jLabelEliminar.setIcon(logoIconEliminar);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="Image logoInfo = new ImageIcon(getClass().getResource(&quot;/imagen/info.png&quot;)).getImage();&#xa;ImageIcon logoIconInfo = new ImageIcon(logoInfo.getScaledInstance(25, 25, Image.SCALE_SMOOTH));&#xa;jLabelInfo.setIcon(logoIconInfo);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelEditar">
@@ -237,7 +232,7 @@
         <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="Image logoEditar = new ImageIcon(getClass().getResource(&quot;/imagen/editar.png&quot;)).getImage();&#xa;ImageIcon logoIconEditar = new ImageIcon(logoEditar.getScaledInstance(25, 25, Image.SCALE_SMOOTH));&#xa;jLabelEditar.setIcon(logoIconEditar);"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelInfo">
+    <Component class="javax.swing.JLabel" name="jLabelEliminar">
       <Properties>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[25, 25]"/>
@@ -250,21 +245,32 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelInfoMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelEliminarMouseClicked"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="Image logoInfo = new ImageIcon(getClass().getResource(&quot;/imagen/info.png&quot;)).getImage();&#xa;ImageIcon logoIconInfo = new ImageIcon(logoInfo.getScaledInstance(25, 25, Image.SCALE_SMOOTH));&#xa;jLabelInfo.setIcon(logoIconInfo);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="Image logoEliminar = new ImageIcon(getClass().getResource(&quot;/imagen/eliminar.png&quot;)).getImage();&#xa;ImageIcon logoIconEliminar = new ImageIcon(logoEliminar.getScaledInstance(25, 25, Image.SCALE_SMOOTH));&#xa;jLabelEliminar.setIcon(logoIconEliminar);"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelId">
+    <Component class="javax.swing.JLabel" name="jLabelTituloEstado">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Rubik" size="14" style="1"/>
+          <Font name="Rubik" size="18" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="fa" green="96" red="32" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Estado:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelEstado">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Rubik" size="18" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="66" type="rgb"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="---"/>
       </Properties>
     </Component>
   </SubComponents>

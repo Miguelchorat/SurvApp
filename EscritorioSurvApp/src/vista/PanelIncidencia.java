@@ -195,7 +195,7 @@ public class PanelIncidencia extends javax.swing.JPanel implements Protocolo{
         busqueda();
         jButtonSiguiente.setEnabled(true);
         if(listaIncidencias.size()<PAGINAS)
-        jButtonSiguiente.setEnabled(false);
+            jButtonSiguiente.setEnabled(false);
         jButtonAtras.setEnabled(false);
     }//GEN-LAST:event_jTextFieldFiltroKeyReleased
 
@@ -205,14 +205,15 @@ public class PanelIncidencia extends javax.swing.JPanel implements Protocolo{
             pagina-=PAGINAS;
         }
         if(pagina==PAGINAS)
-        jButtonAtras.setEnabled(false);
+            jButtonAtras.setEnabled(false);
         busqueda();
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
-        if(pagina>=PAGINAS)
-        pagina+=PAGINAS;
-        jButtonAtras.setEnabled(true);
+        if(pagina>=PAGINAS){
+            pagina+=PAGINAS;
+            jButtonAtras.setEnabled(true);
+        }
         busqueda();
         if(listaIncidencias.size()<PAGINAS){
             jButtonSiguiente.setEnabled(false);
@@ -229,12 +230,14 @@ public class PanelIncidencia extends javax.swing.JPanel implements Protocolo{
             vp.getSalida().writeUTF(vp.getGson().toJson(busqueda));
             TypeToken<List<Incidencia>> token = new TypeToken<List<Incidencia>>() {};
             listaIncidencias = vp.getGson().fromJson((String) vp.getEntrada().readUTF(), token.getType());
-            generarTareas();
+            if(listaIncidencias.size()<PAGINAS)
+                jButtonSiguiente.setEnabled(false);
+            generarIncidencias();
         } catch (IOException ex) {
         }
     }
     
-    public void generarTareas(){
+    public void generarIncidencias(){
         int y = 1;
         int x = 1;
         jPanelIncidencias.removeAll();
@@ -247,6 +250,7 @@ public class PanelIncidencia extends javax.swing.JPanel implements Protocolo{
             incidencia.getjLabelTitulo().setText(listaIncidencias.get(i).getTitulo());
             incidencia.getjLabelEstado().setText(listaIncidencias.get(i).getEstado().name());
             incidencia.getjLabelDescripcion().setText(listaIncidencias.get(i).getDescripcion());
+            incidencia.getjLabelId().setText("ID: "+listaIncidencias.get(i).getId()+"");
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             incidencia.getjLabelFecha().setText(df.format(listaIncidencias.get(i).getFecha()));
             grid.gridx = x;

@@ -428,6 +428,7 @@ public class PanelOpcion extends javax.swing.JPanel {
         seleccionado = TipoBoton.IDEA;
         panelGeneral.apagarPaneles();
         panelGeneral.getPanelIdea().setVisible(true);
+        panelGeneral.getPanelIdea().busqueda();
     }//GEN-LAST:event_PanelIdeasMouseClicked
 
     private void PanelDenunciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDenunciasMouseClicked
@@ -437,6 +438,7 @@ public class PanelOpcion extends javax.swing.JPanel {
         seleccionado = TipoBoton.DENUNCIA;
         panelGeneral.apagarPaneles();
         panelGeneral.getPanelDenuncia().setVisible(true);
+        panelGeneral.getPanelDenuncia().busqueda();
     }//GEN-LAST:event_PanelDenunciasMouseClicked
 
     public void setSeleccionado(int seleccionado) {

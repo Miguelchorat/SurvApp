@@ -37,9 +37,15 @@ public interface Protocolo {
     public static final int LISTAR_INCIDENCIAS = 28;
     public static final int ELIMINAR_INCIDENCIA = 29;
     public static final int ELIMINAR_INCIDENCIA_EXITOSA = 30;
-    public static final int CAMBIAR_ESTADO = 31;
-    public static final int CAMBIAR_ESTADO_EXITOSA = 32;
+    public static final int CAMBIAR_ESTADO_INCIDENCIA = 31;
+    public static final int CAMBIAR_ESTADO_INCIDENCIA_EXITOSA = 32;
     public static final int COMPROBAR_NOMBRE_CUENTA = 33;
     public static final int COMPROBAR_CORREO = 34;
+    public static final int LISTAR_IDEAS = 35;
+    public static final int LISTAR_DENUNCIAS = 36;
+    public static final int ELIMINAR_DENUNCIA = 37;
+    public static final int ELIMINAR_DENUNCIA_EXITOSA = 38;
+    public static final int CAMBIAR_ESTADO_DENUNCIA = 39;
+    public static final int CAMBIAR_ESTADO_DENUNCIA_EXITOSA = 40;
    
 }

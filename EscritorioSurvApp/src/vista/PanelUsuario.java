@@ -235,14 +235,15 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
             pagina-=PAGINAS;
         }
         if(pagina==PAGINAS)
-        jButtonAtras.setEnabled(false);
+            jButtonAtras.setEnabled(false);
         busqueda();
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
-        if(pagina>=PAGINAS)
-        pagina+=PAGINAS;
-        jButtonAtras.setEnabled(true);
+        if(pagina>=PAGINAS){
+            pagina+=PAGINAS;
+            jButtonAtras.setEnabled(true);
+        }
         busqueda();
         if(listaUsuarios.size()<PAGINAS){
             jButtonSiguiente.setEnabled(false);
@@ -259,6 +260,8 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
             listaUsuarios = new ArrayList<Usuario>();
             listaUsuarios = vp.getGson().fromJson((String) vp.getEntrada().readUTF(), token.getType());
             refrescarUsuarios();
+            if(listaUsuarios.size()<PAGINAS)
+                jButtonSiguiente.setEnabled(false);
         } catch (IOException ex) {
             Logger.getLogger(PanelUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }

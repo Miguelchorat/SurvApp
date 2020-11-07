@@ -5,14 +5,10 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import util.Protocolo;
-import static util.Protocolo.INICIAR_SESION;
 
 /**
  *
