@@ -1,15 +1,20 @@
 package modelo;
 
 import java.awt.Image;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import util.Protocolo;
+import vista.DialogIdea;
 import vista.PanelGeneral;
+import vista.VistaPrincipal;
 
 /**
  *
  * @author chorat
  */
-public class ModeloIdea extends javax.swing.JPanel {
+public class ModeloIdea extends javax.swing.JPanel implements Protocolo{
     
     private PanelGeneral panelGeneral;
     private Idea idea;
@@ -34,8 +39,6 @@ public class ModeloIdea extends javax.swing.JPanel {
         jLabelInfo = new javax.swing.JLabel();
         PanelRespuestas = new javax.swing.JPanel();
         jLabelRespuesta1 = new javax.swing.JLabel();
-        jLabelRespuesta2 = new javax.swing.JLabel();
-        jLabelRespuesta3 = new javax.swing.JLabel();
         jLabelTituloTema = new javax.swing.JLabel();
         jLabelTema = new javax.swing.JLabel();
         jLabelId = new javax.swing.JLabel();
@@ -122,37 +125,15 @@ public class ModeloIdea extends javax.swing.JPanel {
         jLabelRespuesta1.setMinimumSize(new java.awt.Dimension(250, 18));
         jLabelRespuesta1.setPreferredSize(new java.awt.Dimension(250, 18));
 
-        jLabelRespuesta2.setFont(new java.awt.Font("Rubik", 0, 14)); // NOI18N
-        jLabelRespuesta2.setMaximumSize(new java.awt.Dimension(250, 18));
-        jLabelRespuesta2.setMinimumSize(new java.awt.Dimension(250, 18));
-        jLabelRespuesta2.setPreferredSize(new java.awt.Dimension(250, 18));
-
-        jLabelRespuesta3.setFont(new java.awt.Font("Rubik", 0, 14)); // NOI18N
-        jLabelRespuesta3.setMaximumSize(new java.awt.Dimension(250, 18));
-        jLabelRespuesta3.setMinimumSize(new java.awt.Dimension(250, 18));
-        jLabelRespuesta3.setPreferredSize(new java.awt.Dimension(250, 18));
-
         javax.swing.GroupLayout PanelRespuestasLayout = new javax.swing.GroupLayout(PanelRespuestas);
         PanelRespuestas.setLayout(PanelRespuestasLayout);
         PanelRespuestasLayout.setHorizontalGroup(
             PanelRespuestasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelRespuestasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelRespuestasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelRespuesta1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelRespuesta2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelRespuesta3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jLabelRespuesta1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
         );
         PanelRespuestasLayout.setVerticalGroup(
             PanelRespuestasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelRespuestasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelRespuesta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelRespuesta2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelRespuesta3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabelRespuesta1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabelTituloTema.setFont(new java.awt.Font("Rubik", 1, 18)); // NOI18N
@@ -222,7 +203,7 @@ public class ModeloIdea extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(PanelRespuestas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,11 +226,28 @@ public class ModeloIdea extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEliminarMouseClicked
-        
+        try {
+            int result = JOptionPane.showConfirmDialog(panelGeneral.getVp(),"¿Estás seguro de eliminar la idea?","Eliminar idea",JOptionPane.YES_NO_OPTION);
+            if(result == 0){
+                VistaPrincipal vp = panelGeneral.getVp();
+                vp.iniciarSocket();
+                vp.getSalida().writeInt(ELIMINAR_IDEA);
+                vp.getSalida().writeInt(idea.getId());
+                result = vp.getEntrada().readInt();
+                if(result==ELIMINAR_IDEA_EXITOSA)
+                    JOptionPane.showMessageDialog(panelGeneral.getVp(), "Fue eliminado satisfactoriamente");
+                else
+                    JOptionPane.showMessageDialog(panelGeneral.getVp(), "No se pudo eliminar por un error inesperado");
+                panelGeneral.getPanelIdea().busqueda();
+            }
+        } catch (IOException ex) {
+        }
     }//GEN-LAST:event_jLabelEliminarMouseClicked
 
     private void jLabelInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInfoMouseClicked
-        
+        DialogIdea dialog = new DialogIdea(panelGeneral.getVp(),true,panelGeneral,idea.getId());        
+        dialog.cargarDatos();
+        dialog.setVisible(true);
     }//GEN-LAST:event_jLabelInfoMouseClicked
 
     public JLabel getjLabelDescripcion() {
@@ -266,14 +264,6 @@ public class ModeloIdea extends javax.swing.JPanel {
 
     public JLabel getjLabelRespuesta1() {
         return jLabelRespuesta1;
-    }
-
-    public JLabel getjLabelRespuesta2() {
-        return jLabelRespuesta2;
-    }
-
-    public JLabel getjLabelRespuesta3() {
-        return jLabelRespuesta3;
     }
 
     public JLabel getjLabelId() {
@@ -300,8 +290,6 @@ public class ModeloIdea extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelInfo;
     private javax.swing.JLabel jLabelNombreAutor;
     private javax.swing.JLabel jLabelRespuesta1;
-    private javax.swing.JLabel jLabelRespuesta2;
-    private javax.swing.JLabel jLabelRespuesta3;
     private javax.swing.JLabel jLabelTema;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JLabel jLabelTituloTema;

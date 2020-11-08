@@ -252,16 +252,12 @@ public class PanelIdea extends javax.swing.JPanel implements Protocolo{
             idea.getjLabelFecha().setText(df.format(listaIdeas.get(i).getFecha_creacion()));
             idea.getjLabelId().setText("ID: "+listaIdeas.get(i).getId()+"");
             
-            for(int j=0;j<listaIdeas.get(i).getRespuestas().size();j++){
-                
-                if(j==0)
-                    idea.getjLabelRespuesta1().setText("<html><ul><li>"+listaIdeas.get(i).getRespuestas().get(j).getDescripcion()+"</li></ul></html>");
-                if(j==1)
-                    idea.getjLabelRespuesta2().setText("<html><ul><li>"+listaIdeas.get(i).getRespuestas().get(j).getDescripcion()+"</li></ul></html>");
-                if(j==3)
-                    idea.getjLabelRespuesta3().setText("<html><ul><li>"+listaIdeas.get(i).getRespuestas().get(j).getDescripcion()+"</li></ul></html>");
+            String linea = "<html><ul>";
+            for(int j=0;j<listaIdeas.get(i).getRespuestas().size();j++){      
+                linea+="<li>"+listaIdeas.get(i).getRespuestas().get(j).getDescripcion()+"</li>";
             }
-            
+            linea+="</ul></html>";            
+            idea.getjLabelRespuesta1().setText(linea);
             grid.gridx = x;
             grid.gridy = y;
             jPanelIdeas.add(idea,grid);

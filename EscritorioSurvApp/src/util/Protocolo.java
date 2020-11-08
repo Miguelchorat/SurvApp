@@ -47,5 +47,10 @@ public interface Protocolo {
     public static final int ELIMINAR_DENUNCIA_EXITOSA = 38;
     public static final int CAMBIAR_ESTADO_DENUNCIA = 39;
     public static final int CAMBIAR_ESTADO_DENUNCIA_EXITOSA = 40;
+    public static final int ELIMINAR_IDEA = 41;
+    public static final int ELIMINAR_IDEA_EXITOSA = 42;
+    public static final int BUSCAR_INFORMACION_IDEA = 43;
+    public static final int CONTAR_RESPUESTAS = 44;
+    
    
 }
