@@ -2,10 +2,12 @@ package main;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +16,7 @@ import modelo.Denuncia;
 import modelo.EstadoAdmin;
 import modelo.Idea;
 import modelo.Incidencia;
+import modelo.Respuesta;
 import modelo.Sesion;
 import modelo.Usuario;
 import util.JavaMail;
@@ -98,6 +101,15 @@ public class HiloPrincipal extends Thread implements Protocolo{
                     break;
                 case CAMBIAR_ESTADO_DENUNCIA:
                     cambiarEstadoDenuncia();
+                    break;
+                case ELIMINAR_IDEA:
+                    eliminarIdea();
+                    break;
+                case BUSCAR_INFORMACION_IDEA:
+                    buscarIdea();
+                    break;
+                case CONTAR_RESPUESTAS:
+                    contarRespuestas();
                     break;
                 
             }
@@ -352,6 +364,47 @@ public class HiloPrincipal extends Thread implements Protocolo{
             if(resultado)
                 mensajeCliente=CAMBIAR_ESTADO_DENUNCIA_EXITOSA;
             salida.writeInt(mensajeCliente);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void eliminarIdea(){
+        try {
+            int id = entrada.readInt();
+            boolean resultado = controlador.getIdea().eliminarIdea(id);            
+            if(resultado)
+                mensajeCliente=ELIMINAR_IDEA_EXITOSA;
+            salida.writeInt(mensajeCliente);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void buscarIdea(){
+        try {
+            int id = entrada.readInt();
+            Idea idea;
+            idea = controlador.getIdea().informacionIdea(id);
+            salida.writeUTF(gson.toJson(idea));    
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void contarRespuestas(){
+        try {
+            System.out.println("1");
+            List<Integer> cuenta = new ArrayList<>();
+            System.out.println("2");
+            TypeToken<List<Respuesta>> token = new TypeToken<List<Respuesta>>() {};
+            System.out.println("3");
+            List<Respuesta> respuestas = gson.fromJson((String) entrada.readUTF(), token.getType());
+            System.out.println("4");
+            cuenta = controlador.getIdea().contarRespuestas(respuestas);
+            System.out.println("5");
+            salida.writeUTF(gson.toJson(cuenta));    
+            System.out.println("6");
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }

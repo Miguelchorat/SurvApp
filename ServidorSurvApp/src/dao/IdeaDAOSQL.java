@@ -102,12 +102,151 @@ public class IdeaDAOSQL implements IdeaDAO{
 
     @Override
     public Idea informacionIdea(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement sentencia = null;
+        ResultSet result = null;
+        ResultSet result2 = null;
+        Idea idea = null;
+        
+        try {
+            conexion = confBD.iniciarConexion();
+            sentencia = this.conexion.prepareStatement(
+                    "SELECT i.id,i.titulo,i.descripcion,t.id,t.nombre "
+                            + "from idea i,tema t "
+                            + "WHERE i.id_tema=t.id AND i.id=?");
+            
+            sentencia.setInt(1,id);            
+            
+            result = sentencia.executeQuery();
+
+            while (result.next()) {
+                Tema tema = new Tema(result.getInt(4),result.getString(5));
+                idea = new Idea(result.getInt(1),result.getString(2),result.getString(3),tema);                                                     
+                
+                sentencia = this.conexion.prepareStatement(
+                    "SELECT r.id,r.descripcion "
+                            + "FROM idea i,respuesta r "
+                            + "WHERE r.id_idea=?");
+                sentencia.setInt(1,idea.getId());
+                result2 = sentencia.executeQuery();
+                
+                List<Respuesta> respuestas = new ArrayList<>();
+                
+                while (result2.next()) {
+                    Respuesta respuesta = new Respuesta(result2.getInt(1),result2.getString(2));
+                    respuestas.add(respuesta);
+                }
+                idea.setRespuestas(respuestas);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (sentencia != null) {
+                    sentencia.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return idea;
     }
 
     @Override
     public boolean eliminarIdea(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+        boolean eliminar = false;
+
+        try {
+            conexion = confBD.iniciarConexion();            
+            this.conexion.setAutoCommit(false);
+            sentencia = this.conexion.prepareStatement(
+                    "DELETE FROM idea WHERE id = ? ");
+            
+            sentencia.setInt(1, id);
+            
+            int filasAfectadas = sentencia.executeUpdate();
+
+            if (filasAfectadas == 0) {
+                throw new SQLException("No se encontro ninguna denuncia con esa id");
+            }
+            this.conexion.commit();
+            eliminar = true;
+        } catch (SQLException e) {
+            try {
+                this.conexion.rollback();
+                e.printStackTrace();
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
+        } finally {
+            try {
+                if (sentencia != null) {
+                    sentencia.close();
+                }
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return eliminar;
+    }
+
+    @Override
+    public List<Integer> contarRespuestas(List<Respuesta> respuestas) {
+        PreparedStatement sentencia = null;
+        ResultSet result = null;
+        List<Integer> cuenta = new ArrayList<>();
+        
+        try {
+            conexion = confBD.iniciarConexion();
+            
+            for(int i=0;i<respuestas.size();i++){
+                sentencia = this.conexion.prepareStatement(
+                    "SELECT count(id_respuesta) "
+                            + "from respuesta_usuario "
+                            + "WHERE id_respuesta=?");
+                
+                sentencia.setInt(1,respuestas.get(i).getId());            
+                result = sentencia.executeQuery();
+                
+                while (result.next()) {
+                    cuenta.add(result.getInt(1));
+                }
+            }          
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (sentencia != null) {
+                    sentencia.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return cuenta;
     }
     
     

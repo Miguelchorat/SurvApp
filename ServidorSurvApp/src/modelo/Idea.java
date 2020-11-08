@@ -24,7 +24,13 @@ public class Idea {
     public Idea(int id) {
         this.id = id;
     }
-
+    
+    public Idea(int id, String titulo, String descripcion, Tema tema) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.tema = tema;
+    }
     
     public Idea(int id, String titulo, String descripcion, Date fecha_creacion, Tema tema, Usuario usuario) {
         this.id = id;

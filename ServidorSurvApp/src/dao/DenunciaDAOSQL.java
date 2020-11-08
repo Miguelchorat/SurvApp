@@ -102,7 +102,7 @@ public class DenunciaDAOSQL implements DenunciaDAO{
             conexion = confBD.iniciarConexion();            
             this.conexion.setAutoCommit(false);
             sentencia = this.conexion.prepareStatement(
-                    "DELETE FROM idea WHERE id = ? ");
+                    "DELETE FROM denuncia WHERE id = ? ");
             
             sentencia.setInt(1, id);
             
