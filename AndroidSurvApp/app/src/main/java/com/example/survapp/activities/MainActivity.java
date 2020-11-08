@@ -1,8 +1,10 @@
-package com.example.survapp;
+package com.example.survapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.survapp.R;
 
 public class MainActivity extends AppCompatActivity {
 

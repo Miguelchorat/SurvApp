@@ -109,7 +109,6 @@ public class HiloPrincipal extends Thread implements Protocolo{
     private void iniciarSesion(){
         try {                                                                                        
             Sesion sesion = gson.fromJson((String)entrada.readUTF(), Sesion.class);
-            System.out.println(sesion.getCorreo() + " " + sesion.getPass());
             this.usuario = (Usuario) controlador.getUsuario().comprobarUsuario(sesion);
             System.out.println(usuario);
             if(usuario != null ){
