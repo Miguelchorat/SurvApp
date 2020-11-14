@@ -9,7 +9,9 @@ import javax.swing.JPanel;
 import util.EstadoIncidencia;
 import util.Protocolo;
 import vista.DialogEditarDenuncia;
+import vista.DialogEliminar;
 import vista.DialogInfoDenuncia;
+import vista.DialogMensaje;
 import vista.PanelGeneral;
 import vista.VistaPrincipal;
 
@@ -77,9 +79,9 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
         jLabelDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelDescripcion.setText("Descripcion");
         jLabelDescripcion.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabelDescripcion.setMaximumSize(new java.awt.Dimension(300, 69));
-        jLabelDescripcion.setMinimumSize(new java.awt.Dimension(300, 69));
-        jLabelDescripcion.setPreferredSize(new java.awt.Dimension(300, 69));
+        jLabelDescripcion.setMaximumSize(new java.awt.Dimension(300, 75));
+        jLabelDescripcion.setMinimumSize(new java.awt.Dimension(300, 75));
+        jLabelDescripcion.setPreferredSize(new java.awt.Dimension(300, 75));
 
         jLabelFecha.setBackground(new java.awt.Color(50, 150, 250));
         jLabelFecha.setFont(new java.awt.Font("Rubik", 1, 12)); // NOI18N
@@ -91,6 +93,9 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
         jLabelId.setFont(new java.awt.Font("Rubik", 1, 14)); // NOI18N
         jLabelId.setForeground(new java.awt.Color(102, 102, 102));
         jLabelId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelId.setMaximumSize(new java.awt.Dimension(97, 19));
+        jLabelId.setMinimumSize(new java.awt.Dimension(97, 19));
+        jLabelId.setPreferredSize(new java.awt.Dimension(97, 19));
 
         jLabelInfo.setMaximumSize(new java.awt.Dimension(25, 25));
         jLabelInfo.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -135,26 +140,26 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelSeparador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 578, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelTituloEstado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabelDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -166,21 +171,19 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelFecha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(11, 11, 11)
                 .addComponent(jPanelSeparador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelTituloEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelEstado))
-                        .addComponent(jLabelEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelTituloEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelEstado))
+                    .addComponent(jLabelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         Image logoInfo = new ImageIcon(getClass().getResource("/imagen/info.png")).getImage();
@@ -208,19 +211,26 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
     private void jLabelEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEliminarMouseClicked
         try {
             if(!denuncia.getEstado().equals(estado.FINALIZADA)){
-                JOptionPane.showMessageDialog(panelGeneral.getVp(), "La denuncia no ha sido resuelta.");
+                DialogMensaje dialog = new DialogMensaje(panelGeneral.getVp(), true, "La denuncia no ha sido resuelta.");
+                dialog.setVisible(true);
             }else{
-                int result = JOptionPane.showConfirmDialog(panelGeneral.getVp(),"¿Estás seguro de eliminar la denuncia?","Eliminar denuncia",JOptionPane.YES_NO_OPTION);
-                if(result == 0){
+                DialogEliminar eliminar = new DialogEliminar(panelGeneral.getVp(),true,"¿Estás seguro de eliminar la denuncia?","ELIMINAR");
+                eliminar.setVisible(true);
+                int result = eliminar.getResultado();
+                if(result == 1){
                     VistaPrincipal vp = panelGeneral.getVp();
                     vp.iniciarSocket();
                     vp.getSalida().writeInt(ELIMINAR_DENUNCIA);
                     vp.getSalida().writeInt(denuncia.getId());
                     result = vp.getEntrada().readInt();
-                    if(result==ELIMINAR_DENUNCIA_EXITOSA)
-                        JOptionPane.showMessageDialog(panelGeneral.getVp(), "Fue eliminado satisfactoriamente");
-                    else
-                        JOptionPane.showMessageDialog(panelGeneral.getVp(), "No se pudo eliminar por un error inesperado");
+                    if(result==ELIMINAR_DENUNCIA_EXITOSA){
+                        DialogMensaje dialog = new DialogMensaje(panelGeneral.getVp(), true, "Fue eliminado satisfactoriamente");
+                        dialog.setVisible(true);
+                    }
+                    else{
+                        DialogMensaje dialog = new DialogMensaje(panelGeneral.getVp(), true, "No se pudo eliminar por un error inesperado");
+                        dialog.setVisible(true);
+                    }
                     panelGeneral.getPanelIncidencia().busqueda();
                 }
             }

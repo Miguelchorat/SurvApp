@@ -193,7 +193,7 @@ public class PanelIdea extends javax.swing.JPanel implements Protocolo{
         busqueda();
         jButtonSiguiente.setEnabled(true);
         if(listaIdeas.size()<PAGINAS)
-        jButtonSiguiente.setEnabled(false);
+            jButtonSiguiente.setEnabled(false);
         jButtonAtras.setEnabled(false);
     }//GEN-LAST:event_jTextFieldFiltroKeyReleased
 
@@ -203,14 +203,15 @@ public class PanelIdea extends javax.swing.JPanel implements Protocolo{
             pagina-=PAGINAS;
         }
         if(pagina==PAGINAS)
-        jButtonAtras.setEnabled(false);
+            jButtonAtras.setEnabled(false);
         busqueda();
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
-        if(pagina>=PAGINAS)
-        pagina+=PAGINAS;
-        jButtonAtras.setEnabled(true);
+        if(pagina>=PAGINAS){
+            pagina+=PAGINAS;
+            jButtonAtras.setEnabled(true);
+        }
         busqueda();
         if(listaIdeas.size()<PAGINAS){
             jButtonSiguiente.setEnabled(false);
@@ -247,7 +248,7 @@ public class PanelIdea extends javax.swing.JPanel implements Protocolo{
             idea.getjLabelTitulo().setText(listaIdeas.get(i).getTitulo());
             idea.getjLabelTema().setText(listaIdeas.get(i).getTema().getNombre());
             idea.getjLabelNombreAutor().setText(listaIdeas.get(i).getUsuario().getNombre());
-            idea.getjLabelDescripcion().setText(listaIdeas.get(i).getDescripcion());
+            idea.getjLabelDescripcion().setText("<html>"+listaIdeas.get(i).getDescripcion()+"</html>");
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             idea.getjLabelFecha().setText(df.format(listaIdeas.get(i).getFecha_creacion()));
             idea.getjLabelId().setText("ID: "+listaIdeas.get(i).getId()+"");

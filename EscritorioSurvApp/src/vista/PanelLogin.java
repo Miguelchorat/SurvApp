@@ -288,13 +288,16 @@ public class PanelLogin extends javax.swing.JPanel implements Protocolo{
                     panelInicial.getVp().setUsuario(panelInicial.getVp().getGson().fromJson((String)panelInicial.getVp().getEntrada().readUTF(), Usuario.class));
                     iniciarSesion();
                 }
-                else
-                    JOptionPane.showMessageDialog(panelInicial, "Correo o contraseña no válida.");
+                else{
+                    DialogMensaje dialog = new DialogMensaje(panelInicial.getVp(),true,"Correo o contraseña no válida.");                
+                    dialog.setVisible(true);
+                }
             }
         } catch (IOException ioe) {
             System.out.println("Problema en la E/S del login");
         } catch(NullPointerException npe){
-            JOptionPane.showMessageDialog(this,"Hubo un problema al intentar conectarse al servidor.");
+            DialogMensaje dialog = new DialogMensaje(panelInicial.getVp(),true,"Hubo un problema al intentar conectarse al servidor.");
+            dialog.setVisible(true);
         }
         return comprobacion;
     }

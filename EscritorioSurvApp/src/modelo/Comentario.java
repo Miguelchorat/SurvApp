@@ -9,7 +9,6 @@ import java.util.Date;
 public class Comentario {
     
     private int id;
-    private String titulo;
     private String descripcion;
     private Date fecha_creacion;
     private Usuario usuario;
@@ -17,9 +16,8 @@ public class Comentario {
     public Comentario() {
     }
 
-    public Comentario(int id, String titulo, String descripcion, Date fecha_creacion, Usuario usuario) {
+    public Comentario(int id, String descripcion, Date fecha_creacion, Usuario usuario) {
         this.id = id;
-        this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha_creacion = fecha_creacion;
         this.usuario = usuario;
@@ -31,14 +29,6 @@ public class Comentario {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
     }
 
     public String getDescripcion() {

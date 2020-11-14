@@ -36,18 +36,21 @@ public class DialogEditarIncidencia extends javax.swing.JDialog implements Proto
         jButtonCerrarSesion = new javax.swing.JButton();
         jLabelCambiarEstado = new javax.swing.JLabel();
         jComboBoxEstado = new javax.swing.JComboBox<>();
-        jLabelTitulo = new javax.swing.JLabel();
-        jPanelSeparador = new javax.swing.JPanel();
+        panelHerramientaVentanaDialog = new vista.PanelHerramientaVentanaDialog();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
-        setMinimumSize(new java.awt.Dimension(400, 310));
+        setMaximumSize(new java.awt.Dimension(400, 200));
+        setMinimumSize(new java.awt.Dimension(400, 200));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(400, 200));
         setResizable(false);
 
         jPanelInfo.setBackground(new java.awt.Color(250, 250, 250));
-        jPanelInfo.setMaximumSize(new java.awt.Dimension(400, 225));
-        jPanelInfo.setMinimumSize(new java.awt.Dimension(400, 225));
-        jPanelInfo.setPreferredSize(new java.awt.Dimension(400, 225));
+        jPanelInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 150, 250)));
+        jPanelInfo.setMaximumSize(new java.awt.Dimension(400, 200));
+        jPanelInfo.setMinimumSize(new java.awt.Dimension(400, 200));
+        jPanelInfo.setPreferredSize(new java.awt.Dimension(400, 200));
 
         jButtonCerrarSesion.setBackground(new java.awt.Color(50, 150, 250));
         jButtonCerrarSesion.setFont(new java.awt.Font("Rubik", 1, 18)); // NOI18N
@@ -67,69 +70,34 @@ public class DialogEditarIncidencia extends javax.swing.JDialog implements Proto
         jLabelCambiarEstado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelCambiarEstado.setText("CAMBIAR ESTADO");
 
-        jLabelTitulo.setFont(new java.awt.Font("Rubik", 1, 36)); // NOI18N
-        jLabelTitulo.setForeground(new java.awt.Color(102, 102, 102));
-        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitulo.setText("Estado");
-        jLabelTitulo.setMaximumSize(new java.awt.Dimension(223, 83));
-        jLabelTitulo.setMinimumSize(new java.awt.Dimension(223, 83));
-        jLabelTitulo.setPreferredSize(new java.awt.Dimension(223, 83));
+        panelHerramientaVentanaDialog = new vista.PanelHerramientaVentanaDialog(this,"EDITAR INCIDENCIA");
 
-        jPanelSeparador.setBackground(new java.awt.Color(0, 0, 0));
-        jPanelSeparador.setMaximumSize(new java.awt.Dimension(358, 1));
-        jPanelSeparador.setMinimumSize(new java.awt.Dimension(358, 1));
-
-        javax.swing.GroupLayout jPanelSeparadorLayout = new javax.swing.GroupLayout(jPanelSeparador);
-        jPanelSeparador.setLayout(jPanelSeparadorLayout);
-        jPanelSeparadorLayout.setHorizontalGroup(
-            jPanelSeparadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-        jPanelSeparadorLayout.setVerticalGroup(
-            jPanelSeparadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1, Short.MAX_VALUE)
-        );
+        
 
         javax.swing.GroupLayout jPanelInfoLayout = new javax.swing.GroupLayout(jPanelInfo);
         jPanelInfo.setLayout(jPanelInfoLayout);
         jPanelInfoLayout.setHorizontalGroup(
             jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInfoLayout.createSequentialGroup()
+            .addComponent(panelHerramientaVentanaDialog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelCambiarEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInfoLayout.createSequentialGroup()
-                        .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBoxEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
-                        .addContainerGap())))
-            .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-            .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelInfoLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanelSeparador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                    .addComponent(jComboBoxEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanelInfoLayout.setVerticalGroup(
             jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInfoLayout.createSequentialGroup()
-                .addContainerGap(119, Short.MAX_VALUE)
+                .addComponent(panelHerramientaVentanaDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabelCambiarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelInfoLayout.createSequentialGroup()
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 227, Short.MAX_VALUE)))
-            .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelInfoLayout.createSequentialGroup()
-                    .addGap(80, 80, 80)
-                    .addComponent(jPanelSeparador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(229, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -140,9 +108,7 @@ public class DialogEditarIncidencia extends javax.swing.JDialog implements Proto
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -219,8 +185,7 @@ public class DialogEditarIncidencia extends javax.swing.JDialog implements Proto
     private javax.swing.JButton jButtonCerrarSesion;
     private javax.swing.JComboBox<String> jComboBoxEstado;
     private javax.swing.JLabel jLabelCambiarEstado;
-    private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanelInfo;
-    private javax.swing.JPanel jPanelSeparador;
+    private vista.PanelHerramientaVentanaDialog panelHerramientaVentanaDialog;
     // End of variables declaration//GEN-END:variables
 }

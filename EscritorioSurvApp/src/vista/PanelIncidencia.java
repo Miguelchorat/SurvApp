@@ -109,7 +109,6 @@ public class PanelIncidencia extends javax.swing.JPanel implements Protocolo{
         jScrollPaneIncidencia.setBackground(new java.awt.Color(250, 250, 250));
         jScrollPaneIncidencia.setBorder(null);
         jScrollPaneIncidencia.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneIncidencia.setToolTipText("");
         jScrollPaneIncidencia.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPaneIncidencia.setMaximumSize(new java.awt.Dimension(730, 504));
         jScrollPaneIncidencia.setMinimumSize(new java.awt.Dimension(730, 504));
@@ -249,7 +248,7 @@ public class PanelIncidencia extends javax.swing.JPanel implements Protocolo{
             ModeloIncidencia incidencia = new ModeloIncidencia(panelGeneral,listaIncidencias.get(i));
             incidencia.getjLabelTitulo().setText(listaIncidencias.get(i).getTitulo());
             incidencia.getjLabelEstado().setText(listaIncidencias.get(i).getEstado().name());
-            incidencia.getjLabelDescripcion().setText(listaIncidencias.get(i).getDescripcion());
+            incidencia.getjLabelDescripcion().setText("<html>"+listaIncidencias.get(i).getDescripcion()+"</html>");
             incidencia.getjLabelId().setText("ID: "+listaIncidencias.get(i).getId()+"");
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             incidencia.getjLabelFecha().setText(df.format(listaIncidencias.get(i).getFecha()));

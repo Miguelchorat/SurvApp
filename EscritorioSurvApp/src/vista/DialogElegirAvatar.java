@@ -23,12 +23,14 @@ public class DialogElegirAvatar extends javax.swing.JDialog {
         jPanelEleccionAvatar = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
         panelEleccionAvatar = new vista.PanelEleccionAvatar();
+        panelHerramientaVentanaDialog = new vista.PanelHerramientaVentanaDialog();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(400, 300));
         setMinimumSize(new java.awt.Dimension(400, 300));
+        setUndecorated(true);
 
         jPanelEleccionAvatar.setBackground(new java.awt.Color(250, 250, 250));
+        jPanelEleccionAvatar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 150, 250)));
         jPanelEleccionAvatar.setMaximumSize(new java.awt.Dimension(400, 300));
         jPanelEleccionAvatar.setMinimumSize(new java.awt.Dimension(400, 300));
 
@@ -44,24 +46,32 @@ public class DialogElegirAvatar extends javax.swing.JDialog {
 
         panelEleccionAvatar = new vista.PanelEleccionAvatar(vp.getPanelInicial().getPanelGeneral(),this);
 
+        panelHerramientaVentanaDialog = new vista.PanelHerramientaVentanaDialog(this,"CAMBIAR AVATAR");
+        panelHerramientaVentanaDialog.setMaximumSize(new java.awt.Dimension(350, 25));
+        panelHerramientaVentanaDialog.setMinimumSize(new java.awt.Dimension(350, 25));
+        panelHerramientaVentanaDialog.setPreferredSize(new java.awt.Dimension(350, 25));
+
+        
         javax.swing.GroupLayout jPanelEleccionAvatarLayout = new javax.swing.GroupLayout(jPanelEleccionAvatar);
         jPanelEleccionAvatar.setLayout(jPanelEleccionAvatarLayout);
         jPanelEleccionAvatarLayout.setHorizontalGroup(
             jPanelEleccionAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelHerramientaVentanaDialog, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
             .addGroup(jPanelEleccionAvatarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelEleccionAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                    .addComponent(panelEleccionAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelEleccionAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelEleccionAvatarLayout.setVerticalGroup(
             jPanelEleccionAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelEleccionAvatarLayout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(panelHerramientaVentanaDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelEleccionAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                .addComponent(panelEleccionAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -123,5 +133,6 @@ public class DialogElegirAvatar extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanelEleccionAvatar;
     private vista.PanelEleccionAvatar panelEleccionAvatar;
+    private vista.PanelHerramientaVentanaDialog panelHerramientaVentanaDialog;
     // End of variables declaration//GEN-END:variables
 }
