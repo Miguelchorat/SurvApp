@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Busqueda;
+import modelo.Comentario;
 import modelo.Denuncia;
 import modelo.EstadoAdmin;
 import modelo.Idea;
@@ -111,7 +112,15 @@ public class HiloPrincipal extends Thread implements Protocolo{
                 case CONTAR_RESPUESTAS:
                     contarRespuestas();
                     break;
-                
+                case MODIFICAR_IDEA:
+                    modificarIdea();
+                    break;
+                case LISTAR_COMENTARIOS:
+                    listarComentario();
+                    break;
+                case ELIMINAR_COMENTARIO:
+                    eliminarComentario();
+                    break;
             }
         } catch (IOException ex) {
             System.out.println("Error en la E/S del hilo");
@@ -394,17 +403,45 @@ public class HiloPrincipal extends Thread implements Protocolo{
     
     public void contarRespuestas(){
         try {
-            System.out.println("1");
             List<Integer> cuenta = new ArrayList<>();
-            System.out.println("2");
             TypeToken<List<Respuesta>> token = new TypeToken<List<Respuesta>>() {};
-            System.out.println("3");
             List<Respuesta> respuestas = gson.fromJson((String) entrada.readUTF(), token.getType());
-            System.out.println("4");
             cuenta = controlador.getIdea().contarRespuestas(respuestas);
-            System.out.println("5");
             salida.writeUTF(gson.toJson(cuenta));    
-            System.out.println("6");
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void modificarIdea(){
+        try {
+            Idea idea = gson.fromJson((String)entrada.readUTF(), Idea.class);            
+            controlador.getIdea().modificarIdea(idea);
+            mensajeCliente = MODIFICAR_IDEA_EXITOSA;
+            salida.writeInt(mensajeCliente);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void listarComentario(){
+        try {
+            Busqueda busqueda = gson.fromJson((String)entrada.readUTF(), Busqueda.class);
+            List<Comentario> listaComentario;
+            listaComentario = controlador.getComentario().listarComentario(busqueda.getNumero(),Integer.parseInt(busqueda.getFiltro()));
+            salida.writeUTF(gson.toJson(listaComentario));            
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void eliminarComentario(){
+        try {
+            int id = entrada.readInt();
+            boolean resultado = controlador.getComentario().eliminarComentario(id);            
+            if(resultado)
+                mensajeCliente=ELIMINAR_COMENTARIO_EXITOSO;
+            salida.writeInt(mensajeCliente);
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }

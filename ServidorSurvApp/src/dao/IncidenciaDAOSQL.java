@@ -29,7 +29,9 @@ public class IncidenciaDAOSQL implements IncidenciaDAO{
         PreparedStatement sentencia = null;
         ResultSet result = null;
         List<Incidencia> listaIncidencias = new ArrayList<Incidencia>();
-        
+        if(filtro.equals("")){
+            filtro = " ";
+        }
         try {
             conexion = confBD.iniciarConexion();
             sentencia = this.conexion.prepareStatement(

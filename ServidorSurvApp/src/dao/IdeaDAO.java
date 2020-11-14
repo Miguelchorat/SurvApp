@@ -14,4 +14,5 @@ public interface IdeaDAO {
     public Idea informacionIdea(int id);
     public boolean eliminarIdea(int id);
     public List<Integer> contarRespuestas(List<Respuesta> respuestas);
+    public boolean modificarIdea(Idea idea);
 }

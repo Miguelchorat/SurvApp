@@ -404,7 +404,6 @@ public class UsuarioDAOSQL implements UsuarioDAO {
         PreparedStatement sentencia = null;
         ResultSet result = null;
         List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-        
         try {
 
             conexion = confBD.iniciarConexion();

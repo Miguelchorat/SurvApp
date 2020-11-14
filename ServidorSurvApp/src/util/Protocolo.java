@@ -51,4 +51,9 @@ public interface Protocolo {
     public static final int ELIMINAR_IDEA_EXITOSA = 42;
     public static final int BUSCAR_INFORMACION_IDEA = 43;
     public static final int CONTAR_RESPUESTAS = 44;
+    public static final int MODIFICAR_IDEA = 45;
+    public static final int MODIFICAR_IDEA_EXITOSA = 46;
+    public static final int LISTAR_COMENTARIOS = 47;
+    public static final int ELIMINAR_COMENTARIO = 48;
+    public static final int ELIMINAR_COMENTARIO_EXITOSO = 49;
 }

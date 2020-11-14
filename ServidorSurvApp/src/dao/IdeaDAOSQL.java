@@ -33,7 +33,9 @@ public class IdeaDAOSQL implements IdeaDAO{
         ResultSet result = null;
         ResultSet result2 = null;
         List<Idea> listaIdeas = new ArrayList<Idea>();
-        
+        if(filtro.equals("")){
+            filtro = " ";
+        }
         try {
             conexion = confBD.iniciarConexion();
             sentencia = this.conexion.prepareStatement(
@@ -247,6 +249,71 @@ public class IdeaDAOSQL implements IdeaDAO{
             }
         }
         return cuenta;
+    }
+
+    @Override
+    public boolean modificarIdea(Idea idea) {
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+        boolean modificar = false;
+
+        try {
+            conexion = confBD.iniciarConexion();            
+            this.conexion.setAutoCommit(false);
+            sentencia = this.conexion.prepareStatement(
+                    "UPDATE idea SET titulo = ? , descripcion = ? , id_tema = ? "
+                    + "WHERE id = ? ");
+
+            sentencia.setString(1, idea.getTitulo());
+            sentencia.setString(2, idea.getDescripcion());
+            sentencia.setInt(3, idea.getTema().getId());
+            sentencia.setInt(4, idea.getId());
+            
+            int filasAfectadas = sentencia.executeUpdate();
+
+            if (filasAfectadas == 0) {
+                throw new SQLException("No se encontro ninguna idea con ese id");
+            }
+            
+            for(int i=0;i<idea.getRespuestas().size();i++){
+                sentencia = this.conexion.prepareStatement(
+                    "UPDATE respuesta SET descripcion = ? "
+                    + "WHERE id = ? ");
+                
+                sentencia.setString(1, idea.getRespuestas().get(i).getDescripcion());
+                sentencia.setInt(2, idea.getRespuestas().get(i).getId());
+                filasAfectadas = sentencia.executeUpdate();
+
+                if (filasAfectadas == 0) {
+                    throw new SQLException("No se encontro ninguna respuesta con ese id");
+                }
+            }
+            this.conexion.commit();
+            modificar = true;
+        } catch (SQLException e) {
+            try {
+                this.conexion.rollback();
+                e.printStackTrace();
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
+        } finally {
+            try {
+                if (sentencia != null) {
+                    sentencia.close();
+                }
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return modificar;
     }
     
     

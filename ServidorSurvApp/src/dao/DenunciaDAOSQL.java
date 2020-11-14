@@ -31,7 +31,9 @@ public class DenunciaDAOSQL implements DenunciaDAO{
         PreparedStatement sentencia = null;
         ResultSet result = null;
         List<Denuncia> listaDenuncias = new ArrayList<Denuncia>();
-        
+        if(filtro.equals("")){
+            filtro = " ";
+        }
         try {
             conexion = confBD.iniciarConexion();
             sentencia = this.conexion.prepareStatement(
