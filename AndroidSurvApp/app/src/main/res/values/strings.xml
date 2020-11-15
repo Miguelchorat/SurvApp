@@ -24,4 +24,12 @@
     <string name="accountName_register">Nombre de cuenta ya registrado</string>
     <string name="register_error">Hubo un error inesperado en el registro</string>
     <string name="succesful_regis">Registro exitoso</string>
+    <string name="social">Social</string>
+    <string name="profile">Perfil</string>
+    <string name="home">Inicio</string>
+    <string name="empty_idea">No tienes ninguna idea ¡Añade una Ahora!</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
