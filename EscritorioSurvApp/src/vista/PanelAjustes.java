@@ -252,9 +252,9 @@ public class PanelAjustes extends javax.swing.JPanel implements Protocolo{
                 panelGeneral.getVp().getSalida().writeInt(MODIFICAR_USUARIO);
                 panelGeneral.getVp().getUsuario().setNombre(jTextFieldNombreUsuario.getText());
                 panelGeneral.getVp().getUsuario().setCorreo(jTextFieldCorreo.getText());
-                //usuario.setAvatar(jComboBoxAvatar.getSelectedIndex());
                 String pass = panelGeneral.getVp().encriptarMensaje(String.copyValueOf(jPasswordField.getPassword()));
                 panelGeneral.getVp().getUsuario().setPass(pass);
+                panelGeneral.getVp().getUsuario().setAvatar(avatar);
                 panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(panelGeneral.getVp().getUsuario()));
                 panelGeneral.getVp().getEntrada().readInt();
                 this.setVisible(false);
@@ -269,8 +269,10 @@ public class PanelAjustes extends javax.swing.JPanel implements Protocolo{
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionActionPerformed
-        int resultado = JOptionPane.showConfirmDialog(panelGeneral.getVp(),"¿Deseas cerrar sesión?","Cerrar sesión.",JOptionPane.YES_NO_OPTION);
-        if(resultado==0){
+        DialogEliminar eliminar = new DialogEliminar(panelGeneral.getVp(),true,"¿Deseas cerrar sesión?","CERRAR SESIÓN");
+        eliminar.setVisible(true);
+        int result = eliminar.getResultado();
+        if(result==1){
             try {            
                 panelGeneral.setVisible(false);
                 panelGeneral.getVp().getPanelInicial().panelesSeparador(true);

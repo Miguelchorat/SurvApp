@@ -37,7 +37,6 @@ public class DialogInfoIncidencia extends javax.swing.JDialog {
         setMaximumSize(new java.awt.Dimension(400, 200));
         setMinimumSize(new java.awt.Dimension(400, 200));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(400, 200));
         setResizable(false);
 
         jPanelInfo.setBackground(new java.awt.Color(250, 250, 250));
@@ -139,11 +138,11 @@ public class DialogInfoIncidencia extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
 
     public void llenarInfo(){
-        jLabelAutor.setText(incidencia.getNombreUsuario());
+        jLabelAutor.setText(incidencia.getNombreUsuario().getNombre());
         if(incidencia.getNombreAdministrador()==null)
             jLabelAdmin.setText("----");
         else
-            jLabelAdmin.setText(incidencia.getNombreAdministrador());
+            jLabelAdmin.setText(incidencia.getNombreAdministrador().getNombre());
     }
     
     
