@@ -14,6 +14,7 @@ public interface UsuarioDAO {
     public boolean comprobarCorreoUsuario(String correo);
     public boolean comprobarNombreUsuario(String nombre);
     public Usuario comprobarUsuario(Sesion sesion);
+    public Usuario encontrarUsuario(Usuario usuario);
     public boolean abrirSesion(Usuario usuario);
     public boolean cerrarSesion(Usuario usuario);
     public boolean comprobarSesion(Usuario usuario);
@@ -23,4 +24,7 @@ public interface UsuarioDAO {
     public boolean cambiarNombre(String nombre,String correo);
     public List<Usuario> listarUsuarios(int numero,String filtro);
     public boolean modificarUsuario(Usuario usuario);
+    public boolean añadirSeguidor(Usuario usuario,Usuario seguidor);
+    public boolean eliminarSeguidor(Usuario usuario,Usuario seguidor);
+    public List<Usuario> listarSeguidos(Usuario usuario);
 }

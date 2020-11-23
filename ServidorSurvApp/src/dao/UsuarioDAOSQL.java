@@ -606,19 +606,22 @@ public class UsuarioDAOSQL implements UsuarioDAO {
         try {
             conexion = confBD.iniciarConexion();            
             this.conexion.setAutoCommit(false);
+            
             sentencia = this.conexion.prepareStatement(
-                    "UPDATE usuario SET correo = ? , nombre = ? , imagen = ? , administrar = ? "
-                    + "WHERE correo = ? ");
-
+                    "UPDATE usuario SET correo = ? , nombre = ? , imagen = ? , administrar = ? , password = ?"
+                    + "WHERE id = ? ");
+                       
             sentencia.setString(1, usuario.getCorreo());
             sentencia.setString(2, usuario.getNombre());
             sentencia.setInt(3, usuario.getAvatar());
-            sentencia.setInt(4, usuario.isAdministrar());
-            sentencia.setString(5, usuario.getCorreo());
+            sentencia.setInt(4, usuario.isAdministrar());            
+            sentencia.setString(5, usuario.getPass());
+            sentencia.setInt(6, usuario.getId());
+            
             int filasAfectadas = sentencia.executeUpdate();
 
             if (filasAfectadas == 0) {
-                throw new SQLException("No se encontro ningun usuario con ese correo");
+                throw new SQLException("No se encontro ningun usuario con ese id");
             }
             this.conexion.commit();
             modificar = true;
@@ -646,5 +649,197 @@ public class UsuarioDAOSQL implements UsuarioDAO {
             }
         }
         return modificar;
+    }
+
+    @Override
+    public boolean añadirSeguidor(Usuario usuario, Usuario seguidor) {
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        boolean alta = true;        
+        try {
+            conexion = confBD.iniciarConexion();
+            
+            statement = this.conexion.prepareStatement(
+                    "SELECT id_usuario_1 "
+                    + "FROM lista_amigos "
+                    + "WHERE id_usuario_1=? AND id_usuario_2=? ");
+            
+            statement.setInt(1, usuario.getId());
+            statement.setInt(2, seguidor.getId());
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                alta = false;
+            }
+            if(usuario.getNombre().equals(seguidor.getNombre())){
+                alta = false;
+            }
+            if(alta){
+                statement = conexion.prepareStatement(
+                    "INSERT INTO lista_amigos (id_usuario_1,id_usuario_2) "
+                    + "VALUES (?, ?)");
+
+                statement.setInt(1, usuario.getId());
+                statement.setInt(2, seguidor.getId());
+
+                int filas = statement.executeUpdate();
+
+                if (filas == 0) {
+                    throw new SQLException("Algun dato erroneo");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            alta = false;
+        } finally {
+            try {
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return alta;
+    }
+
+    @Override
+    public List<Usuario> listarSeguidos(Usuario usuario) {
+        PreparedStatement sentencia = null;
+        ResultSet result = null;
+        List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+        try {
+            conexion = confBD.iniciarConexion();
+            sentencia = this.conexion.prepareStatement(
+                    "SELECT l.id_usuario_2,u2.nombre,u2.imagen "
+                            + "FROM lista_amigos l,usuario u1,usuario u2 "
+                            + "WHERE l.id_usuario_1=u1.id AND l.id_usuario_2=u2.id "
+                            + "AND u1.id=? "
+                            + "ORDER BY nombre ASC");
+
+            sentencia.setInt(1,usuario.getId());
+            
+            result = sentencia.executeQuery();
+
+            while (result.next()) {                               
+                
+                Usuario user = new Usuario(result.getInt(1),result.getInt(3),
+                        result.getString(2),
+                        null,
+                        null,
+                        0,
+                        null);
+
+                listaUsuarios.add(user);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (sentencia != null) {
+                    sentencia.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return listaUsuarios;
+    }
+
+    @Override
+    public Usuario encontrarUsuario(Usuario usuario) {
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        Usuario user = null;
+
+        try {
+            conexion = confBD.iniciarConexion();
+            statement = this.conexion.prepareStatement(
+                    "SELECT id "
+                    + "FROM usuario "
+                    + "WHERE nombre=? "
+                    + " ");
+            statement.setString(1, usuario.getNombre());
+            result = statement.executeQuery();
+            
+            while (result.next()) {
+                user = new Usuario(result.getInt(1),usuario.getNombre());
+            } 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+                if (result != null) {
+                    result.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }  
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return user;
+    }
+
+    @Override
+    public boolean eliminarSeguidor(Usuario usuario, Usuario seguidor) {
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        boolean baja = true;        
+        try {
+            conexion = confBD.iniciarConexion();
+
+            statement = conexion.prepareStatement(
+                "DELETE FROM `lista_amigos` WHERE id_usuario_1=? AND id_usuario_2=? ");               
+
+            statement.setInt(1, usuario.getId());
+            statement.setInt(2, seguidor.getId());
+
+            int filas = statement.executeUpdate();
+
+            if (filas == 0) {
+                throw new SQLException("Algun dato erroneo");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            baja = false;
+        } finally {
+            try {
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return baja;
     }
 }

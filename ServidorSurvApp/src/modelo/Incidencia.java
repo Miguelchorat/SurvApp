@@ -11,8 +11,8 @@ import util.EstadoIncidencia;
 public class Incidencia implements Serializable{
     
     private int id;
-    private String nombreUsuario;
-    private String nombreAdministrador;
+    private Usuario nombreUsuario;
+    private Usuario nombreAdministrador;
     private String titulo;
     private String descripcion;
     private Date fecha;
@@ -21,7 +21,7 @@ public class Incidencia implements Serializable{
     public Incidencia() {
     }
 
-    public Incidencia(int id, String nombreUsuario, String nombreAdministrador, String titulo, String descripcion, Date fecha, EstadoIncidencia estado) {
+    public Incidencia(int id, Usuario nombreUsuario, Usuario nombreAdministrador, String titulo, String descripcion, Date fecha, EstadoIncidencia estado) {
         this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.nombreAdministrador = nombreAdministrador;
@@ -39,19 +39,19 @@ public class Incidencia implements Serializable{
         this.id = id;
     }
 
-    public String getNombreUsuario() {
+    public Usuario getNombreUsuario() {
         return nombreUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
+    public void setNombreUsuario(Usuario nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
 
-    public String getNombreAdministrador() {
+    public Usuario getNombreAdministrador() {
         return nombreAdministrador;
     }
 
-    public void setNombreAdministrador(String nombreAdministrador) {
+    public void setNombreAdministrador(Usuario nombreAdministrador) {
         this.nombreAdministrador = nombreAdministrador;
     }
 

@@ -43,6 +43,7 @@ public class HiloPrincipal extends Thread implements Protocolo{
             this.mensajeCliente= SIN_SESION;
             this.controlador = new Controlador();
             this.gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
+            System.out.println("creo1");
         } catch (IOException ex) {
             System.out.println("Problema en la entrada/salida del hilo principal del servidor");
         }     
@@ -120,6 +121,18 @@ public class HiloPrincipal extends Thread implements Protocolo{
                     break;
                 case ELIMINAR_COMENTARIO:
                     eliminarComentario();
+                    break;
+                case ALTA_INCIDENCIA:
+                    altaIncidencia();
+                    break;
+                case AÑADIR_SEGUIDOR:
+                    añadirSeguidor();
+                    break;
+                case LISTAR_SEGUIDOS:
+                    listarSeguidos();
+                    break;
+                case ELIMINAR_SEGUIDOR:
+                    eliminarSeguidor();
                     break;
             }
         } catch (IOException ex) {
@@ -446,4 +459,64 @@ public class HiloPrincipal extends Thread implements Protocolo{
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    private void altaIncidencia() {
+        try {
+            Incidencia incidencia = gson.fromJson((String)entrada.readUTF(), Incidencia.class);
+            controlador.getIncidencia().altaIncidencia(incidencia);            
+        } catch (IOException ex) {
+           ex.printStackTrace(); 
+        }
+    }
+
+    private void añadirSeguidor() {
+        try {
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            Usuario seguidor = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            seguidor = controlador.getUsuario().encontrarUsuario(seguidor);
+            
+            if(seguidor != null){
+                if(controlador.getUsuario().añadirSeguidor(user,seguidor))
+                    mensajeCliente = AÑADIR_SEGUIDOR;
+                else
+                    mensajeCliente = AÑADIR_SEGUIDOR_FALLIDO;
+            }
+            else{
+                mensajeCliente = AÑADIR_SEGUIDOR_NO_EXISTE;
+            }
+            salida.writeInt(mensajeCliente);
+        } catch (IOException ex) {
+           ex.printStackTrace(); 
+        }
+    }
+    
+    private void eliminarSeguidor() {
+        try {
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            Usuario seguidor = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            seguidor = controlador.getUsuario().encontrarUsuario(seguidor);
+           
+            if(controlador.getUsuario().eliminarSeguidor(user,seguidor))
+                mensajeCliente = ELIMINAR_SEGUIDOR;
+            else
+                mensajeCliente = ELIMINAR_SEGUIDOR_FALLIDO;
+            
+            salida.writeInt(mensajeCliente);
+        } catch (IOException ex) {
+           ex.printStackTrace(); 
+        }
+    }
+    
+    private void listarSeguidos() {
+        try {
+            Usuario usuario = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            List<Usuario> listaUsuarios;
+            listaUsuarios = controlador.getUsuario().listarSeguidos(usuario);
+            salida.writeUTF(gson.toJson(listaUsuarios));            
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
 }

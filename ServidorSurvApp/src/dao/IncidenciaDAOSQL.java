@@ -7,8 +7,10 @@ import util.ConfiguracionBD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import modelo.Usuario;
 import util.EstadoIncidencia;
 /**
  *
@@ -56,8 +58,8 @@ public class IncidenciaDAOSQL implements IncidenciaDAO{
                 Date fecha;
                 fecha = result.getDate(6);
              
-                Incidencia incidencia = new Incidencia(result.getInt(1),result.getString(2),
-                        result.getString(3),
+                Incidencia incidencia = new Incidencia(result.getInt(1),new Usuario(result.getString(2)),
+                        new Usuario(result.getString(3)),
                         result.getString(4),
                         result.getString(5),
                         fecha,
@@ -188,6 +190,53 @@ public class IncidenciaDAOSQL implements IncidenciaDAO{
             }
         }
         return actualizar;
+    }
+
+    @Override
+    public boolean altaIncidencia(Incidencia incidencia) {
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        boolean alta = false;
+
+        try {
+            conexion = confBD.iniciarConexion();
+            statement = conexion.prepareStatement(
+                    "INSERT INTO incidencia (titulo,descripcion,fecha,estado,id_usuario,id_administrador) "
+                    + "VALUES (?, ?, ?,'ESPERANDO', ?,null)");
+
+            statement.setString(1, incidencia.getTitulo());
+            statement.setString(2, incidencia.getDescripcion());
+            statement.setDate(3, java.sql.Date.valueOf(incidencia.getFecha().toInstant()
+      .atZone(ZoneId.systemDefault())
+      .toLocalDate()));
+            statement.setInt(4, incidencia.getNombreUsuario().getId());
+
+            int filas = statement.executeUpdate();
+
+            if (filas == 0) {
+                throw new SQLException("Algun dato es erroneo");
+            }
+            alta = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            alta = false;
+        } finally {
+            try {
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return alta;
     }
     
     
