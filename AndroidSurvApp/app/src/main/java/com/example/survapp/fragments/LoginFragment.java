@@ -56,7 +56,10 @@ public class LoginFragment extends Fragment {
                             if(iniciarSesion == false){
                                 info.setText(R.string.error_login);
                             }else {
+                                intentMain.putExtra("usuario",login.getUsuario());
                                 startActivity(intentMain);
+                                correo.setText("");
+                                password.setText("");
                             }
                         }
                         else{

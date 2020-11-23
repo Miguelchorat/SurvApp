@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_social" />
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.example.survapp.fragments.PerfilFragment"
-        android:label="@string/profile"
-        tools:layout="@layout/fragment_perfil" />
+        android:id="@+id/navigation_idea"
+        android:name="com.example.survapp.fragments.IdeaFragment"
+        android:label="@string/idea"
+        tools:layout="@layout/fragment_idea" />
 </navigation>

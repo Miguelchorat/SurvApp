@@ -29,7 +29,7 @@ public class RecuperarFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recover, container, false);
-        atras = view.findViewById(R.id.img_recover_back);
+        atras = view.findViewById(R.id.back_recover_account);
         correo = view.findViewById(R.id.et_recover_email);
         nombreCuenta = view.findViewById(R.id.et_recover_account_name);
         enviar = view.findViewById(R.id.b_recover);

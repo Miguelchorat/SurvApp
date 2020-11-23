@@ -32,7 +32,7 @@ public class RegistrarFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
-        atras = view.findViewById(R.id.img_register_back);
+        atras = view.findViewById(R.id.back_register);
         nombreCuenta = view.findViewById(R.id.et_register_account_name);
         password = view.findViewById(R.id.et_register_password);
         passwordConfirmar = view.findViewById(R.id.et_register_password2);

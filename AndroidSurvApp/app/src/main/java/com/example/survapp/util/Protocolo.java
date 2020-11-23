@@ -43,4 +43,20 @@ public class Protocolo {
     public static final int ELIMINAR_DENUNCIA_EXITOSA = 38;
     public static final int CAMBIAR_ESTADO_DENUNCIA = 39;
     public static final int CAMBIAR_ESTADO_DENUNCIA_EXITOSA = 40;
+    public static final int ELIMINAR_IDEA = 41;
+    public static final int ELIMINAR_IDEA_EXITOSA = 42;
+    public static final int BUSCAR_INFORMACION_IDEA = 43;
+    public static final int CONTAR_RESPUESTAS = 44;
+    public static final int MODIFICAR_IDEA = 45;
+    public static final int MODIFICAR_IDEA_EXITOSA = 46;
+    public static final int LISTAR_COMENTARIOS = 47;
+    public static final int ELIMINAR_COMENTARIO = 48;
+    public static final int ELIMINAR_COMENTARIO_EXITOSO = 49;
+    public static final int ALTA_INCIDENCIA = 50;
+    public static final int AÑADIR_SEGUIDOR = 51;
+    public static final int AÑADIR_SEGUIDOR_NO_EXISTE = 52;
+    public static final int AÑADIR_SEGUIDOR_FALLIDO = 53;
+    public static final int LISTAR_SEGUIDOS = 54;
+    public static final int ELIMINAR_SEGUIDOR = 55;
+    public static final int ELIMINAR_SEGUIDOR_FALLIDO = 56;
 }

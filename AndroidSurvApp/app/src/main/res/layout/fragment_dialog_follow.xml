@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.DialogFollowFragment">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:scaleType="center"
+            android:text="@string/add_follow"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary" />
+        <EditText
+            android:id="@+id/follow_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:hint="@string/account_name" />
+        <TextView
+            android:id="@+id/info_follow"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textColor="@color/red"
+            android:gravity="center|left"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</FrameLayout>
