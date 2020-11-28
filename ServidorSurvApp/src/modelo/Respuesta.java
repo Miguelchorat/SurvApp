@@ -1,10 +1,12 @@
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author chorat
  */
-public class Respuesta {
+public class Respuesta implements Serializable{
     
     private int id;
     private String descripcion;

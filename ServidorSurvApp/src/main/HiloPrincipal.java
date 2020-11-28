@@ -134,6 +134,12 @@ public class HiloPrincipal extends Thread implements Protocolo{
                 case ELIMINAR_SEGUIDOR:
                     eliminarSeguidor();
                     break;
+                case ALTA_IDEA:
+                    altaIdea();
+                    break;
+                case LISTAR_IDEAS_USUARIO:
+                    listarIdeasUsuario();
+                    break;
             }
         } catch (IOException ex) {
             System.out.println("Error en la E/S del hilo");
@@ -417,9 +423,8 @@ public class HiloPrincipal extends Thread implements Protocolo{
     public void contarRespuestas(){
         try {
             List<Integer> cuenta = new ArrayList<>();
-            TypeToken<List<Respuesta>> token = new TypeToken<List<Respuesta>>() {};
-            List<Respuesta> respuestas = gson.fromJson((String) entrada.readUTF(), token.getType());
-            cuenta = controlador.getIdea().contarRespuestas(respuestas);
+            Idea idea = gson.fromJson((String)entrada.readUTF(), Idea.class);
+            cuenta = controlador.getIdea().contarRespuestas(idea.getRespuestas());
             salida.writeUTF(gson.toJson(cuenta));    
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -513,6 +518,26 @@ public class HiloPrincipal extends Thread implements Protocolo{
             List<Usuario> listaUsuarios;
             listaUsuarios = controlador.getUsuario().listarSeguidos(usuario);
             salida.writeUTF(gson.toJson(listaUsuarios));            
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void altaIdea() {
+        try {
+            Idea idea = gson.fromJson((String)entrada.readUTF(), Idea.class);
+            controlador.getIdea().altaIdea(idea);            
+        } catch (IOException ex) {
+           ex.printStackTrace(); 
+        }
+    }
+
+    private void listarIdeasUsuario() {
+        try {
+            Usuario usuario = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            List<Idea> listaIdeas;
+            listaIdeas = controlador.getIdea().listarIdeaUsuario(usuario);
+            salida.writeUTF(gson.toJson(listaIdeas));            
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }

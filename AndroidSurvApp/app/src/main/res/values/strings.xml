@@ -49,4 +49,17 @@
     <string name="cancel">Cancelar</string>
     <string name="see_idea">Ver ideas</string>
     <string name="remove_follow">Dejar de seguir</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_idea">Nueva idea</string>
+    <string name="title">Titulo</string>
+    <string name="description">Descripción</string>
+    <string name="theme">Tema</string>
+    <string name="answer_1">Primera respuesta</string>
+    <string name="answer_2">Segunda respuesta</string>
+    <string name="answer_3">Tercera respuesta</string>
+    <string name="answer_4">Cuarta respuesta</string>
+    <string name="Empty_answer_idea">Ya no te quedan ideas que responder de otros usuarios</string>
+    <string name="stat_idea">Estadísticas idea</string>
+    <string name="remove_idea">Eliminar idea</string>
 </resources>

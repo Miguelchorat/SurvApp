@@ -1,15 +1,12 @@
-package modelo;
+package com.example.survapp.models;
+
+import com.example.survapp.util.EstadoIncidencia;
 
 import java.io.Serializable;
 import java.util.Date;
-import util.EstadoIncidencia;
 
-/**
- *
- * @author chorat
- */
-public class Denuncia implements Serializable{
-    
+public class Denuncia implements Serializable {
+
     private int id;
     private String titulo;
     private String descripcion;
@@ -18,7 +15,7 @@ public class Denuncia implements Serializable{
     private Usuario usuario;
     private Idea idea;
     private Usuario administrador;
-    
+
     public Denuncia(){}
 
     public Denuncia(int id, String titulo, String descripcion, EstadoIncidencia estado, Date fecha_creacion, Usuario usuario, Idea idea, Usuario administrador) {
@@ -47,7 +44,7 @@ public class Denuncia implements Serializable{
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -96,3 +93,4 @@ public class Denuncia implements Serializable{
         this.administrador = administrador;
     }
 }
+

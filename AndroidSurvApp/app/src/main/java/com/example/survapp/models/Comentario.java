@@ -1,14 +1,10 @@
-package modelo;
+package com.example.survapp.models;
 
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- *
- * @author chorat
- */
-public class Comentario implements Serializable{
-    
+public class Comentario implements Serializable {
+
     private int id;
     private String descripcion;
     private Date fecha_creacion;
@@ -55,6 +51,6 @@ public class Comentario implements Serializable{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    
+
+
 }

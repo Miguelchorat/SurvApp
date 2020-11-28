@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  *
  * @author chorat
  */
-public class Idea {
+public class Idea implements Serializable{
     
     private int id;
     private String titulo;

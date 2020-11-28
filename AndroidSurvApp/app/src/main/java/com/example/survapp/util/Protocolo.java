@@ -59,4 +59,7 @@ public class Protocolo {
     public static final int LISTAR_SEGUIDOS = 54;
     public static final int ELIMINAR_SEGUIDOR = 55;
     public static final int ELIMINAR_SEGUIDOR_FALLIDO = 56;
+    public static final int ALTA_IDEA = 57;
+    public static final int ALTA_DENUNCIA = 58;
+    public static final int LISTAR_IDEAS_USUARIO = 59;
 }

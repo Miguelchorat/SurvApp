@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 import util.EstadoIncidencia;
 
@@ -7,7 +8,7 @@ import util.EstadoIncidencia;
  *
  * @author chorat
  */
-public class Denuncia {
+public class Denuncia implements Serializable{
     
     private int id;
     private String titulo;

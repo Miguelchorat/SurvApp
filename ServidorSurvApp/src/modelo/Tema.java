@@ -1,10 +1,12 @@
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author chorat
  */
-public class Tema {
+public class Tema implements Serializable{
     
     private int id;
     private String nombre;

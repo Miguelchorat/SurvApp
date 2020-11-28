@@ -1,25 +1,21 @@
-package modelo;
+package com.example.survapp.models;
 
 import java.io.Serializable;
 
-/**
- *
- * @author chorat
- */
-public class Tema implements Serializable{
-    
+public class Tema implements Serializable {
+
     private int id;
     private String nombre;
     private String descripcion;
 
     public Tema() {
-    }    
-    
+    }
+
     public Tema(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
-    
+
     public Tema(int id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
@@ -49,6 +45,6 @@ public class Tema implements Serializable{
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    
+
+
 }

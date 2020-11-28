@@ -99,7 +99,7 @@ public class SocialFragment extends Fragment {
         popup.setOnMenuItemClickListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.see_idea_follow:
-                    //modifyProfile();
+
                     return true;
                 case R.id.remove_follow:
                     eliminarSeguidor(usuario);

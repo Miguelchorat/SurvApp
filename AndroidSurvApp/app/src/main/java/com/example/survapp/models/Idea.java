@@ -1,15 +1,11 @@
-package modelo;
+package com.example.survapp.models;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author chorat
- */
-public class Idea implements Serializable{
-    
+public class Idea implements Serializable {
+
     private int id;
     private String titulo;
     private String descripcion;
@@ -21,18 +17,18 @@ public class Idea implements Serializable{
 
     public Idea() {
     }
-    
+
     public Idea(int id) {
         this.id = id;
     }
-    
+
     public Idea(int id, String titulo, String descripcion, Tema tema) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.tema = tema;
     }
-    
+
     public Idea(int id, String titulo, String descripcion, Date fecha_creacion, Tema tema, Usuario usuario) {
         this.id = id;
         this.titulo = titulo;
@@ -41,7 +37,7 @@ public class Idea implements Serializable{
         this.tema = tema;
         this.usuario = usuario;
     }
-    
+
     public Idea(int id, String titulo, String descripcion, Date fecha_creacion, Tema tema, Usuario usuario, List<Respuesta> respuestas, List<Comentario> comentarios) {
         this.id = id;
         this.titulo = titulo;

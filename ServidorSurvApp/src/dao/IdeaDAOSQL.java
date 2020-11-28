@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -178,7 +179,7 @@ public class IdeaDAOSQL implements IdeaDAO{
             int filasAfectadas = sentencia.executeUpdate();
 
             if (filasAfectadas == 0) {
-                throw new SQLException("No se encontro ninguna denuncia con esa id");
+                throw new SQLException("No se encontro ninguna idea con esa id");
             }
             this.conexion.commit();
             eliminar = true;
@@ -315,7 +316,150 @@ public class IdeaDAOSQL implements IdeaDAO{
         }
         return modificar;
     }
-    
-    
-    
+
+    @Override
+    public boolean altaIdea(Idea idea) {
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        boolean alta = false;
+
+        try {
+            conexion = confBD.iniciarConexion();
+            this.conexion.commit();
+            this.conexion.setAutoCommit(false);
+            statement = conexion.prepareStatement(
+                    "INSERT INTO idea (titulo,descripcion,fecha_creacion,id_usuario,id_tema) "
+                    + "VALUES (?, ?, ?, ?, ?)",statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, idea.getTitulo());
+            statement.setString(2, idea.getDescripcion());
+            statement.setDate(3, java.sql.Date.valueOf(idea.getFecha_creacion().toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate()));
+            statement.setInt(4, idea.getUsuario().getId());
+            statement.setInt(5, idea.getTema().getId());
+            
+            int filas = statement.executeUpdate();                      
+            
+            if (filas == 0) {
+                throw new SQLException("Algun dato erroneo");
+            }
+            
+            String id = "";
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next()){
+                id=rs.getString(1);
+            }
+            
+            for(Respuesta r : idea.getRespuestas()){
+                statement = conexion.prepareStatement(
+                    "INSERT INTO respuesta (descripcion,id_idea) "
+                    + "VALUES (?, ?)");
+
+                statement.setString(1, r.getDescripcion());
+                statement.setInt(2, Integer.parseInt(id));  
+                
+                filas = statement.executeUpdate();  
+                
+                if (filas == 0) {
+                    throw new SQLException("Algun dato erroneo");
+                }
+            }
+            this.conexion.commit();
+            alta = true;
+        } catch (SQLException e) {
+            try {
+                this.conexion.rollback();
+                e.printStackTrace();
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
+            alta = false;
+        } finally {
+            try {
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return alta;
+    }
+
+    @Override
+    public List<Idea> listarIdeaUsuario(Usuario usuario) {
+        PreparedStatement sentencia = null;
+        ResultSet result = null;
+        ResultSet result2 = null;
+        List<Idea> listaIdeas = new ArrayList<Idea>();
+        try {
+            conexion = confBD.iniciarConexion();
+            sentencia = this.conexion.prepareStatement(
+                    "SELECT i.id,i.titulo,i.descripcion,i.fecha_creacion,u.id,u.nombre,t.id,t.nombre "
+                            + "FROM idea i,usuario u,tema t "
+                            + "WHERE i.id_usuario=u.id AND t.id=i.id_tema "
+                            + "AND u.id = ? "
+                            + "ORDER BY i.fecha_creacion ASC");
+
+            
+            sentencia.setInt(1,usuario.getId());
+            
+            result = sentencia.executeQuery();
+
+            while (result.next()) {
+
+                Date fecha;
+                fecha = result.getDate(4);
+                Tema tema = new Tema(result.getInt(7),result.getString(8));
+                Idea idea = new Idea(result.getInt(1),result.getString(2),result.getString(3),
+                        fecha,tema,usuario);                                                     
+                
+                sentencia = this.conexion.prepareStatement(
+                    "SELECT DISTINCT r.id,r.descripcion "
+                            + "FROM idea i,respuesta r "
+                            + "WHERE r.id_idea=?");
+                sentencia.setInt(1,idea.getId());
+                result2 = sentencia.executeQuery();
+                
+                List<Respuesta> respuestas = new ArrayList<>();
+                
+                while (result2.next()) {
+                    Respuesta respuesta = new Respuesta(result2.getInt(1),result2.getString(2));
+                    respuestas.add(respuesta);
+                }
+                idea.setRespuestas(respuestas);
+                listaIdeas.add(idea);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (sentencia != null) {
+                    sentencia.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+                if (result2 != null) {
+                    result2.close();
+                }
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return listaIdeas;
+    }
 }
