@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.IdeaFragment">
+    tools:context=".fragments.ResponderIdeaAmigoFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,6 +18,16 @@
             android:background="@color/colorPrimaryDark"
             android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/back_send_idea_friend"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/back"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -25,17 +35,9 @@
                 android:gravity="center"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/colorAccent"
+                android:layout_toRightOf="@id/back_send_idea_friend"
                 android:textSize="22sp"
                 android:textStyle="bold"/>
-
-            <ImageView
-                android:id="@+id/option_menu_idea"
-                android:layout_width="30dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/options"/>
         </RelativeLayout>
 
 
@@ -47,14 +49,14 @@
 
             <LinearLayout
 
-                android:id="@+id/idea_Layout"
+                android:id="@+id/idea_Layout_friend"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
-                    android:id="@+id/idea_title"
+                    android:id="@+id/idea_title_friend"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -74,7 +76,7 @@
                     android:layout_marginRight="24dp"/>
 
                 <TextView
-                    android:id="@+id/idea_description"
+                    android:id="@+id/idea_description_friend"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -93,7 +95,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/idea_answer_1"
+                        android:id="@+id/idea_answer_1_friend"
                         android:layout_width="match_parent"
                         android:layout_height="72dp"
                         android:background="@color/colorPrimaryDark"
@@ -107,7 +109,7 @@
                         android:textColor="@color/colorAccent"/>
 
                     <TextView
-                        android:id="@+id/idea_answer_2"
+                        android:id="@+id/idea_answer_2_friend"
                         android:layout_width="match_parent"
                         android:layout_height="72dp"
                         android:background="@color/colorPrimaryDark"
@@ -121,7 +123,7 @@
                         android:textColor="@color/colorAccent"/>
 
                     <TextView
-                        android:id="@+id/idea_answer_3"
+                        android:id="@+id/idea_answer_3_friend"
                         android:layout_width="match_parent"
                         android:layout_height="72dp"
                         android:background="@color/colorPrimaryDark"
@@ -136,7 +138,7 @@
                         android:textColor="@color/colorAccent"/>
 
                     <TextView
-                        android:id="@+id/idea_answer_4"
+                        android:id="@+id/idea_answer_4_friend"
                         android:layout_width="match_parent"
                         android:layout_height="72dp"
                         android:background="@color/colorPrimaryDark"
@@ -153,7 +155,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/idea_creator"
+                    android:id="@+id/idea_creator_friend"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.5"
@@ -166,7 +168,7 @@
                     android:text="@string/creator"/>
 
                 <TextView
-                    android:id="@+id/idea_theme"
+                    android:id="@+id/idea_theme_friend"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.5"
@@ -181,23 +183,8 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/empty_idea"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/empty_ideas"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:gravity="center"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:visibility="visible"
-                />
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_add_comment"
+                android:id="@+id/fab_add_comment_friend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
@@ -205,9 +192,7 @@
                 android:layout_alignParentEnd="true"
                 android:backgroundTint="@color/colorPrimary"
                 android:src="@drawable/add_comment"
-                android:visibility="gone"/>
-
-
+                android:visibility="visible"/>
         </RelativeLayout>
 
     </LinearLayout>

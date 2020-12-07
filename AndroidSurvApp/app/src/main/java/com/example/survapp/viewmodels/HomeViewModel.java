@@ -1,7 +1,11 @@
 package com.example.survapp.viewmodels;
 
 import android.os.Looper;
+import android.view.View;
 
+import com.example.survapp.R;
+import com.example.survapp.adapter.CommentAdapter;
+import com.example.survapp.models.Comentario;
 import com.example.survapp.models.Idea;
 import com.example.survapp.models.Usuario;
 import com.example.survapp.util.ConexionServidor;
@@ -20,6 +24,7 @@ public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<Usuario> usuario = new MutableLiveData<Usuario>();
     private MutableLiveData<List<Idea>> ideas = new MutableLiveData<List<Idea>>();
+    private MutableLiveData<List<Comentario>> comentarios = new MutableLiveData<List<Comentario>>();
     private Gson gson;
     private Protocolo protocolo;
 
@@ -58,9 +63,30 @@ public class HomeViewModel extends ViewModel {
             public void run() {
                 try {
                     Looper.prepare();
-                    ConexionServidor.abrirSocket();
                     ConexionServidor.getSalida().writeInt(protocolo.LISTAR_IDEAS_USUARIO);
                     ConexionServidor.getSalida().writeUTF(gson.toJson(usuario.getValue()));
+                    TypeToken<List<Idea>> token = new TypeToken<List<Idea>>() {};
+                    List<Idea> ideasAux;
+                    ideasAux = gson.fromJson((String)ConexionServidor.getEntrada().readUTF(),token.getType());
+                    setIdeas(ideasAux);
+                    Looper.myLooper().quit();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (NullPointerException npe) {
+                    npe.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+    }
+
+    public void recibirListaIdeas(Usuario user){
+        Thread thread = new Thread() {
+            public void run() {
+                try {
+                    Looper.prepare();
+                    ConexionServidor.getSalida().writeInt(protocolo.LISTAR_IDEAS_USUARIO);
+                    ConexionServidor.getSalida().writeUTF(gson.toJson(user));
                     TypeToken<List<Idea>> token = new TypeToken<List<Idea>>() {};
                     List<Idea> ideasAux;
                     ideasAux = gson.fromJson((String)ConexionServidor.getEntrada().readUTF(),token.getType());
@@ -81,7 +107,6 @@ public class HomeViewModel extends ViewModel {
             public void run() {
                 try {
                     Looper.prepare();
-                    ConexionServidor.abrirSocket();
                     ConexionServidor.getSalida().writeInt(protocolo.ELIMINAR_IDEA);
                     ConexionServidor.getSalida().writeInt(idea.getId());
                     int result = ConexionServidor.getEntrada().readInt();
@@ -97,5 +122,38 @@ public class HomeViewModel extends ViewModel {
             }
         };
         thread.start();
+    }
+
+    public void listarComentarios(Idea idea){
+        Thread thread = new Thread() {
+            public void run() {
+                try {
+                    Looper.prepare();
+                    ConexionServidor.getSalida().writeInt(protocolo.LISTAR_COMENTARIO_IDEA);
+                    ConexionServidor.getSalida().writeUTF(gson.toJson(idea));
+                    TypeToken<List<Comentario>> token = new TypeToken<List<Comentario>>() {};
+                    List<Comentario> comentarios1;
+                    comentarios1 = gson.fromJson((String)ConexionServidor.getEntrada().readUTF(),token.getType());
+                    setComentarios(comentarios1);
+                    Looper.myLooper().quit();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (NullPointerException npe) {
+                    npe.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+    }
+
+    public MutableLiveData<List<Comentario>> getComentarios() {
+        if (comentarios == null) {
+            comentarios = new MutableLiveData<List<Comentario>>();
+        }
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios.postValue(comentarios);
     }
 }

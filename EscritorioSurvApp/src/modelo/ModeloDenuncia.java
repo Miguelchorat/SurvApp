@@ -10,6 +10,7 @@ import util.EstadoIncidencia;
 import util.Protocolo;
 import vista.DialogEditarDenuncia;
 import vista.DialogEliminar;
+import vista.DialogIdea;
 import vista.DialogInfoDenuncia;
 import vista.DialogMensaje;
 import vista.PanelGeneral;
@@ -46,6 +47,7 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
         jLabelEliminar = new javax.swing.JLabel();
         jLabelTituloEstado = new javax.swing.JLabel();
         jLabelEstado = new javax.swing.JLabel();
+        jLabelEditarIdea = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -132,6 +134,15 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
         jLabelEstado.setForeground(new java.awt.Color(102, 102, 102));
         jLabelEstado.setText("---");
 
+        jLabelEditarIdea.setMaximumSize(new java.awt.Dimension(25, 25));
+        jLabelEditarIdea.setMinimumSize(new java.awt.Dimension(25, 25));
+        jLabelEditarIdea.setPreferredSize(new java.awt.Dimension(25, 25));
+        jLabelEditarIdea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelEditarIdeaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,6 +156,8 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelEditarIdea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,7 +196,8 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
                         .addComponent(jLabelEstado))
                     .addComponent(jLabelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelEditarIdea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         Image logoInfo = new ImageIcon(getClass().getResource("/imagen/info.png")).getImage();
@@ -195,6 +209,9 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
         Image logoEliminar = new ImageIcon(getClass().getResource("/imagen/eliminar.png")).getImage();
         ImageIcon logoIconEliminar = new ImageIcon(logoEliminar.getScaledInstance(25, 25, Image.SCALE_SMOOTH));
         jLabelEliminar.setIcon(logoIconEliminar);
+        Image logoEditarIdea = new ImageIcon(getClass().getResource("/imagen/buscar.png")).getImage();
+        ImageIcon logoIconEditarIdea = new ImageIcon(logoEditarIdea.getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+        jLabelEditarIdea.setIcon(logoIconEditarIdea);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInfoMouseClicked
@@ -219,7 +236,6 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
                 int result = eliminar.getResultado();
                 if(result == 1){
                     VistaPrincipal vp = panelGeneral.getVp();
-                    vp.iniciarSocket();
                     vp.getSalida().writeInt(ELIMINAR_DENUNCIA);
                     vp.getSalida().writeInt(denuncia.getId());
                     result = vp.getEntrada().readInt();
@@ -237,6 +253,12 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
         } catch (IOException ex) {
         }
     }//GEN-LAST:event_jLabelEliminarMouseClicked
+
+    private void jLabelEditarIdeaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEditarIdeaMouseClicked
+        DialogIdea dialog = new DialogIdea(panelGeneral.getVp(),true,panelGeneral,denuncia.getIdea().getId());        
+        dialog.cargarDatos();
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jLabelEditarIdeaMouseClicked
 
     public PanelGeneral getPanelGeneral() {
         return panelGeneral;
@@ -275,6 +297,7 @@ public class ModeloDenuncia extends javax.swing.JPanel implements Protocolo{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelDescripcion;
     private javax.swing.JLabel jLabelEditar;
+    private javax.swing.JLabel jLabelEditarIdea;
     private javax.swing.JLabel jLabelEliminar;
     private javax.swing.JLabel jLabelEstado;
     private javax.swing.JLabel jLabelFecha;

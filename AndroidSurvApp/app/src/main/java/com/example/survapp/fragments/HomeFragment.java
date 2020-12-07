@@ -147,6 +147,9 @@ public class HomeFragment extends Fragment {
                 case R.id.stat_idea:
                     statIdea(idea);
                     return true;
+                case R.id.comment_idea:
+                    comentarioIdea(idea);
+                    return true;
                 case R.id.remove_idea:
                     eliminarIdea(idea);
                     return true;
@@ -154,6 +157,16 @@ public class HomeFragment extends Fragment {
                     return false;
             }
         });
+    }
+
+    public void comentarioIdea(Idea idea){
+        BottomNavigationView navBar = getActivity().findViewById(R.id.nav_view);
+        navBar.setVisibility(View.GONE);
+        ComentariosFragment fr= new ComentariosFragment(idea);
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.addToBackStack(null);
+        ft.replace(R.id.fragment_home, fr);
+        ft.commit();
     }
 
     public void statIdea(Idea idea){
@@ -212,7 +225,7 @@ public class HomeFragment extends Fragment {
             public void run() {
                 Looper.prepare();
                 Login login = new Login();
-                login.cerrarSesion(model.getUsuario().getValue());
+                login.cerrarSesion();
                 Looper.myLooper().quit();
             }
         };

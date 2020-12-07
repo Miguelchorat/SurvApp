@@ -49,31 +49,10 @@ public class Login {
         return iniciar;
     }
 
-    public boolean iniciarLoginNoEncrypt(String correo, String password){
-        boolean iniciar = false;
+    public void cerrarSesion(){
         try {
-            ConexionServidor.abrirSocket();
-            ConexionServidor.getSalida().writeInt(protocolo.INICIAR_SESION);
-            Sesion sesion = new Sesion(correo,password);
-            ConexionServidor.getSalida().writeUTF(gson.toJson(sesion));
-            if(ConexionServidor.getEntrada().readInt()==protocolo.SESION_INICIADA){
-                usuario = gson.fromJson(ConexionServidor.getEntrada().readUTF(),Usuario.class);
-                iniciar = true;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NullPointerException npe) {
-            npe.printStackTrace();
-        }
-
-        return iniciar;
-    }
-
-    public void cerrarSesion(Usuario usuario){
-        try {
-            ConexionServidor.abrirSocket();
             ConexionServidor.getSalida().writeInt(protocolo.CERRAR_SESION);
-            ConexionServidor.getSalida().writeUTF(gson.toJson(usuario));
+            ConexionServidor.cerrarSocket();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NullPointerException npe) {

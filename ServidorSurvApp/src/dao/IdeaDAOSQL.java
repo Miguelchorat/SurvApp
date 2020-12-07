@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import modelo.Denuncia;
 import modelo.Idea;
 import modelo.Respuesta;
 import modelo.Tema;
@@ -66,7 +67,7 @@ public class IdeaDAOSQL implements IdeaDAO{
                         fecha,tema,usuario);                                                     
                 
                 sentencia = this.conexion.prepareStatement(
-                    "SELECT r.id,r.descripcion "
+                    "SELECT DISTINCT r.id,r.descripcion "
                             + "FROM idea i,respuesta r "
                             + "WHERE r.id_idea=?");
                 sentencia.setInt(1,idea.getId());
@@ -461,5 +462,229 @@ public class IdeaDAOSQL implements IdeaDAO{
             }
         }
         return listaIdeas;
+    }
+
+    @Override
+    public Idea recibirIdea(Usuario usuario) {
+        PreparedStatement sentencia = null;
+        ResultSet result = null;
+        ResultSet result2 = null;
+        Idea idea= null;
+        
+        try {
+            conexion = confBD.iniciarConexion();
+            sentencia = this.conexion.prepareStatement(
+                    "SELECT i.id,i.titulo,i.descripcion,i.fecha_creacion,u.id,u.nombre,t.id,t.nombre "
+                            + "FROM idea i,usuario u,tema t "
+                            + "WHERE i.id_usuario=u.id AND t.id=i.id_tema "
+                            + "AND i.id NOT IN(" 
+                            + "SELECT respuesta.id_idea " 
+                            + "FROM respuesta_usuario,respuesta "
+                            + "WHERE respuesta_usuario.id_usuario=? AND respuesta_usuario.id_respuesta=respuesta.id) "
+                            + "GROUP BY i.id "
+                            + "ORDER BY rand() "
+                            + "LIMIT 1");
+            
+            sentencia.setInt(1,usuario.getId());
+            result = sentencia.executeQuery();
+            
+            while (result.next()) {
+
+                Date fecha;
+                fecha = result.getDate(4);
+                Tema tema = new Tema(result.getInt(7),result.getString(8));
+                Usuario user = new Usuario(result.getInt(5),result.getString(6));
+                idea = new Idea(result.getInt(1),result.getString(2),result.getString(3),
+                        fecha,tema,user);                                                     
+                
+                sentencia = this.conexion.prepareStatement(
+                    "SELECT DISTINCT r.id,r.descripcion "
+                            + "FROM idea i,respuesta r "
+                            + "WHERE r.id_idea=?");
+                sentencia.setInt(1,idea.getId());
+                result2 = sentencia.executeQuery();
+                
+                List<Respuesta> respuestas = new ArrayList<>();
+                
+                while (result2.next()) {
+                    Respuesta respuesta = new Respuesta(result2.getInt(1),result2.getString(2));
+                    respuestas.add(respuesta);
+                }
+                idea.setRespuestas(respuestas);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (sentencia != null) {
+                    sentencia.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return idea;
+    }
+
+    @Override
+    public boolean responderIdea(int id_usuario, int id_respuesta) {
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        boolean alta = false;
+
+        try {
+            conexion = confBD.iniciarConexion();
+            this.conexion.commit();
+            this.conexion.setAutoCommit(false);
+            statement = conexion.prepareStatement(
+                    "INSERT INTO respuesta_usuario (id_usuario,id_respuesta) "
+                    + "VALUES (?, ?)");
+
+            statement.setInt(1, id_usuario);
+            statement.setInt(2, id_respuesta); 
+            
+            int filas = statement.executeUpdate();                      
+            
+            if (filas == 0) {
+                throw new SQLException("Algun dato erroneo");
+            }           
+            this.conexion.commit();
+            alta = true;
+        } catch (SQLException e) {
+            try {
+                this.conexion.rollback();
+                e.printStackTrace();
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
+            alta = false;
+        } finally {
+            try {
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return alta;
+    }
+
+    @Override
+    public boolean altaDenuncia(Denuncia denuncia) {
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        boolean alta = false;
+
+        try {
+            conexion = confBD.iniciarConexion();
+            this.conexion.commit();
+            this.conexion.setAutoCommit(false);
+            statement = conexion.prepareStatement(
+                    "INSERT INTO denuncia (titulo,descripcion,estado,fecha_creacion,id_usuario,id_idea) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)");
+
+            statement.setString(1, denuncia.getTitulo());
+            statement.setString(2, denuncia.getDescripcion());
+            statement.setString(3, "ESPERANDO"); 
+            statement.setDate(4, java.sql.Date.valueOf(denuncia.getFecha_creacion().toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate()));
+            statement.setInt(5, denuncia.getUsuario().getId());
+            statement.setInt(6, denuncia.getIdea().getId());
+            
+            
+            int filas = statement.executeUpdate();                      
+            
+            if (filas == 0) {
+                throw new SQLException("Algun dato erroneo");
+            }           
+            this.conexion.commit();
+            alta = true;
+        } catch (SQLException e) {
+            try {
+                this.conexion.rollback();
+                e.printStackTrace();
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
+            alta = false;
+        } finally {
+            try {
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return alta;
+    }
+
+    @Override
+    public boolean comprobarRespuestaUsuario(Idea idea, Usuario usuario) {
+        PreparedStatement sentencia = null;
+        ResultSet result = null;
+        boolean resultado = false;
+        
+        try {
+            conexion = confBD.iniciarConexion();
+            
+            
+            sentencia = this.conexion.prepareStatement(
+                "SELECT i.id "
+                        + "FROM respuesta r,idea i,respuesta_usuario ru "
+                        + "WHERE i.id=r.id_idea AND r.id=ru.id_respuesta "
+                        + "AND ru.id_usuario=? AND i.id=? ");
+
+            sentencia.setInt(1,usuario.getId());
+            sentencia.setInt(2,idea.getId());
+            result = sentencia.executeQuery();
+
+            while (result.next()) {
+                resultado=true;
+            }
+                     
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (sentencia != null) {
+                    sentencia.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+                if (conexion != null) {
+                    confBD.cerrarConexion();
+                    conexion = null;
+                }
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
+        }
+        return resultado;
     }
 }

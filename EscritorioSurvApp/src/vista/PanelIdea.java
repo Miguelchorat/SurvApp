@@ -222,7 +222,6 @@ public class PanelIdea extends javax.swing.JPanel implements Protocolo{
     public void busqueda(){
         try {
             VistaPrincipal vp = panelGeneral.getVp();
-            vp.iniciarSocket();
             vp.getSalida().writeInt(LISTAR_IDEAS);
             Busqueda busqueda = new Busqueda(pagina,jTextFieldFiltro.getText());
             vp.getSalida().writeUTF(vp.getGson().toJson(busqueda));

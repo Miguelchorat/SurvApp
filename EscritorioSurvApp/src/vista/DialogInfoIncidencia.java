@@ -77,7 +77,6 @@ public class DialogInfoIncidencia extends javax.swing.JDialog {
         panelHerramientaVentanaDialog = new vista.PanelHerramientaVentanaDialog(this,"INFORMACIÓN INCIDENCIA");
 
         
-
         javax.swing.GroupLayout jPanelInfoLayout = new javax.swing.GroupLayout(jPanelInfo);
         jPanelInfo.setLayout(jPanelInfoLayout);
         jPanelInfoLayout.setHorizontalGroup(

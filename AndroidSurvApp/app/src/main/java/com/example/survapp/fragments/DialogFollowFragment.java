@@ -40,6 +40,7 @@ public class DialogFollowFragment extends DialogFragment {
     private EditText nombreUsuario;
     private TextView info;
     private View view;
+
     public DialogFollowFragment() {
         this.gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
     }
@@ -52,6 +53,8 @@ public class DialogFollowFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         model = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         view = inflater.inflate(R.layout.fragment_dialog_follow, null);
+        nombreUsuario = view.findViewById(R.id.follow_user);
+        info = view.findViewById(R.id.info_follow);
 
         builder.setView(view)
                 .setPositiveButton(R.string.add_follow, new DialogInterface.OnClickListener() {
@@ -84,19 +87,36 @@ public class DialogFollowFragment extends DialogFragment {
                     Thread thread = new Thread() {
                         public void run() {
                             try {
-                                nombreUsuario = view.findViewById(R.id.follow_user);
-                                info = view.findViewById(R.id.info_follow);
+
                                 Looper.prepare();
-                                ConexionServidor.abrirSocket();
                                 ConexionServidor.getSalida().writeInt(protocolo.AÑADIR_SEGUIDOR);
                                 ConexionServidor.getSalida().writeUTF(gson.toJson(model.getUsuario().getValue()));
                                 ConexionServidor.getSalida().writeUTF(gson.toJson(new Usuario(nombreUsuario.getText().toString())));
                                 int result = ConexionServidor.getEntrada().readInt();
-                                if(result == Protocolo.AÑADIR_SEGUIDOR_NO_EXISTE){
-                                    info.setText(R.string.error_follow_user);
+                                if(model.getUsuario().getValue().getNombre().equals(nombreUsuario.getText().toString())){
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            info.setText(getResources().getString(R.string.account_name) + " - No te puedes seguir a ti mismo");
+                                            info.setTextColor(getResources().getColor(R.color.red));
+                                        }
+                                    });
+                                }
+                                else if(result == Protocolo.AÑADIR_SEGUIDOR_NO_EXISTE){
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            seguidorNoExiste();
+                                        }
+                                    });
                                 }
                                 else if(result == Protocolo.AÑADIR_SEGUIDOR_FALLIDO){
-                                    info.setText(R.string.fail_follow_user);
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            seguidorFallido();
+                                        }
+                                    });
                                 }
                                 else {
                                     SocialViewModel model1 = new ViewModelProvider(requireActivity()).get(SocialViewModel.class);
@@ -115,5 +135,15 @@ public class DialogFollowFragment extends DialogFragment {
                 }
             });
         }
+    }
+
+    public void seguidorNoExiste(){
+        info.setText(getResources().getString(R.string.account_name) + " - " + getResources().getString(R.string.error_follow_user));
+        info.setTextColor(getResources().getColor(R.color.red));
+    }
+
+    public void seguidorFallido(){
+        info.setText(getResources().getString(R.string.account_name) + " - " + getResources().getString(R.string.fail_follow_user));
+        info.setTextColor(getResources().getColor(R.color.red));
     }
 }

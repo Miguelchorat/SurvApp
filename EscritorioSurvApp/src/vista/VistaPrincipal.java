@@ -76,6 +76,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         }
     }
     
+    public void cerrarSocket(){
+        try {
+            if(salida!=null)
+                salida.close();
+            if(entrada!=null)
+                entrada.close();
+            if(servidor!=null)
+                servidor.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public String encriptarMensaje(String mensaje) {
         String mensajeEncriptado = "";
         try {

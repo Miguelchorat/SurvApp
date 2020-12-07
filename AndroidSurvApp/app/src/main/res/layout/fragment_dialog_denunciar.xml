@@ -3,18 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.DialogFollowFragment">
+    tools:context=".fragments.DialogDenunciarFragment">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:scaleType="center"
-            android:text="@string/add_follow"
+            android:text="@string/report_idea"
             android:textColor="@color/colorAccent"
             android:gravity="center"
             android:textSize="24sp"
@@ -22,30 +21,60 @@
             android:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/info_follow"
+            android:id="@+id/report_title_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/account_name"
+            android:text="@string/title"
             android:textSize="18sp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            android:gravity="bottom" />
+            android:gravity="bottom"
+            />
 
         <EditText
-            android:id="@+id/follow_user"
+            android:id="@+id/report_title"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="4dp"
             android:paddingLeft="8dp"
+            android:hint="@string/title"
             android:maxLength="16"
+            android:background="@drawable/et_border"/>
+
+        <TextView
+            android:id="@+id/report_description_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/description"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="bottom"
+            />
+
+        <EditText
+            android:id="@+id/report_description"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:gravity="top"
+            android:maxLength="128"
             android:background="@drawable/et_border"
-            android:hint="@string/account_name" />
+            android:hint="@string/description" />
 
     </LinearLayout>
 

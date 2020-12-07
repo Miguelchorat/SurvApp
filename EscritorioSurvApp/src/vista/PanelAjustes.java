@@ -248,7 +248,6 @@ public class PanelAjustes extends javax.swing.JPanel implements Protocolo{
         limpiarTitulos();
         try {
             if(comprobarCampos()){
-                panelGeneral.getVp().iniciarSocket();
                 panelGeneral.getVp().getSalida().writeInt(MODIFICAR_USUARIO);
                 panelGeneral.getVp().getUsuario().setNombre(jTextFieldNombreUsuario.getText());
                 panelGeneral.getVp().getUsuario().setCorreo(jTextFieldCorreo.getText());
@@ -279,9 +278,8 @@ public class PanelAjustes extends javax.swing.JPanel implements Protocolo{
                 panelGeneral.getVp().getPanelInicial().getPanelCentral().setVisible(true);
                 panelGeneral.getVp().getPanelInicial().getPanelLogin().setVisible(true);
                 panelGeneral.getVp().getPanelInicial().getPanelLogin().limpiarCampos();                       
-                panelGeneral.getVp().iniciarSocket();
                 panelGeneral.getVp().getSalida().writeInt(CERRAR_SESION);
-                panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(panelGeneral.getVp().getUsuario()));
+                panelGeneral.getVp().cerrarSocket();
                 this.setVisible(false);
             } catch (IOException ex) { 
             } catch (NullPointerException npe){
@@ -336,7 +334,6 @@ public class PanelAjustes extends javax.swing.JPanel implements Protocolo{
         }
         if(!panelGeneral.getVp().getUsuario().getNombre().equalsIgnoreCase(jTextFieldNombreUsuario.getText())){
             try {
-                panelGeneral.getVp().iniciarSocket();
                 panelGeneral.getVp().getSalida().writeInt(COMPROBAR_NOMBRE_CUENTA);
                 String nombre= jTextFieldNombreUsuario.getText();
                 panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(nombre));
@@ -367,7 +364,6 @@ public class PanelAjustes extends javax.swing.JPanel implements Protocolo{
         
         if(!panelGeneral.getVp().getUsuario().getCorreo().equalsIgnoreCase(jTextFieldCorreo.getText())){
             try {
-                panelGeneral.getVp().iniciarSocket();
                 panelGeneral.getVp().getSalida().writeInt(COMPROBAR_CORREO);
                 String correo = jTextFieldCorreo.getText();
                 panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(correo));

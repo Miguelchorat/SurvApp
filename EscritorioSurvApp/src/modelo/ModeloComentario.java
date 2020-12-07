@@ -125,7 +125,6 @@ public class ModeloComentario extends javax.swing.JPanel implements Protocolo{
             int result = eliminar.getResultado();
             if(result == 1){
                 VistaPrincipal vp = panelGeneral.getVp();
-                vp.iniciarSocket();
                 vp.getSalida().writeInt(ELIMINAR_COMENTARIO);
                 vp.getSalida().writeInt(comentario.getId());
                 result = vp.getEntrada().readInt();

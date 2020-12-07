@@ -170,9 +170,8 @@ public class PanelHerramientaVentana extends javax.swing.JPanel implements Proto
         int result = eliminar.getResultado();
         if(result==1){
             try {
-                vp.iniciarSocket();
                 vp.getSalida().writeInt(CERRAR_SESION);
-                vp.getSalida().writeUTF(vp.getGson().toJson(vp.getUsuario()));
+                vp.cerrarSocket();
                 vp.dispose();
             } catch (IOException ex) {
             } catch (NullPointerException npe){

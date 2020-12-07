@@ -36,7 +36,6 @@ public class DialogInfoDenuncia extends javax.swing.JDialog {
         setMaximumSize(new java.awt.Dimension(400, 200));
         setMinimumSize(new java.awt.Dimension(400, 200));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(400, 200));
         setResizable(false);
 
         jPanelInfo.setBackground(new java.awt.Color(250, 250, 250));
@@ -78,7 +77,6 @@ public class DialogInfoDenuncia extends javax.swing.JDialog {
         panelHerramientaVentanaDialog = new vista.PanelHerramientaVentanaDialog(this,"INFORMACIÓN DENUNCIA");
 
         
-
         javax.swing.GroupLayout jPanelInfoLayout = new javax.swing.GroupLayout(jPanelInfo);
         jPanelInfo.setLayout(jPanelInfoLayout);
         jPanelInfoLayout.setHorizontalGroup(

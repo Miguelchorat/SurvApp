@@ -39,7 +39,6 @@ public class IncidenciaViewModel extends ViewModel {
                 public void run() {
                     try {
                         Looper.prepare();
-                        ConexionServidor.abrirSocket();
                         ConexionServidor.getSalida().writeInt(protocolo.ALTA_INCIDENCIA);
                         ConexionServidor.getSalida().writeUTF(gson.toJson(incidencia.getValue()));
                         Looper.myLooper().quit();

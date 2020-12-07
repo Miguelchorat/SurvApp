@@ -221,7 +221,6 @@ public class PanelDenuncia extends javax.swing.JPanel implements Protocolo{
     public void busqueda(){
         try {
             VistaPrincipal vp = panelGeneral.getVp();
-            vp.iniciarSocket();
             vp.getSalida().writeInt(LISTAR_DENUNCIAS);
             Busqueda busqueda = new Busqueda(pagina,jTextFieldFiltro.getText());
             vp.getSalida().writeUTF(vp.getGson().toJson(busqueda));

@@ -43,7 +43,6 @@ public class DialogEditarIncidencia extends javax.swing.JDialog implements Proto
         setMaximumSize(new java.awt.Dimension(400, 200));
         setMinimumSize(new java.awt.Dimension(400, 200));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(400, 200));
         setResizable(false);
 
         jPanelInfo.setBackground(new java.awt.Color(250, 250, 250));
@@ -73,7 +72,6 @@ public class DialogEditarIncidencia extends javax.swing.JDialog implements Proto
         panelHerramientaVentanaDialog = new vista.PanelHerramientaVentanaDialog(this,"EDITAR INCIDENCIA");
 
         
-
         javax.swing.GroupLayout jPanelInfoLayout = new javax.swing.GroupLayout(jPanelInfo);
         jPanelInfo.setLayout(jPanelInfoLayout);
         jPanelInfoLayout.setHorizontalGroup(
@@ -116,7 +114,6 @@ public class DialogEditarIncidencia extends javax.swing.JDialog implements Proto
 
     private void jButtonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionActionPerformed
         try {
-            panelGeneral.getVp().iniciarSocket();
             panelGeneral.getVp().getSalida().writeInt(CAMBIAR_ESTADO_INCIDENCIA);            
             EstadoAdmin estadoAdmin = new EstadoAdmin(
                     panelGeneral.getVp().getUsuario().getId(),

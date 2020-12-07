@@ -35,7 +35,6 @@ public class NuevaIdeaViewModel {
             public void run() {
                 try {
                     Looper.prepare();
-                    ConexionServidor.abrirSocket();
                     ConexionServidor.getSalida().writeInt(protocolo.ALTA_IDEA);
                     ConexionServidor.getSalida().writeUTF(gson.toJson(idea.getValue()));
                     Looper.myLooper().quit();

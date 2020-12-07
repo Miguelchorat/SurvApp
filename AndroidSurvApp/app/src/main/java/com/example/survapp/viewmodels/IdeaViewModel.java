@@ -2,7 +2,8 @@ package com.example.survapp.viewmodels;
 
 import android.os.Looper;
 
-import com.example.survapp.R;
+import com.example.survapp.models.Idea;
+import com.example.survapp.models.Respuesta;
 import com.example.survapp.models.Usuario;
 import com.example.survapp.util.ConexionServidor;
 import com.example.survapp.util.Protocolo;
@@ -17,38 +18,41 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class SocialViewModel extends ViewModel {
+public class IdeaViewModel  extends ViewModel {
 
-    private MutableLiveData<List<Usuario>> usuarios = new MutableLiveData<List<Usuario>>();
+    private MutableLiveData<Idea> idea = new MutableLiveData<Idea>();
     private Gson gson;
     private Protocolo protocolo;
+    private HomeViewModel modelHome;
 
-    public SocialViewModel(){
+    public IdeaViewModel(){
         this.gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
     }
 
-    public MutableLiveData<List<Usuario>> getUsuarios() {
-        if (usuarios == null) {
-            usuarios = new MutableLiveData<List<Usuario>>();
+    public MutableLiveData<Idea> getIdea() {
+        if (idea == null) {
+            idea = new MutableLiveData<Idea>();
         }
-        return usuarios;
+        return idea;
     }
 
-    public void setUsuarios(List<Usuario> usuariosAux) {
-        this.usuarios.postValue(usuariosAux);
+    public void setIdea(Idea idea) {
+        this.idea.postValue(idea);
     }
 
-    public void recibirListaSeguidos(Usuario usuario){
+    public void reset(){
+        this.idea=new MutableLiveData<Idea>();
+    }
+
+    public void recibirIdea(Usuario usuario){
         Thread thread = new Thread() {
             public void run() {
                 try {
                     Looper.prepare();
-                    ConexionServidor.getSalida().writeInt(protocolo.LISTAR_SEGUIDOS);
+                    ConexionServidor.getSalida().writeInt(protocolo.RECIBIR_IDEA);
                     ConexionServidor.getSalida().writeUTF(gson.toJson(usuario));
-                    TypeToken<List<Usuario>> token = new TypeToken<List<Usuario>>() {};
-                    List<Usuario> usuariosAux;
-                    usuariosAux = gson.fromJson((String)ConexionServidor.getEntrada().readUTF(),token.getType());
-                    setUsuarios(usuariosAux);
+                    Idea i = gson.fromJson((String)ConexionServidor.getEntrada().readUTF(), Idea.class);
+                    setIdea(i);
                     Looper.myLooper().quit();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -60,18 +64,15 @@ public class SocialViewModel extends ViewModel {
         thread.start();
     }
 
-    public void eliminarSeguidor(Usuario usuario,Usuario follow){
+    public void mandarRespuesta(Usuario usuario, Respuesta respuesta){
         Thread thread = new Thread() {
             public void run() {
                 try {
                     Looper.prepare();
-                    ConexionServidor.getSalida().writeInt(protocolo.ELIMINAR_SEGUIDOR);
+                    ConexionServidor.getSalida().writeInt(protocolo.RESPONDER_PREGUNTA);
                     ConexionServidor.getSalida().writeUTF(gson.toJson(usuario));
-                    ConexionServidor.getSalida().writeUTF(gson.toJson(follow));
-                    int result = ConexionServidor.getEntrada().readInt();
-                    if(result == Protocolo.ELIMINAR_SEGUIDOR){
-                        recibirListaSeguidos(usuario);
-                    }
+                    ConexionServidor.getSalida().writeUTF(gson.toJson(respuesta));
+                    recibirIdea(usuario);
                     Looper.myLooper().quit();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -81,9 +82,5 @@ public class SocialViewModel extends ViewModel {
             }
         };
         thread.start();
-    }
-
-    public void reset(MutableLiveData<List<Usuario>> follows){
-        this.usuarios=follows;
     }
 }

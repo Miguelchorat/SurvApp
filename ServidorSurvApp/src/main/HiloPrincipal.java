@@ -55,94 +55,122 @@ public class HiloPrincipal extends Thread implements Protocolo{
             mensajeCliente = entrada.readInt();
             System.out.println("Estado hilo : " + mensajeCliente);
             
-            switch(mensajeCliente){
-                case INICIAR_SESION:
-                    iniciarSesion();
-                    break;
-                case CERRAR_SESION:
+            if(mensajeCliente==INICIAR_SESION){
+                iniciarSesion();
+                
+                if(mensajeCliente==SESION_INICIADA) {  
+                    
+                    while(mensajeCliente!=CERRAR_SESION){
+                        mensajeCliente = entrada.readInt();
+                        System.out.println("Estado hilo : " + mensajeCliente);
+                        switch(mensajeCliente){
+                            case CERRAR_SESION:
+                                cerrarSesion();
+                                break;
+                            case LISTAR_USUARIOS:
+                                listarUsuarios();
+                                break;
+                            case COMPROBAR_SESION:
+                                comprobarSesion();
+                                break;
+                            case MODIFICAR_USUARIO:
+                                modificarUsuario();
+                                break;
+                            case COMPROBAR_NOMBRE_CUENTA:
+                                comprobarNombreCuenta();
+                                break;
+                            case COMPROBAR_CORREO:
+                                comprobarCorreo();
+                                break;               
+                            case LISTAR_INCIDENCIAS:
+                                listarIncidencias();
+                                break;
+                            case ELIMINAR_INCIDENCIA:
+                                eliminarIncidencia();
+                                break;
+                            case CAMBIAR_ESTADO_INCIDENCIA:
+                                cambiarEstadoIncidencia();
+                                break;
+                            case LISTAR_IDEAS:
+                                listarIdeas();
+                                break;
+                            case LISTAR_DENUNCIAS:
+                                listarDenuncias();
+                                break;
+                            case ELIMINAR_DENUNCIA:
+                                eliminarDenuncia();
+                                break;
+                            case CAMBIAR_ESTADO_DENUNCIA:
+                                cambiarEstadoDenuncia();
+                                break;
+                            case ELIMINAR_IDEA:
+                                eliminarIdea();
+                                break;
+                            case BUSCAR_INFORMACION_IDEA:
+                                buscarIdea();
+                                break;
+                            case CONTAR_RESPUESTAS:
+                                contarRespuestas();
+                                break;
+                            case MODIFICAR_IDEA:
+                                modificarIdea();
+                                break;
+                            case LISTAR_COMENTARIOS:
+                                listarComentario();
+                                break;
+                            case ELIMINAR_COMENTARIO:
+                                eliminarComentario();
+                                break;
+                            case ALTA_INCIDENCIA:
+                                altaIncidencia();
+                                break;
+                            case AÑADIR_SEGUIDOR:
+                                añadirSeguidor();
+                                break;
+                            case LISTAR_SEGUIDOS:
+                                listarSeguidos();
+                                break;
+                            case ELIMINAR_SEGUIDOR:
+                                eliminarSeguidor();
+                                break;
+                            case ALTA_IDEA:
+                                altaIdea();
+                                break;
+                            case LISTAR_IDEAS_USUARIO:
+                                listarIdeasUsuario();
+                                break;
+                            case LISTAR_COMENTARIO_IDEA:
+                                listarComentarioIdea();
+                                break;
+                            case RECIBIR_IDEA:
+                                recibirIdea();
+                                break;
+                            case RESPONDER_PREGUNTA:
+                                responderPregunta();
+                                break;
+                            case ALTA_COMENTARIO:
+                                altaComentario();
+                                break;
+                            case ALTA_DENUNCIA:
+                                altaDenuncia();
+                                break;
+                            case COMPROBAR_RESPUESTA_USUARIO:
+                                comprobarRespuestaUsuario();
+                                break;
+                        }                       
+                    }
                     cerrarSesion();
-                    break;
-                case REGISTRARSE:
-                    registrarse();
-                    break;
-                case RECUPERAR_CUENTA:
-                    recuperarCuenta();
-                    break;
-                case LISTAR_USUARIOS:
-                    listarUsuarios();
-                    break;
-                case COMPROBAR_SESION:
-                    comprobarSesion();
-                    break;
-                case MODIFICAR_USUARIO:
-                    modificarUsuario();
-                    break;
-                case COMPROBAR_NOMBRE_CUENTA:
-                    comprobarNombreCuenta();
-                    break;
-                case COMPROBAR_CORREO:
-                    comprobarCorreo();
-                    break;               
-                case LISTAR_INCIDENCIAS:
-                    listarIncidencias();
-                    break;
-                case ELIMINAR_INCIDENCIA:
-                    eliminarIncidencia();
-                    break;
-                case CAMBIAR_ESTADO_INCIDENCIA:
-                    cambiarEstadoIncidencia();
-                    break;
-                case LISTAR_IDEAS:
-                    listarIdeas();
-                    break;
-                case LISTAR_DENUNCIAS:
-                    listarDenuncias();
-                    break;
-                case ELIMINAR_DENUNCIA:
-                    eliminarDenuncia();
-                    break;
-                case CAMBIAR_ESTADO_DENUNCIA:
-                    cambiarEstadoDenuncia();
-                    break;
-                case ELIMINAR_IDEA:
-                    eliminarIdea();
-                    break;
-                case BUSCAR_INFORMACION_IDEA:
-                    buscarIdea();
-                    break;
-                case CONTAR_RESPUESTAS:
-                    contarRespuestas();
-                    break;
-                case MODIFICAR_IDEA:
-                    modificarIdea();
-                    break;
-                case LISTAR_COMENTARIOS:
-                    listarComentario();
-                    break;
-                case ELIMINAR_COMENTARIO:
-                    eliminarComentario();
-                    break;
-                case ALTA_INCIDENCIA:
-                    altaIncidencia();
-                    break;
-                case AÑADIR_SEGUIDOR:
-                    añadirSeguidor();
-                    break;
-                case LISTAR_SEGUIDOS:
-                    listarSeguidos();
-                    break;
-                case ELIMINAR_SEGUIDOR:
-                    eliminarSeguidor();
-                    break;
-                case ALTA_IDEA:
-                    altaIdea();
-                    break;
-                case LISTAR_IDEAS_USUARIO:
-                    listarIdeasUsuario();
-                    break;
+                }
             }
+            else if(mensajeCliente==REGISTRARSE){
+                registrarse();
+            }
+            else if(mensajeCliente==RECUPERAR_CUENTA){
+                recuperarCuenta();
+            }
+            
         } catch (IOException ex) {
-            System.out.println("Error en la E/S del hilo");
+            cerrarSesion();
         }
     }
     
@@ -168,12 +196,7 @@ public class HiloPrincipal extends Thread implements Protocolo{
     }
     
     private void cerrarSesion(){
-        try {
-            Usuario usuario = gson.fromJson((String)entrada.readUTF(), Usuario.class);
-            controlador.getUsuario().cerrarSesion(usuario);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        controlador.getUsuario().cerrarSesion(usuario); 
     }
     
     private void registrarse(){
@@ -514,9 +537,9 @@ public class HiloPrincipal extends Thread implements Protocolo{
     
     private void listarSeguidos() {
         try {
-            Usuario usuario = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
             List<Usuario> listaUsuarios;
-            listaUsuarios = controlador.getUsuario().listarSeguidos(usuario);
+            listaUsuarios = controlador.getUsuario().listarSeguidos(user);
             salida.writeUTF(gson.toJson(listaUsuarios));            
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -534,14 +557,81 @@ public class HiloPrincipal extends Thread implements Protocolo{
 
     private void listarIdeasUsuario() {
         try {
-            Usuario usuario = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
             List<Idea> listaIdeas;
-            listaIdeas = controlador.getIdea().listarIdeaUsuario(usuario);
+            listaIdeas = controlador.getIdea().listarIdeaUsuario(user);
             salida.writeUTF(gson.toJson(listaIdeas));            
         } catch (IOException ex) {
             Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    private void listarComentarioIdea() {
+        try {
+            Idea idea = gson.fromJson((String)entrada.readUTF(), Idea.class);
+            List<Comentario> listaComentario;
+            listaComentario = controlador.getComentario().listarComentario(idea.getId());
+            salida.writeUTF(gson.toJson(listaComentario));            
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void recibirIdea() {
+        try {
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            Idea idea = controlador.getIdea().recibirIdea(user);                 
+            salida.writeUTF(gson.toJson(idea));  
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
+    public void responderPregunta(){
+        try {
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);
+            Respuesta respuesta = gson.fromJson((String)entrada.readUTF(), Respuesta.class);
+            controlador.getIdea().responderIdea(user.getId(),respuesta.getId());
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void altaComentario() {
+        try {
+            Comentario comentario = gson.fromJson((String)entrada.readUTF(), Comentario.class);          
+            Idea idea = gson.fromJson((String)entrada.readUTF(), Idea.class);
+            controlador.getComentario().altaComentario(comentario,idea);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void altaDenuncia() {
+        try {
+            Denuncia denuncia = gson.fromJson((String)entrada.readUTF(), Denuncia.class);    
+            controlador.getIdea().altaDenuncia(denuncia);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void comprobarRespuestaUsuario() {
+         try {
+            Usuario user = gson.fromJson((String)entrada.readUTF(), Usuario.class);          
+            Idea idea = gson.fromJson((String)entrada.readUTF(), Idea.class);
+            boolean resultado = controlador.getIdea().comprobarRespuestaUsuario(idea,user);
+            
+            if(resultado){              
+                mensajeCliente = COMPROBAR_RESPUESTA_USUARIO_FALLIDO;               
+            }
+            else{
+                mensajeCliente = COMPROBAR_RESPUESTA_USUARIO;
+            }
+            salida.writeInt(mensajeCliente);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }

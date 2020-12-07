@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.survapp.R;
@@ -20,51 +21,32 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     private Usuario usuario;
-
+    private Boolean iniciar;
+    private BottomNavigationView navView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
+        iniciar=false;
         usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         HomeViewModel model = new ViewModelProvider(this).get(HomeViewModel.class);
         model.setUsuario(usuario);
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        final Intent intentMain = new Intent(this, LoginActivity.class);
+    public void onBackPressed (){
 
-        Thread thread = new Thread() {
-            public void run() {
-                Looper.prepare();
-                Login login = new Login();
-                boolean result = login.iniciarLoginNoEncrypt(usuario.getCorreo(),usuario.getPass());
-                if(!result) {
-                    startActivity(intentMain);
-                }
-                Looper.myLooper().quit();
-            }
-        };
-        thread.start();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    public Boolean getIniciar() {
+        return iniciar;
+    }
 
-        Thread thread = new Thread() {
-            public void run() {
-                Looper.prepare();
-                Login login = new Login();
-                login.cerrarSesion(usuario);
-                Looper.myLooper().quit();
-            }
-        };
-        thread.start();
+    public void setIniciar(Boolean iniciar) {
+        this.iniciar = iniciar;
     }
 }

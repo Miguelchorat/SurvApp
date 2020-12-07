@@ -54,12 +54,24 @@
     <string name="new_idea">Nueva idea</string>
     <string name="title">Titulo</string>
     <string name="description">Descripción</string>
-    <string name="theme">Tema</string>
+    <string name="theme">Tema:</string>
     <string name="answer_1">Primera respuesta</string>
     <string name="answer_2">Segunda respuesta</string>
     <string name="answer_3">Tercera respuesta</string>
     <string name="answer_4">Cuarta respuesta</string>
     <string name="Empty_answer_idea">Ya no te quedan ideas que responder de otros usuarios</string>
-    <string name="stat_idea">Estadísticas idea</string>
+    <string name="stat_idea">Estadísticas de la idea</string>
     <string name="remove_idea">Eliminar idea</string>
+    <string name="empty_comment">No has recibido ningun comentario</string>
+    <string name="title_comment">Comentarios</string>
+    <string name="commnet_idea">Comentarios de la idea</string>
+    <string name="report_idea">Denunciar idea</string>
+    <string name="skip_idea">Saltar idea</string>
+    <string name="creator">Creador: </string>
+    <string name="send_succesful">Enviado correctamente</string>
+    <string name="comment">Comentario</string>
+    <string name="friend_ideas">No añadio ninguna idea.</string>
+    <string name="friend">Perfil seguidor</string>
+    <string name="answer_idea">Responder idea</string>
+    <string name="answered_answer">Idea ya respondida</string>
 </resources>

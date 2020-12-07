@@ -116,7 +116,6 @@ public class DialogIdea extends javax.swing.JDialog implements Protocolo{
         panelHerramientaVentanaDialog = new vista.PanelHerramientaVentanaDialog(this,"MODIFICAR IDEA");
 
         
-
         jLabelDescripcion2.setFont(new java.awt.Font("Rubik", 1, 18)); // NOI18N
         jLabelDescripcion2.setForeground(new java.awt.Color(102, 102, 102));
         jLabelDescripcion2.setText("DESCRIPCIÓN");
@@ -365,9 +364,8 @@ public class DialogIdea extends javax.swing.JDialog implements Protocolo{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabelCirculo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldRespuesta3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabelCirculo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldRespuesta3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -395,7 +393,6 @@ public class DialogIdea extends javax.swing.JDialog implements Protocolo{
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         try {
             if(comprobarCampos()){
-                panelGeneral.getVp().iniciarSocket();
                 panelGeneral.getVp().getSalida().writeInt(MODIFICAR_IDEA);
                 Tema tema = new Tema(jComboBoxTema.getSelectedIndex()+1,jComboBoxTema.getSelectedItem().toString());
                 int id = idea.getId();
@@ -520,7 +517,6 @@ public class DialogIdea extends javax.swing.JDialog implements Protocolo{
     
     public void buscarInformacion(){
         try {
-            panelGeneral.getVp().iniciarSocket();
             panelGeneral.getVp().getSalida().writeInt(BUSCAR_INFORMACION_IDEA);
             panelGeneral.getVp().getSalida().writeInt(id);
             idea = panelGeneral.getVp().getGson().fromJson((String)panelGeneral.getVp().getEntrada().readUTF(), Idea.class);                            
@@ -531,25 +527,6 @@ public class DialogIdea extends javax.swing.JDialog implements Protocolo{
         }
     }
     
-    /*public void llenarGrafico(){
-        try {
-            panelGeneral.getVp().iniciarSocket();
-            panelGeneral.getVp().getSalida().writeInt(CONTAR_RESPUESTAS);
-            panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(idea.getRespuestas()));
-            TypeToken<List<Integer>> token = new TypeToken<List<Integer>>() {};
-            List<Integer> cuenta = panelGeneral.getVp().getGson().fromJson((String)panelGeneral.getVp().getEntrada().readUTF(), token.getType());
-            cuenta = new ArrayList<>();
-            cuenta.add(10);
-            cuenta.add(20);
-            System.out.println(cuenta.get(1));
-            
-            
-        } catch (IOException ioe) {
-            System.out.println("Problema en la E/S del login");
-        } catch(NullPointerException npe){
-            JOptionPane.showMessageDialog(this,"Hubo un problema al intentar conectarse al servidor.");
-        }
-    }*/
     
     public void cargarDatos(){
         buscarInformacion();

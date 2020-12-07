@@ -133,7 +133,6 @@ public class EstadisticaIdeaFragment extends Fragment {
             public void run() {
             try {
                 Looper.prepare();
-                ConexionServidor.abrirSocket();
                 ConexionServidor.getSalida().writeInt(protocolo.CONTAR_RESPUESTAS);
                 ConexionServidor.getSalida().writeUTF(gson.toJson(idea));
                 TypeToken<List<Integer>> token = new TypeToken<List<Integer>>() {};

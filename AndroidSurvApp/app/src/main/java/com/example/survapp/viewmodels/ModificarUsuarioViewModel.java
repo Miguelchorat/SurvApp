@@ -35,7 +35,6 @@ public class ModificarUsuarioViewModel extends ViewModel {
             public void run() {
                 try {
                     Looper.prepare();
-                    ConexionServidor.abrirSocket();
                     ConexionServidor.getSalida().writeInt(protocolo.MODIFICAR_USUARIO);
                     ConexionServidor.getSalida().writeUTF(gson.toJson(usuarioModificado.getValue()));
                     ConexionServidor.getEntrada().readInt();

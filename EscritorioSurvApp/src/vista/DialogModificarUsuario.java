@@ -131,7 +131,6 @@ public class DialogModificarUsuario extends javax.swing.JDialog implements Proto
         panelHerramientaVentanaDialog = new vista.PanelHerramientaVentanaDialog(this,"MODIFICAR USUARIO");
 
         
-
         javax.swing.GroupLayout PanelLayout = new javax.swing.GroupLayout(Panel);
         Panel.setLayout(PanelLayout);
         PanelLayout.setHorizontalGroup(
@@ -208,7 +207,6 @@ public class DialogModificarUsuario extends javax.swing.JDialog implements Proto
         limpiarTitulos();
         try {
             if(comprobarCampos()){
-                panelGeneral.getVp().iniciarSocket();
                 panelGeneral.getVp().getSalida().writeInt(MODIFICAR_USUARIO);
                 usuario.setNombre(jTextFieldNombre.getText());
                 usuario.setCorreo(jTextFieldCorreo.getText());
@@ -304,7 +302,6 @@ public class DialogModificarUsuario extends javax.swing.JDialog implements Proto
         }
         if(!usuario.getNombre().equalsIgnoreCase(jTextFieldNombre.getText())){
             try {
-                panelGeneral.getVp().iniciarSocket();
                 panelGeneral.getVp().getSalida().writeInt(COMPROBAR_NOMBRE_CUENTA);
                 String nombre= jTextFieldNombre.getText();
                 panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(nombre));
@@ -336,7 +333,6 @@ public class DialogModificarUsuario extends javax.swing.JDialog implements Proto
         
         if(!usuario.getCorreo().equalsIgnoreCase(jTextFieldCorreo.getText())){
             try {
-                panelGeneral.getVp().iniciarSocket();
                 panelGeneral.getVp().getSalida().writeInt(COMPROBAR_CORREO);
                 String correo = jTextFieldCorreo.getText();
                 panelGeneral.getVp().getSalida().writeUTF(panelGeneral.getVp().getGson().toJson(correo));

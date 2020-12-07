@@ -66,7 +66,6 @@ public class DialogComentario extends javax.swing.JDialog implements Protocolo{
         panelHerramientaVentanaDialog = new vista.PanelHerramientaVentanaDialog(this,"VER COMENTARIOS");
 
         
-
         jButtonSiguiente.setBackground(new java.awt.Color(50, 150, 250));
         jButtonSiguiente.setFont(new java.awt.Font("Rubik", 1, 18)); // NOI18N
         jButtonSiguiente.setForeground(new java.awt.Color(255, 255, 255));
@@ -172,7 +171,6 @@ public class DialogComentario extends javax.swing.JDialog implements Protocolo{
     public void busqueda(){
         try {
             VistaPrincipal vp = panelGeneral.getVp();
-            vp.iniciarSocket();
             vp.getSalida().writeInt(LISTAR_COMENTARIOS);
             Busqueda busqueda = new Busqueda(id,pagina+"");
             vp.getSalida().writeUTF(vp.getGson().toJson(busqueda));

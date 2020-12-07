@@ -213,7 +213,6 @@ public class ModeloIncidencia extends javax.swing.JPanel implements Protocolo{
                 int result = eliminar.getResultado();
                 if(result == 1){
                     VistaPrincipal vp = panelGeneral.getVp();
-                    vp.iniciarSocket();
                     vp.getSalida().writeInt(ELIMINAR_INCIDENCIA);
                     vp.getSalida().writeInt(incidencia.getId());
                     result = vp.getEntrada().readInt();

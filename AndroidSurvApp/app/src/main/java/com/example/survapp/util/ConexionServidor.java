@@ -18,8 +18,7 @@ public class ConexionServidor {
 
     public static void abrirSocket(){
         try {
-            //ConfServidor c = new ConfServidor(context);
-            socket = new Socket("192.168.1.233",8036);//c.getIp(),Integer.parseInt(c.getPuerto()));
+            socket = new Socket("192.168.42.184",8036);
             salida = new DataOutputStream(socket.getOutputStream());
             entrada = new DataInputStream(socket.getInputStream());
         } catch (IOException e) {

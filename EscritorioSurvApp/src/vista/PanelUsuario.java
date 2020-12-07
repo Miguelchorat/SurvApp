@@ -212,7 +212,6 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
                 }
             }
             try {
-                vp.iniciarSocket();
                 vp.getSalida().writeInt(COMPROBAR_SESION);
                 vp.getSalida().writeUTF(vp.getGson().toJson(user));
                 int estado = vp.getEntrada().readInt();
@@ -252,7 +251,6 @@ public class PanelUsuario extends javax.swing.JPanel implements Protocolo{
     
     public void busqueda(){
         try {            
-            vp.iniciarSocket();
             vp.getSalida().writeInt(LISTAR_USUARIOS);
             Busqueda busqueda = new Busqueda(pagina,jTextFieldFiltro.getText());
             vp.getSalida().writeUTF(vp.getGson().toJson(busqueda));

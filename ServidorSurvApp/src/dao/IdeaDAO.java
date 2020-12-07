@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import modelo.Denuncia;
 import modelo.Idea;
 import modelo.Respuesta;
 import modelo.Usuario;
@@ -18,4 +19,8 @@ public interface IdeaDAO {
     public List<Integer> contarRespuestas(List<Respuesta> respuestas);
     public boolean modificarIdea(Idea idea);
     public boolean altaIdea(Idea idea);
+    public Idea recibirIdea(Usuario usuario);
+    public boolean responderIdea(int id_usuario,int id_respuesta);
+    public boolean altaDenuncia(Denuncia denuncia);
+    public boolean comprobarRespuestaUsuario(Idea idea,Usuario usuario);
 }
