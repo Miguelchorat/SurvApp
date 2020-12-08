@@ -28,17 +28,29 @@ public class Login {
         this.gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
     }
 
-    public boolean iniciarLogin(String correo, String password){
-        boolean iniciar = false;
+    public int iniciarLogin(String correo, String password){
+        int iniciar = 0;
         try {
             String passEncriptada = encriptar(password);
-            ConexionServidor.abrirSocket();
-            ConexionServidor.getSalida().writeInt(protocolo.INICIAR_SESION);
-            Sesion sesion = new Sesion(correo,passEncriptada);
-            ConexionServidor.getSalida().writeUTF(gson.toJson(sesion));
-            if(ConexionServidor.getEntrada().readInt()==protocolo.SESION_INICIADA){
-                usuario = gson.fromJson(ConexionServidor.getEntrada().readUTF(),Usuario.class);
-                iniciar = true;
+            boolean resultado = ConexionServidor.abrirSocket();
+            if(resultado){
+                ConexionServidor.getSalida().writeInt(protocolo.INICIAR_SESION);
+                Sesion sesion = new Sesion(correo,passEncriptada);
+                ConexionServidor.getSalida().writeUTF(gson.toJson(sesion));
+                int result = ConexionServidor.getEntrada().readInt();
+                if(result==protocolo.SESION_INICIADA){
+                    usuario = gson.fromJson(ConexionServidor.getEntrada().readUTF(),Usuario.class);
+                    iniciar = 0;
+                }
+                else if(result==protocolo.SESION_ERRONEA){
+                    iniciar = 1;
+                }
+                else{
+                    iniciar = 2;
+                }
+            }
+            else{
+                iniciar = 3;
             }
         } catch (IOException e) {
             e.printStackTrace();

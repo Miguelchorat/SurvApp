@@ -16,14 +16,16 @@ public class ConexionServidor {
     static Context context;
 
 
-    public static void abrirSocket(){
+    public static Boolean abrirSocket(){
+        boolean resultado = true;
         try {
-            socket = new Socket("192.168.42.184",8036);
+            socket = new Socket("192.168.1.233",8036);
             salida = new DataOutputStream(socket.getOutputStream());
             entrada = new DataInputStream(socket.getInputStream());
         } catch (IOException e) {
-            Toast.makeText(context, "Problemas al intentar conectar con el servidor", Toast.LENGTH_SHORT).show();
+            resultado = false;
         }
+        return resultado;
     }
 
     public static void cerrarSocket(){

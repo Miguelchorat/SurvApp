@@ -1,5 +1,7 @@
 package com.example.survapp.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -180,7 +182,25 @@ public class HomeFragment extends Fragment {
     }
 
     public void eliminarIdea(Idea idea){
-        model.eliminarIdea(idea);
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        model.eliminarIdea(idea);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(R.string.sure).setPositiveButton("Si", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+
     }
 
     public void modifyProfile() {
@@ -220,17 +240,35 @@ public class HomeFragment extends Fragment {
 
 
     public void logOut() {
-        Intent intentMain = new Intent(getActivity(), LoginActivity.class);
-        Thread thread = new Thread() {
-            public void run() {
-                Looper.prepare();
-                Login login = new Login();
-                login.cerrarSesion();
-                Looper.myLooper().quit();
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Intent intentMain = new Intent(getActivity(), LoginActivity.class);
+                        Thread thread = new Thread() {
+                            public void run() {
+                                Looper.prepare();
+                                Login login = new Login();
+                                login.cerrarSesion();
+                                Looper.myLooper().quit();
+                            }
+                        };
+                        thread.start();
+                        startActivity(intentMain);
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
             }
         };
-        thread.start();
-        startActivity(intentMain);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(R.string.sure).setPositiveButton("Si", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+
+
     }
 
     public void elegirAvatar(Usuario usuario){

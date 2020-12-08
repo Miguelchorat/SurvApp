@@ -15,7 +15,7 @@
     <string name="sent">Enviar</string>
     <string name="error_email">Correo no válido</string>
     <string name="error_pass">Contraseña no válida</string>
-    <string name="error_login">Correo no registrado</string>
+    <string name="error_login">Correo o contraseña erronea</string>
     <string name="accountName_empty">Debes añadir un nombre de cuenta</string>
     <string name="accountName_short">Nombre de cuenta demasiado corto</string>
     <string name="password_match">Las contraseñas no coinciden</string>
@@ -66,7 +66,7 @@
     <string name="title_comment">Comentarios</string>
     <string name="commnet_idea">Comentarios de la idea</string>
     <string name="report_idea">Denunciar idea</string>
-    <string name="skip_idea">Saltar idea</string>
+    <string name="skip_idea">Actualizar</string>
     <string name="creator">Creador: </string>
     <string name="send_succesful">Enviado correctamente</string>
     <string name="comment">Comentario</string>
@@ -74,4 +74,7 @@
     <string name="friend">Perfil seguidor</string>
     <string name="answer_idea">Responder idea</string>
     <string name="answered_answer">Idea ya respondida</string>
+    <string name="error_sesion">La cuenta ya tiene una sesión iniciada</string>
+    <string name="error_server">Problema al intentar conectar con el servidor.Pruebe en otro momento.</string>
+    <string name="sure">¿Estas seguro?</string>
 </resources>

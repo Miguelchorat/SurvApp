@@ -52,14 +52,24 @@ public class LoginFragment extends Fragment {
                     Looper.prepare();
                     if(login.comprobarCorreo(correo.getText().toString())){
                         if(login.comprobarPassword(password.getText().toString())){
-                            boolean iniciarSesion = login.iniciarLogin(correo.getText().toString(),password.getText().toString());
-                            if(iniciarSesion == false){
+                            int iniciarSesion = login.iniciarLogin(correo.getText().toString(),password.getText().toString());
+                            if(iniciarSesion == 2){
                                 info.setText(R.string.error_login);
-                            }else {
+                            }
+                            else if(iniciarSesion == 1){
+                                info.setText(R.string.error_sesion);
+                            }
+                            else if(iniciarSesion == 0){
                                 intentMain.putExtra("usuario",login.getUsuario());
                                 startActivity(intentMain);
                                 correo.setText("");
                                 password.setText("");
+                            }
+                            else if(iniciarSesion == 3){
+                                Toast toast1 = Toast.makeText(getContext(),
+                                                R.string.error_server, Toast.LENGTH_SHORT);
+
+                                toast1.show();
                             }
                         }
                         else{

@@ -171,7 +171,7 @@ public class UsuarioDAOSQL implements UsuarioDAO {
             statement = this.conexion.prepareStatement(
                     "SELECT id,correo,nombre,password,imagen,fecha_alta,administrar "
                             + "FROM usuario "
-                            + "WHERE correo=? AND password=? AND sesion=0");
+                            + "WHERE correo=? AND password=?");
             
             statement.setString(1, sesion.getCorreo());
             statement.setString(2, sesion.getPass());

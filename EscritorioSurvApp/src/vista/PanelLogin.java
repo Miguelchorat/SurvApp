@@ -288,8 +288,12 @@ public class PanelLogin extends javax.swing.JPanel implements Protocolo{
                     panelInicial.getVp().setUsuario(panelInicial.getVp().getGson().fromJson((String)panelInicial.getVp().getEntrada().readUTF(), Usuario.class));
                     iniciarSesion();
                 }
+                else if(result == SESION_ERRONEA){
+                    DialogMensaje dialog = new DialogMensaje(panelInicial.getVp(),true,"La cuenta ya está iniciada.");                
+                    dialog.setVisible(true);
+                } 
                 else{
-                    DialogMensaje dialog = new DialogMensaje(panelInicial.getVp(),true,"Correo o contraseña no válida.");                
+                    DialogMensaje dialog = new DialogMensaje(panelInicial.getVp(),true,"Correo o contraseña erronea.");                
                     dialog.setVisible(true);
                 }
             }

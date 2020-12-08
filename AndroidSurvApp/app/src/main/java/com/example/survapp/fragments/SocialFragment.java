@@ -1,5 +1,7 @@
 package com.example.survapp.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -126,9 +128,27 @@ public class SocialFragment extends Fragment {
     }
 
     public void eliminarSeguidor(Usuario follow){
-        HomeViewModel modelUsuario = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-        Usuario user = modelUsuario.getUsuario().getValue();
-        SocialViewModel modelFollow = new ViewModelProvider(requireActivity()).get(SocialViewModel.class);
-        modelFollow.eliminarSeguidor(user,follow);
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        HomeViewModel modelUsuario = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+                        Usuario user = modelUsuario.getUsuario().getValue();
+                        SocialViewModel modelFollow = new ViewModelProvider(requireActivity()).get(SocialViewModel.class);
+                        modelFollow.eliminarSeguidor(user,follow);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(R.string.sure).setPositiveButton("Si", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+
+
     }
 }

@@ -174,6 +174,7 @@ public class PanelHerramientaVentana extends javax.swing.JPanel implements Proto
                 vp.cerrarSocket();
                 vp.dispose();
             } catch (IOException ex) {
+                vp.dispose();
             } catch (NullPointerException npe){
                 vp.dispose();
             }

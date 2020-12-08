@@ -180,11 +180,15 @@ public class HiloPrincipal extends Thread implements Protocolo{
             this.usuario = (Usuario) controlador.getUsuario().comprobarUsuario(sesion);
             System.out.println(usuario);
             if(usuario != null ){
-                mensajeCliente = SESION_INICIADA;
-                controlador.getUsuario().abrirSesion(usuario);
+                if(!controlador.getUsuario().comprobarSesion(usuario)){
+                    mensajeCliente = SESION_INICIADA;
+                    controlador.getUsuario().abrirSesion(usuario);
+                }else{
+                    mensajeCliente = SESION_ERRONEA;
+                }               
             }
             else{
-                mensajeCliente = SESION_ERRONEA;
+                mensajeCliente = INICIAR_SESION_FALLIDO;
             }
             salida.writeInt(mensajeCliente);
             if(usuario != null ){

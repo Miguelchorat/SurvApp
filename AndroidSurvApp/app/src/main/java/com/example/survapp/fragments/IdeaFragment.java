@@ -121,7 +121,7 @@ public class IdeaFragment extends Fragment {
                                 denunciarIdea();
                             }
                             return true;
-                        case R.id.skip_idea:
+                        case R.id.update_idea:
                             saltarIdea();
                             return true;
                         default:

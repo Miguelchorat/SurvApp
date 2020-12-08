@@ -3,6 +3,7 @@ package com.example.survapp.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.survapp.R;
+import com.example.survapp.activities.LoginActivity;
 import com.example.survapp.models.Usuario;
 import com.example.survapp.util.ConexionServidor;
 import com.example.survapp.util.Protocolo;
@@ -29,6 +31,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.List;
 
 
@@ -93,7 +96,7 @@ public class DialogFollowFragment extends DialogFragment {
                                 ConexionServidor.getSalida().writeUTF(gson.toJson(model.getUsuario().getValue()));
                                 ConexionServidor.getSalida().writeUTF(gson.toJson(new Usuario(nombreUsuario.getText().toString())));
                                 int result = ConexionServidor.getEntrada().readInt();
-                                if(model.getUsuario().getValue().getNombre().equals(nombreUsuario.getText().toString())){
+                                if (model.getUsuario().getValue().getNombre().equals(nombreUsuario.getText().toString())) {
                                     getActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -101,24 +104,21 @@ public class DialogFollowFragment extends DialogFragment {
                                             info.setTextColor(getResources().getColor(R.color.red));
                                         }
                                     });
-                                }
-                                else if(result == Protocolo.AÑADIR_SEGUIDOR_NO_EXISTE){
+                                } else if (result == Protocolo.AÑADIR_SEGUIDOR_NO_EXISTE) {
                                     getActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             seguidorNoExiste();
                                         }
                                     });
-                                }
-                                else if(result == Protocolo.AÑADIR_SEGUIDOR_FALLIDO){
+                                } else if (result == Protocolo.AÑADIR_SEGUIDOR_FALLIDO) {
                                     getActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             seguidorFallido();
                                         }
                                     });
-                                }
-                                else {
+                                } else {
                                     SocialViewModel model1 = new ViewModelProvider(requireActivity()).get(SocialViewModel.class);
                                     model1.recibirListaSeguidos(model.getUsuario().getValue());
                                     d.dismiss();
