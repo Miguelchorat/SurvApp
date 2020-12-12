@@ -19,7 +19,7 @@ public class ConexionServidor {
     public static Boolean abrirSocket(){
         boolean resultado = true;
         try {
-            socket = new Socket("192.168.1.233",8036);
+            socket = new Socket("192.168.1.96",8036);
             salida = new DataOutputStream(socket.getOutputStream());
             entrada = new DataInputStream(socket.getInputStream());
         } catch (IOException e) {
